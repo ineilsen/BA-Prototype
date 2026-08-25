@@ -84,13 +84,26 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .trip-section-hd{margin-bottom:10px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
 .trips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-m);max-width:800px}
 
-.trip-card{border-radius:var(--r);background:var(--surface);border:none;box-shadow:var(--sh-1);overflow:hidden;cursor:pointer;transition:box-shadow .35s var(--ease-out),transform .35s var(--ease-out)}
-.trip-card:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+.trip-card{border-radius:var(--r);background:var(--surface);border:none;box-shadow:var(--sh-2);overflow:hidden;cursor:pointer;transition:box-shadow .35s var(--ease-out),transform .35s var(--ease-out)}
+.trip-card:hover{box-shadow:0 12px 36px rgba(29,39,87,.12);transform:translateY(-2px)}
+.trip-card-hdr{background:linear-gradient(145deg,var(--navy) 0%,#2A3A72 100%);color:#fff;padding:20px}
+.trip-card-hdr .tc-flight{font-family:var(--f-m);font-size:12px;opacity:.6;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.trip-card-hdr .tc-cabin{font-size:12.5px;opacity:.5;margin-top:8px}
+.trip-card-hdr .tc-cabin span+span::before{content:"·";margin:0 8px}
+.trip-card-hdr .trip-route{margin-bottom:0}
+.trip-card-hdr .trip-route-pt .iata{color:#fff;font-size:32px}
+.trip-card-hdr .trip-route-pt .city{color:rgba(255,255,255,.6)}
+.trip-card-hdr .trip-route-line{border-top-color:rgba(255,255,255,.25)}
+.trip-card-hdr .trip-route-line::after{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)}
+.trip-card-hdr .trip-route-line svg{color:rgba(255,255,255,.5)}
+.trip-card-hdr .trip-times{display:flex;justify-content:space-between;font-family:var(--f-m);margin-top:8px}
+.trip-card-hdr .trip-times span{font-size:13px;opacity:.6}
 .trip-card-alert{display:flex;align-items:center;gap:10px;padding:14px 20px;font-size:14.5px;font-weight:600;color:#fff}
-.trip-card-alert.red{background:linear-gradient(135deg,var(--navy),#2A3A72)}
+.trip-card-alert.red{background:#D32F3E}
 .trip-card-alert.amber{background:var(--amber-tint);color:var(--amber)}
 .trip-card-alert svg{width:16px;height:16px;flex-shrink:0}
-.trip-card-alert .tc-act{margin-left:auto;font-size:12px;font-weight:700;text-decoration:underline;white-space:nowrap;flex-shrink:0}
+.trip-card-alert .tc-act{margin-left:auto;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.trip-card-alert .badge-pill{padding:3px 10px;border-radius:100px;font-size:12px;font-weight:700;background:rgba(255,255,255,.2)}
 
 .trip-card-body{padding:20px}
 .trip-route{display:flex;align-items:center;gap:14px;margin-bottom:14px}
@@ -103,12 +116,36 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 
 .trip-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2)}
 .trip-meta b{color:var(--ink);font-weight:600}
-.trip-card-foot{display:flex;align-items:center;justify-content:space-between;padding:12px var(--sp-m);border-top:1px solid var(--line);font-size:13px}
+.trip-card-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;font-size:13px}
 .trip-card-foot .pax-count{color:var(--ink-2)}
-.trip-card-foot .pnr{font-family:var(--f-m);font-size:12px;color:var(--navy);background:var(--bg);padding:3px 10px;border-radius:100px;border:1px solid var(--line)}
+.trip-card-foot .pnr{font-family:var(--f-m);font-size:12px;color:var(--navy);background:var(--bg);padding:4px 12px;border-radius:100px}
 
-.trip-card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px 20px;border-top:1px solid var(--line);font-size:15.5px;font-weight:700;color:var(--blue);background:linear-gradient(180deg,transparent,rgba(29,92,169,.02))}
+.trip-card-actions{display:flex;gap:10px;padding:0 20px 20px}
+.trip-card-actions .btn-outline{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:var(--r-s);border:1.5px solid var(--line-2);font-size:15px;font-weight:700;color:var(--navy);background:var(--surface);transition:.2s}
+.trip-card-actions .btn-outline:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
+
+.trip-card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px 20px;border-top:1px solid var(--line);font-size:15.5px;font-weight:700;color:var(--blue)}
 .trip-card-cta svg{width:16px;height:16px}
+
+/* Journey Hub tiles */
+.hub-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:var(--sp-xl)}
+.hub-tile{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);padding:20px;cursor:pointer;transition:box-shadow .25s,transform .25s var(--ease-out);position:relative}
+.hub-tile:hover{box-shadow:var(--sh-2);transform:translateY(-1px)}
+.hub-tile-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;margin-bottom:12px;font-size:18px}
+.hub-tile-ic.flight{background:var(--red-tint);color:var(--red)}
+.hub-tile-ic.bag{background:var(--amber-tint);color:var(--amber)}
+.hub-tile-ic.seat{background:var(--blue-tint);color:var(--blue)}
+.hub-tile-ic.meal{background:var(--green-tint);color:var(--green)}
+.hub-tile-ic.lounge{background:#F3F0FA;color:#6B4EAF}
+.hub-tile-ic.hotel{background:var(--amber-tint);color:var(--amber)}
+.hub-tile b{display:block;font-size:15.5px;font-weight:700;margin-bottom:4px}
+.hub-tile span{display:block;font-size:13px;color:var(--ink-2)}
+.hub-tile .htile-badge{position:absolute;top:12px;right:12px;width:10px;height:10px;border-radius:50%;background:var(--red)}
+.hub-tile .htile-status{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:8px}
+.hub-tile .htile-status.action{background:var(--red-tint);color:var(--red)}
+.hub-tile .htile-status.info{background:var(--blue-tint);color:var(--blue)}
+.hub-tile .htile-status.ok{background:var(--green-tint);color:var(--green)}
+.hub-tile .htile-status.new{background:var(--green-tint);color:var(--green)}
 
 .trip-notif{margin:0 0 var(--sp-xl);padding:20px var(--sp-l);border-radius:var(--r);background:linear-gradient(135deg,var(--blue-tint),#F4F8FD);border:none;box-shadow:var(--sh-1);display:flex;align-items:flex-start;gap:16px}
 .trip-notif .tn-ic{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--navy),#2A3A72);color:#fff;display:grid;place-items:center;flex-shrink:0}
@@ -153,20 +190,25 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
   .app-body{padding:0 0 84px}
 
   /* My Trips — spacious, premium mobile */
-  .trips-greeting{padding:32px 20px 8px;font-size:26px;letter-spacing:-.02em}
+  .trips-greeting{padding:28px 20px 16px;font-size:26px;letter-spacing:-.02em;line-height:1.25}
   .trips-sub{padding:0 20px 24px;font-size:15.5px;line-height:1.5}
   .trip-section-hd{padding:0 20px;margin-bottom:14px}
   .trips-grid{display:block}
-  .trip-card{margin:0 20px 18px;border-radius:var(--r)}
-  .trip-card-body{padding:20px}
-  .trip-route-pt .iata{font-size:28px}
-  .trip-card-alert{padding:16px 20px}
-  .trip-card-cta{padding:18px 20px}
+  .trip-card{margin:0 20px 20px;border-radius:var(--r)}
+  .trip-card-hdr{padding:20px}
+  .trip-card-hdr .trip-route-pt .iata{font-size:30px}
+  .trip-card-alert{padding:14px 20px}
+  .trip-card-actions{padding:0 16px 16px;gap:10px}
+  .trip-card-actions .btn-outline{padding:14px 12px;font-size:14.5px;border-radius:var(--r-s)}
   .trip-card-foot{padding:14px 20px}
-  .trip-notif{margin:0 20px 24px;padding:20px;border-radius:var(--r)}
-  .trip-notif .tn-ic{width:44px;height:44px;border-radius:14px}
+  .trip-notif{margin:0 20px 20px;padding:18px 20px;border-radius:var(--r)}
+  .trip-notif .tn-ic{width:40px;height:40px;border-radius:12px}
   .trip-notif .tn-bd b{font-size:15px}
-  .trip-notif .tn-bd p{font-size:14px;line-height:1.5}
+  .trip-notif .tn-bd p{font-size:13.5px;line-height:1.5}
+  .hub-tiles{grid-template-columns:repeat(2,1fr);gap:10px;margin:0 20px}
+  .hub-tile{padding:18px 16px}
+  .hub-tile-ic{width:36px;height:36px;border-radius:10px;margin-bottom:10px;font-size:16px}
+  .hub-tile b{font-size:14.5px}
   .app-hdr img{height:20px}
 }
 
@@ -219,6 +261,9 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 @keyframes beat{0%,100%{opacity:1}50%{opacity:.35}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1)}
 
+.hub-breadcrumb{margin-bottom:var(--sp-m);font-size:14px;color:var(--ink-3)}
+.hub-breadcrumb .mono{font-size:13px}
+.section-label{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--sp-s)}
 .status{border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-2);border:none;background:var(--surface);margin-bottom:var(--sp-2xl)}
 .status-band{padding:18px var(--sp-l);display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--navy),#2A3A72);color:#fff}
 .status-band.amber{background:linear-gradient(135deg,#B87D1A,#D49A2E);color:#fff}
@@ -265,6 +310,14 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .opt-hd h3{margin:0 0 10px;font-size:20px;font-weight:700;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;letter-spacing:-.01em}
 .rec{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:var(--blue-tint);color:var(--blue)}
 .opt-hd p{margin:0;color:var(--ink-2);font-size:16px;line-height:1.6}
+.opt-flight-card{display:block;margin:16px 0 0 36px;padding:16px;background:var(--bg);border-radius:var(--r-s);border:1px solid var(--line)}
+.ofc-route{display:block;font-family:var(--f-m);font-size:14px;font-weight:600;color:var(--navy);margin-bottom:10px}
+.ofc-times{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ofc-time{font-family:var(--f-m);font-size:22px;font-weight:500;color:var(--navy)}
+.ofc-dur{flex:1;display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:16px;position:relative}
+.ofc-dur::before,.ofc-dur::after{content:"";flex:1;height:1px;background:var(--line-2)}
+.ofc-meta{display:block;font-size:13px;color:var(--ink-2)}
+.opt.sel .opt-flight-card{border-color:var(--blue);background:var(--blue-tint)}
 .opt-facts{display:flex;gap:26px;flex-wrap:wrap;margin:16px 0 0;padding-left:36px}
 .f em{display:block;font-style:normal;font-size:12px;font-weight:600;color:var(--ink-3);margin-bottom:2px}
 .f b{font-size:15px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:6px}
@@ -502,6 +555,8 @@ details[open] summary::after{transform:rotate(180deg)}
   .opt-hd h3{font-size:19px;margin-bottom:8px}
   .opt-hd p{font-size:15px;line-height:1.55}
   .opt-facts{padding-left:0;gap:20px;margin-top:16px}
+  .opt-flight-card{margin-left:0;margin-top:14px;padding:16px}
+  .ofc-time{font-size:20px}
   .opt-incl{margin-left:0;margin-top:16px;padding:16px 18px;border-radius:var(--r-s)}
   .incl{font-size:14px}
 
@@ -891,26 +946,36 @@ function noticeHTML(){
 }
 
 function optionsHTML(cfg){
-  return `<div class="opts">${cfg.options.map(o=>`
-    <button class="opt ${S.option&&S.option.id===o.id?"sel":""}" data-opt="${o.id}">
+  return `<div class="opts">${cfg.options.map(o=>{
+    const sel=S.option&&S.option.id===o.id;
+    const leg=o.newLeg;
+    return `<button class="opt ${sel?"sel":""}" data-opt="${o.id}">
       <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
-        <h3>${esc(o.title)}${o.rec?`<span class="rec">Best for you</span>`:""}</h3>
+        <h3>${o.rec?`<span class="rec">Recommended</span>`:""}${esc(o.title)}</h3>
         <p>${esc(o.sub)}</p></span></span>
+      ${leg?`<span class="opt-flight-card">
+        <span class="ofc-route"><b>${esc(leg.no)}</b> · ${esc(leg.from)} → ${esc(leg.to)}</span>
+        <span class="ofc-times"><span class="ofc-time">${esc(leg.dep)}</span><span class="ofc-dur">${ico("plane")}</span><span class="ofc-time">${esc(leg.arr)}</span></span>
+        <span class="ofc-meta">${esc(leg.date)}${o.cabin?" · "+esc(o.cabin):""}${o.seat?" · Seat "+esc(o.seat):""}</span>
+      </span>`:""}
       <span class="opt-facts">${o.facts.map(([k,v,g])=>`<span class="f"><em>${esc(k)}</em><b class="${g?"good":""}">${v}</b></span>`).join("")}</span>
-      ${S.option&&S.option.id===o.id?`<span class="opt-incl"><span class="ttl">What's included</span>
+      ${sel?`<span class="opt-incl"><span class="ttl">What's included</span>
         <span class="incl-list">${o.incl.map(i=>`<span class="incl"><span class="tk">${ico("check")}</span><span>${i}</span></span>`).join("")}</span></span>`:""}
-    </button>`).join("")}</div>`;
+    </button>`;
+  }).join("")}</div>`;
 }
 
 /* ═══════════ SCREENS ═══════════ */
 function scAlert(){
+  const breadcrumb=`${sc.legs[0].no} · ${sc.legs[0].from} → ${sc.legs[sc.legs.length-1].to}`;
   return `<div class="screen">
+    <div class="hub-breadcrumb"><span class="mono">${esc(breadcrumb)}</span></div>
     <div class="status">
       <div class="status-band ${sc.sev==="amber"?"amber":""}">${ico(sc.sev==="amber"?"triangle-alert":"circle-x")}
-        <b>${esc(sc.band.title)}</b><span class="mono">${esc(sc.band.when)}</span></div>
+        <b>${esc(sc.band.title)}</b></div>
       <div class="status-body">${sc.alert.paras.map(p=>`<p>${p}</p>`).join("")}</div>
     </div>
-    ${itinHTML()}<div style="height:22px"></div>${noticeHTML()}
+    ${itinHTML()}<div style="height:24px"></div>${noticeHTML()}
     <div class="actions">
       <button class="btn btn-1" data-adv="1">${esc(sc.alert.cta)} ${ico("arrow-right")}</button>
       <button class="btn btn-3" data-help="rights">What am I entitled to?</button>
@@ -921,6 +986,7 @@ function scChoose(){
   const cfg=sc.choose;
   return `<div class="screen">
     <span class="eyebrow ${cfg.eyebrow[0]}"><span class="pip"></span>${esc(cfg.eyebrow[1])}</span>
+    <div class="section-label">Your options</div>
     <h1>${esc(cfg.h1)}</h1><p class="lede">${esc(cfg.lede)}</p>
     ${optionsHTML(cfg)}
     <div class="actions">
@@ -1339,34 +1405,27 @@ const CITIES={LHR:"London",JFK:"New York",SFO:"San Francisco",AMS:"Amsterdam",JN
 function appTripCard(key,s){
   const p=s.pax,legs=s.legs,l0=legs[0];
   const from=l0.from,to=legs.length>1&&(legs[1]||{}).from!==l0.from?(legs[legs.length-1]||{}).to||l0.to:l0.to;
-  const alertIco=s.sev==="red"?"circle-x":"triangle-alert";
-  const alertLabel={cancel:"Flight cancelled",misconnect:"Connection at risk",bag:"Bag delayed",downgrade:"Cabin downgrade"}[key];
-  const l1=legs[1]||{};
-  const alertMsg={
-    cancel:`${l0.no} on ${l0.date} has been cancelled. Tap to manage.`,
-    misconnect:`${l1.no||""} to ${CITIES[l1.to]||l1.to||""} — you may miss this connection.`,
-    bag:`Bag ${p.bag} didn't make it onto your flight.`,
-    downgrade:`You've been moved from Club Europe to ${p.cabin}.`
-  }[key];
+  const alertLabel={cancel:"Cancelled",misconnect:"Connection at risk",bag:"Bag delayed",downgrade:"Cabin changed"}[key];
+  const alertBadgeCls=s.sev==="red"?"red":"amber";
   return `<div class="trip-card" data-trip="${key}">
-    <div class="trip-card-alert ${s.sev}">${ico(alertIco)}<span>${esc(alertLabel)}</span><span class="tc-act">Manage</span></div>
-    <div class="trip-card-body">
+    <div class="trip-card-hdr">
+      <div class="tc-flight">${ico("plane")} ${esc(l0.no)} · ${esc(p.cabin)} · ${esc(l0.date)}</div>
       <div class="trip-route">
         <div class="trip-route-pt"><span class="iata">${esc(from)}</span><span class="city">${esc(CITIES[from]||from)}</span></div>
         <div class="trip-route-line"><i data-lucide="plane"></i></div>
         <div class="trip-route-pt"><span class="iata">${esc(to)}</span><span class="city">${esc(CITIES[to]||to)}</span></div>
       </div>
-      <div class="trip-meta">
-        <span>${ico("calendar")} <b>${esc(l0.date)}</b></span>
-        <span>${ico("plane")} <b>${esc(l0.no)}</b></span>
-        <span>${ico("armchair")} <b>${esc(s.legs[0].state==="void"?s.pax.cabin:p.cabin)}</b></span>
-      </div>
+      <div class="trip-times"><span>${esc(l0.dep)}</span><span>${esc(l0.arr)}</span></div>
+    </div>
+    <div class="trip-card-alert ${alertBadgeCls}">${ico(s.sev==="red"?"circle-x":"triangle-alert")}<span>${esc(alertLabel)}</span><span class="badge-pill">${esc(alertLabel)}</span></div>
+    <div class="trip-card-actions">
+      <button class="btn-outline">${ico("repeat")} ${key==="cancel"?"Rebook":key==="bag"?"Track bag":"View options"}</button>
+      <button class="btn-outline">${ico(key==="cancel"?"banknote":"info")} ${key==="cancel"?"Refund":"Details"}</button>
     </div>
     <div class="trip-card-foot">
       <span class="pax-count">${ico("user")} ${p.party>1?p.party+" passengers":esc(p.name)}</span>
       <span class="pnr">${esc(p.pnr)}</span>
     </div>
-    <div class="trip-card-cta">Manage disruption ${ico("arrow-right")}</div>
   </div>`;
 }
 
@@ -1376,38 +1435,60 @@ function renderAppBody(tab){
   document.querySelectorAll(".sb-item").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
 
   if(tab==="trips"){
-    const greeting=sc?`Hello, ${esc(sc.pax.first)}.`:"Hello.";
-    let html=`<div class="trips-greeting">${greeting}</div>
-      <div class="trips-sub">You have upcoming trips that need your attention.</div>`;
+    const greeting=sc?`Good ${new Date().getHours()<12?"morning":"afternoon"},<br>${esc(sc.pax.first)}.`:"Hello.";
+    let html=`<div class="trips-greeting">${greeting}</div>`;
 
     html+=`<div class="trip-notif">
-      <div class="tn-ic">${ico("alert-triangle")}</div>
-      <div class="tn-bd"><b>Disruption detected</b>
-        <p>We've found an issue with your upcoming trip and prepared your options. No need to call.</p></div>
+      <div class="tn-ic">${ico("info")}</div>
+      <div class="tn-bd"><b>Flight disruption detected</b>
+        <p>Your outbound flight has been affected. We've prepared your options — no need to call.</p></div>
       <span class="tn-time">Just now</span></div>`;
 
-    html+=`<div class="trip-section-hd">Affected trips</div>`;
     html+=appTripCard(S.key,sc);
 
-    html+=`<div class="trip-section-hd" style="margin-top:var(--sp-xl)">Upcoming trips</div>`;
-    html+=`<div class="trip-card" style="cursor:default">
-      <div class="trip-card-body">
-        <div class="trip-route">
-          <div class="trip-route-pt"><span class="iata">${esc(sc.legs[0].from)}</span><span class="city">${esc(CITIES[sc.legs[0].from]||sc.legs[0].from)}</span></div>
-          <div class="trip-route-line"><i data-lucide="plane"></i></div>
-          <div class="trip-route-pt"><span class="iata">CDG</span><span class="city">Paris</span></div>
-        </div>
-        <div class="trip-meta">
-          <span>${ico("calendar")} <b>18 Sep 2025</b></span>
-          <span>${ico("plane")} <b>BA304</b></span>
-          <span>${ico("armchair")} <b>Club Europe</b></span>
-        </div>
-      </div>
-      <div class="trip-card-foot">
-        <span class="pax-count">${ico("user")} ${esc(sc.pax.name)}</span>
-        <span class="pnr">${esc(sc.pax.pnr)}</span>
-      </div>
-    </div>`;
+    const tileData={
+      cancel:[
+        {ic:"plane",cls:"flight",t:"Flight",s:"Action needed",badge:true,st:"action"},
+        {ic:"luggage",cls:"bag",t:"Baggage",s:"1 bag booked",st:"info"},
+        {ic:"armchair",cls:"seat",t:"Seats",s:"Refund available",st:"action"},
+        {ic:"utensils",cls:"meal",t:"Meals",s:"Preference saved",st:"ok"},
+        {ic:"door-open",cls:"lounge",t:"Lounge",s:"Eligible",st:"info"},
+        {ic:"bed-double",cls:"hotel",t:"Hotel",s:"Voucher issued",st:"new"}
+      ],
+      misconnect:[
+        {ic:"plane",cls:"flight",t:"Flight",s:"Rebooking needed",badge:true,st:"action"},
+        {ic:"luggage",cls:"bag",t:"Baggage",s:"4 bags tracked",st:"info"},
+        {ic:"armchair",cls:"seat",t:"Seats",s:"4 together held",st:"ok"},
+        {ic:"utensils",cls:"meal",t:"Meals",s:"£72 loaded",st:"ok"},
+        {ic:"door-open",cls:"lounge",t:"Lounge",s:"Access granted",st:"ok"},
+        {ic:"bed-double",cls:"hotel",t:"Hotel",s:"May be needed",st:"info"}
+      ],
+      bag:[
+        {ic:"plane",cls:"flight",t:"Flight",s:"Arrived",st:"ok"},
+        {ic:"luggage",cls:"bag",t:"Baggage",s:"Tracking active",badge:true,st:"action"},
+        {ic:"truck",cls:"seat",t:"Delivery",s:"Choose method",st:"action"},
+        {ic:"banknote",cls:"meal",t:"Essentials",s:"£170 loaded",st:"ok"},
+        {ic:"shield-check",cls:"lounge",t:"Cover",s:"Montreal Convention",st:"info"},
+        {ic:"file-text",cls:"hotel",t:"Bag file",s:"Raised for you",st:"ok"}
+      ],
+      downgrade:[
+        {ic:"plane",cls:"flight",t:"Flight",s:"On time",st:"ok"},
+        {ic:"arrow-down-narrow-wide",cls:"bag",t:"Cabin",s:"Downgraded",badge:true,st:"action"},
+        {ic:"armchair",cls:"seat",t:"Seat",s:"Moved to 9C",st:"action"},
+        {ic:"banknote",cls:"meal",t:"Refund",s:"£186 owed",st:"action"},
+        {ic:"door-open",cls:"lounge",t:"Lounge",s:"Still eligible",st:"ok"},
+        {ic:"credit-card",cls:"hotel",t:"Ancillaries",s:"£94 refund",st:"info"}
+      ]
+    }[S.key]||[];
+
+    html+=`<div class="trip-section-hd" style="margin-top:28px">Your Journey Hub</div>
+    <div class="hub-tiles">${tileData.map(t=>`
+      <div class="hub-tile" data-trip="${S.key}">
+        <div class="hub-tile-ic ${t.cls}">${ico(t.ic)}</div>
+        ${t.badge?'<span class="htile-badge"></span>':''}
+        <b>${esc(t.t)}</b>
+        <span class="htile-status ${t.st}">${esc(t.s)}</span>
+      </div>`).join("")}</div>`;
 
     body.innerHTML=html;
     body.querySelectorAll("[data-trip]").forEach(c=>c.onclick=()=>{
