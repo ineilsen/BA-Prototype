@@ -38,8 +38,10 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 /* ═══════════ APP SHELL — ADAPTIVE NAV ═══════════ */
 .app-shell{display:none;min-height:100vh;background:var(--bg)}
 .app-shell.active{display:grid;grid-template-columns:240px 1fr;grid-template-rows:auto 1fr}
-.hub-shell{display:none}
+.hub-shell{display:none;grid-column:2;overflow-y:auto}
 .hub-shell.active{display:block}
+.app-shell.in-hub .app-hdr{display:none}
+.app-shell.in-hub .app-tab-bar{display:none!important}
 
 .app-sidebar{grid-row:1/-1;position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:var(--sp-l) 0 var(--sp-m);overflow-y:auto;z-index:41}
 .app-sidebar .sb-logo{padding:0 var(--sp-l) var(--sp-xl);display:block}
@@ -504,9 +506,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <button class="app-tab" data-tab="club"><i data-lucide="award"></i>Exec Club</button>
     <button class="app-tab" data-tab="more"><i data-lucide="menu"></i>More</button>
   </nav>
-</div>
 
-<!-- ═══════════ DISRUPTION HUB (existing) ═══════════ -->
 <div class="hub-shell" id="hubShell">
 
 <div class="demo">
@@ -572,6 +572,7 @@ details[open] summary::after{transform:rotate(180deg)}
 <div class="toasts" id="toasts"></div>
 
 </div><!-- /hub-shell -->
+</div><!-- /app-shell -->
 
 <script>
 "use strict";
@@ -1290,11 +1291,27 @@ function renderAppBody(tab){
       <span class="tn-time">Just now</span></div>`;
 
     html+=`<div class="trip-section-hd">Affected trips</div>`;
-    html+=`<div class="trips-grid">`;
-    Object.entries(SC).forEach(([k,v])=>{
-      html+=appTripCard(k,v);
-    });
-    html+=`</div>`;
+    html+=appTripCard(sc.key,sc);
+
+    html+=`<div class="trip-section-hd" style="margin-top:var(--sp-xl)">Upcoming trips</div>`;
+    html+=`<div class="trip-card" style="cursor:default">
+      <div class="trip-card-body">
+        <div class="trip-route">
+          <div class="trip-route-pt"><span class="iata">${esc(sc.legs[0].from)}</span><span class="city">${esc(CITIES[sc.legs[0].from]||sc.legs[0].from)}</span></div>
+          <div class="trip-route-line"><i data-lucide="plane"></i></div>
+          <div class="trip-route-pt"><span class="iata">CDG</span><span class="city">Paris</span></div>
+        </div>
+        <div class="trip-meta">
+          <span>${ico("calendar")} <b>18 Sep 2025</b></span>
+          <span>${ico("plane")} <b>BA304</b></span>
+          <span>${ico("armchair")} <b>Club Europe</b></span>
+        </div>
+      </div>
+      <div class="trip-card-foot">
+        <span class="pax-count">${ico("user")} ${esc(sc.pax.name)}</span>
+        <span class="pnr">${esc(sc.pax.pnr)}</span>
+      </div>
+    </div>`;
 
     body.innerHTML=html;
     body.querySelectorAll("[data-trip]").forEach(c=>c.onclick=()=>{
@@ -1310,17 +1327,19 @@ function renderAppBody(tab){
 }
 
 function enterHub(){
+  const shell=$("appShell"),body=$("appBody"),hub=$("hubShell");
+  shell.classList.add("in-hub");
   if(reduced){
-    $("appShell").classList.remove("active");
-    $("hubShell").classList.add("active");
+    body.style.display="none";
+    hub.classList.add("active");
     window.scrollTo({top:0,behavior:"auto"});
     return;
   }
-  const app=$("appShell"),hub=$("hubShell");
-  app.classList.add("view-exit");
-  app.addEventListener("animationend",function h(){
-    app.removeEventListener("animationend",h);
-    app.classList.remove("active","view-exit");
+  body.classList.add("view-exit");
+  body.addEventListener("animationend",function h(){
+    body.removeEventListener("animationend",h);
+    body.style.display="none";
+    body.classList.remove("view-exit");
     hub.classList.add("active","view-enter");
     window.scrollTo({top:0,behavior:"auto"});
     hub.addEventListener("animationend",function h2(){
@@ -1331,24 +1350,27 @@ function enterHub(){
 }
 
 function exitHub(){
+  const shell=$("appShell"),body=$("appBody"),hub=$("hubShell");
   if(reduced){
-    $("hubShell").classList.remove("active");
-    $("appShell").classList.add("active");
+    hub.classList.remove("active");
+    shell.classList.remove("in-hub");
+    body.style.display="";
     renderAppBody("trips");
     window.scrollTo({top:0,behavior:"auto"});
     return;
   }
-  const app=$("appShell"),hub=$("hubShell");
   hub.classList.add("view-exit");
   hub.addEventListener("animationend",function h(){
     hub.removeEventListener("animationend",h);
     hub.classList.remove("active","view-exit");
-    app.classList.add("active","view-enter");
+    shell.classList.remove("in-hub");
+    body.style.display="";
+    body.classList.add("view-enter");
     renderAppBody("trips");
     window.scrollTo({top:0,behavior:"auto"});
-    app.addEventListener("animationend",function h2(){
-      app.removeEventListener("animationend",h2);
-      app.classList.remove("view-enter");
+    body.addEventListener("animationend",function h2(){
+      body.removeEventListener("animationend",h2);
+      body.classList.remove("view-enter");
     });
   });
 }
