@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manage your disruption — British Airways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+:root{
+  --navy:#1D2757; --blue:#1D5CA9; --blue-dk:#17457F; --blue-tint:#EDF3FA;
+  --red:#C8102E; --red-tint:#FDF0F2;
+  --amber:#8A5200; --amber-bg:#E8A33D; --amber-tint:#FFF6E8;
+  --green:#0E7A4E; --green-tint:#EDF9F2;
+  --bg:#F4F6F9; --surface:#FFFFFF; --line:#E3E8EF; --line-2:#CFD7E3;
+  --ink:#1D2757; --ink-2:#55637A; --ink-3:#8A94A6;
+  --r:16px; --r-s:8px;
+  --sp-xs:4px; --sp-s:8px; --sp-m:16px; --sp-l:24px; --sp-xl:32px; --sp-2xl:48px;
+  --sh-1:0 0 0 1px rgba(29,39,87,.03),0 1px 2px rgba(29,39,87,.05),0 2px 8px rgba(29,39,87,.04);
+  --sh-2:0 0 0 1px rgba(29,39,87,.03),0 4px 12px rgba(29,39,87,.07),0 12px 32px -12px rgba(29,39,87,.14);
+  --ease-out:cubic-bezier(.2,.7,.3,1);
+  --f:"Mulish",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-m:"IBM Plex Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;text-align:left}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid #7EB2E8;outline-offset:2px;border-radius:4px}
+.mono{font-family:var(--f-m);font-variant-numeric:tabular-nums}
+svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
+.bi{height:19px;width:auto;max-width:92px;object-fit:contain}
+.bi-sm{height:15px}
+.wordmark{font-size:12.5px;font-weight:700;color:var(--navy);padding:2px 8px;border:1px solid var(--line-2);border-radius:5px;background:var(--surface);white-space:nowrap;display:inline-block}
+
+/* ═══════════ APP SHELL — ADAPTIVE NAV ═══════════ */
+.app-shell{display:none;min-height:100vh;background:var(--bg)}
+.app-shell.active{display:grid;grid-template-columns:240px 1fr;grid-template-rows:auto 1fr}
+.hub-shell{display:none}
+.hub-shell.active{display:block}
+
+.app-sidebar{grid-row:1/-1;position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:var(--sp-l) 0 var(--sp-m);overflow-y:auto;z-index:41}
+.app-sidebar .sb-logo{padding:0 var(--sp-l) var(--sp-xl);display:block}
+.app-sidebar .sb-logo img{height:26px;width:auto}
+.sb-nav{flex:1;display:flex;flex-direction:column;gap:var(--sp-xs);padding:0 var(--sp-s)}
+.sb-item{display:flex;align-items:center;gap:12px;padding:10px var(--sp-m);border-radius:var(--r-s);font-size:14.5px;font-weight:600;color:var(--ink-2);transition:background .16s,color .16s;position:relative}
+.sb-item svg{width:20px;height:20px;flex-shrink:0}
+.sb-item:hover{background:var(--bg);color:var(--ink)}
+.sb-item.active{background:var(--blue-tint);color:var(--blue)}
+.sb-item .badge{position:absolute;top:6px;left:26px;width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;line-height:1}
+.sb-foot{padding:var(--sp-m) var(--sp-l) 0;border-top:1px solid var(--line);margin-top:auto;display:flex;align-items:center;gap:10px}
+.sb-foot .sb-av{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+.sb-foot span{font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.app-hdr{background:var(--navy);padding:0 var(--sp-m);display:none;align-items:center;height:56px;position:sticky;top:0;z-index:40}
+.app-hdr img{height:24px;width:auto}
+.app-hdr-r{margin-left:auto;display:flex;align-items:center;gap:14px}
+.app-hdr-r button{color:#fff;display:grid;place-items:center;width:36px;height:36px;border-radius:50%}
+.app-hdr-r button:hover{background:rgba(255,255,255,.12)}
+.app-hdr-r svg{width:20px;height:20px}
+.app-hdr-av{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+
+.app-body{overflow-y:auto;padding:0 var(--sp-xl) var(--sp-2xl)}
+
+.app-tab-bar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);display:none;justify-content:space-around;padding:6px 0 env(safe-area-inset-bottom,8px);box-shadow:0 -2px 12px rgba(29,39,87,.06)}
+.app-tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:var(--sp-xs) 12px;font-size:10.5px;font-weight:600;color:var(--ink-3);text-decoration:none;position:relative;transition:.16s}
+.app-tab svg{width:22px;height:22px;stroke-width:1.8}
+.app-tab.active{color:var(--blue)}
+.app-tab .badge{position:absolute;top:0;right:4px;width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;line-height:1}
+
+.trips-greeting{padding:var(--sp-xl) 0 var(--sp-xs);font-size:clamp(22px,2.4vw,28px);font-weight:700;color:var(--navy)}
+.trips-sub{padding:0 0 var(--sp-l);font-size:15px;color:var(--ink-2)}
+.trip-section-hd{margin-bottom:10px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.trips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-m);max-width:800px}
+
+.trip-card{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-1);overflow:hidden;cursor:pointer;transition:box-shadow .3s var(--ease-out),transform .3s var(--ease-out)}
+.trip-card:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+.trip-card-alert{display:flex;align-items:center;gap:10px;padding:11px var(--sp-m);font-size:13.5px;font-weight:600;color:#fff}
+.trip-card-alert.red{background:var(--red)}
+.trip-card-alert.amber{background:var(--amber-bg);color:#3D2500}
+.trip-card-alert svg{width:16px;height:16px;flex-shrink:0}
+.trip-card-alert .tc-act{margin-left:auto;font-size:12px;font-weight:700;text-decoration:underline;white-space:nowrap;flex-shrink:0}
+
+.trip-card-body{padding:var(--sp-m)}
+.trip-route{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.trip-route-pt{text-align:center}
+.trip-route-pt .iata{font-size:22px;font-weight:700;color:var(--navy)}
+.trip-route-pt .city{font-size:12px;color:var(--ink-2)}
+.trip-route-line{flex:1;height:0;border-top:1.5px dashed var(--line-2);position:relative}
+.trip-route-line::after{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line-2);background:var(--surface)}
+.trip-route-line svg{position:absolute;top:-11px;left:50%;transform:translateX(-50%);width:20px;height:20px;color:var(--ink-3)}
+
+.trip-meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2)}
+.trip-meta b{color:var(--ink);font-weight:600}
+.trip-card-foot{display:flex;align-items:center;justify-content:space-between;padding:12px var(--sp-m);border-top:1px solid var(--line);font-size:13px}
+.trip-card-foot .pax-count{color:var(--ink-2)}
+.trip-card-foot .pnr{font-family:var(--f-m);font-size:12px;color:var(--navy);background:var(--bg);padding:3px 10px;border-radius:100px;border:1px solid var(--line)}
+
+.trip-card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px var(--sp-m);border-top:1px solid var(--line);font-size:14.5px;font-weight:700;color:var(--blue)}
+.trip-card-cta svg{width:16px;height:16px}
+
+.trip-notif{margin:0 0 var(--sp-l);padding:14px var(--sp-m);border-radius:var(--r-s);background:var(--blue-tint);border:1px solid rgba(29,92,169,.15);display:flex;align-items:flex-start;gap:12px}
+.trip-notif .tn-ic{width:36px;height:36px;border-radius:10px;background:var(--blue);color:#fff;display:grid;place-items:center;flex-shrink:0}
+.trip-notif .tn-ic svg{width:18px;height:18px}
+.trip-notif .tn-bd{flex:1}
+.trip-notif .tn-bd b{display:block;font-size:14px;margin-bottom:2px}
+.trip-notif .tn-bd p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.45}
+.trip-notif .tn-time{font-size:11.5px;color:var(--ink-3);white-space:nowrap;flex-shrink:0}
+
+.tab-placeholder{padding:60px var(--sp-l);text-align:center;color:var(--ink-3)}
+.tab-placeholder svg{width:48px;height:48px;margin-bottom:14px;opacity:.4}
+.tab-placeholder h2{color:var(--navy);margin-bottom:6px}
+
+.app-back{display:flex;align-items:center;gap:6px;padding:12px var(--sp-m);font-size:14px;font-weight:600;color:var(--blue);border-bottom:1px solid var(--line);background:var(--surface)}
+.app-back svg{width:18px;height:18px}
+
+/* view transitions */
+@keyframes viewExit{from{opacity:1;transform:none}to{opacity:0;transform:translateY(20px)}}
+@keyframes viewEnter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.view-exit{animation:viewExit .3s var(--ease-out) forwards;pointer-events:none}
+.view-enter{animation:viewEnter .35s var(--ease-out) both}
+
+@media (max-width:940px) and (min-width:621px){
+  .app-shell.active{grid-template-columns:64px 1fr}
+  .app-sidebar .sb-logo{padding:0 0 var(--sp-l);text-align:center}
+  .app-sidebar .sb-logo img{height:20px}
+  .sb-item{justify-content:center;padding:12px}
+  .sb-item span:not(.badge){display:none}
+  .sb-item .badge{position:absolute;top:2px;right:8px;left:auto}
+  .sb-foot span:not(.sb-av){display:none}
+  .sb-foot{justify-content:center}
+  .app-body{padding:0 var(--sp-l) var(--sp-2xl)}
+  .trips-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:620px){
+  .app-shell.active{display:flex;flex-direction:column}
+  .app-sidebar{display:none}
+  .app-hdr{display:flex}
+  .app-tab-bar{display:flex}
+  .app-body{padding:0 0 80px}
+  .trips-greeting{padding:var(--sp-l) var(--sp-m) var(--sp-xs)}
+  .trips-sub{padding:0 var(--sp-m) var(--sp-m)}
+  .trip-section-hd{padding:0 var(--sp-m)}
+  .trip-card{margin:0 var(--sp-m) 14px}
+  .trip-notif{margin:0 var(--sp-m) var(--sp-l)}
+  .trips-grid{display:block}
+  .app-hdr img{height:20px}
+}
+
+/* scenario switcher */
+.demo{background:var(--navy);color:#fff;padding:9px 0}
+.demo-in{max-width:1040px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.demo-lbl{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#9FB0D4;flex-shrink:0}
+.demo-pills{display:flex;gap:6px;flex-wrap:wrap}
+.dp{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:100px;font-size:13.5px;font-weight:600;color:#C7D2E8;border:1px solid rgba(255,255,255,.18);transition:background .2s,color .2s,border-color .2s,transform .15s;white-space:nowrap}
+.dp:hover{background:rgba(255,255,255,.1);color:#fff;transform:scale(1.02)}
+.dp.on{background:#fff;color:var(--navy);border-color:#fff}
+.dp svg{width:15px;height:15px}
+
+.hdr{background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.hdr-in{max-width:1040px;margin:0 auto;padding:0 20px;height:62px;display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+.logo img{height:28px;width:auto;object-fit:contain}
+.logo b{font-size:16px;font-weight:700;color:var(--navy);white-space:nowrap}
+.hdr-ref{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-2)}
+.hdr-ref .chip{padding:4px 11px;border-radius:100px;background:var(--bg);border:1px solid var(--line);font-family:var(--f-m);font-size:12.5px;color:var(--navy)}
+.hdr-who{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:700;flex-shrink:0}
+
+.prog{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:62px;z-index:29}
+.prog-in{max-width:1040px;margin:0 auto;padding:0 20px}
+.prog-track{height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:-1px}
+.prog-track i{display:block;height:100%;background:var(--blue);transition:width .6s cubic-bezier(.3,0,.2,1)}
+.prog-steps{display:flex;gap:4px;padding:11px 0 12px;overflow-x:auto;scrollbar-width:none}
+.prog-steps::-webkit-scrollbar{display:none}
+.pstep{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 8px;border-radius:100px;font-size:13.5px;font-weight:500;color:var(--ink-3);white-space:nowrap;flex-shrink:0;transition:.2s}
+.pstep .n{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid var(--line-2);color:var(--ink-3);background:var(--surface)}
+.pstep.done{color:var(--ink-2);cursor:pointer}
+.pstep.done:hover{background:var(--blue-tint)}
+.pstep.done .n{background:var(--green);border-color:var(--green);color:#fff}
+.pstep.now{color:var(--navy);font-weight:700;background:var(--blue-tint)}
+.pstep.now .n{background:var(--blue);border-color:var(--blue);color:#fff}
+
+.wrap{max-width:1080px;margin:0 auto;padding:var(--sp-xl) var(--sp-l) 60px;display:grid;grid-template-columns:1fr 320px;gap:var(--sp-xl);align-items:start}
+.main{min-width:0;max-width:660px}
+.rail{position:sticky;top:132px;display:flex;flex-direction:column;gap:14px}
+.screen{animation:in .42s cubic-bezier(.2,.7,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+h1{font-size:clamp(24px,2.8vw,33px);line-height:1.2;font-weight:700;letter-spacing:-.015em;margin:0 0 10px}
+h2{font-size:clamp(17px,2vw,19px);font-weight:700;margin:0 0 12px}
+.lede{font-size:clamp(15px,1.6vw,17px);color:var(--ink-2);margin:0 0 var(--sp-l);max-width:56ch}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
+.eyebrow.alert{color:var(--red)} .eyebrow.ok{color:var(--green)} .eyebrow.warn{color:var(--amber)}
+.eyebrow .pip{width:8px;height:8px;border-radius:50%;background:currentColor;animation:beat 2.4s infinite}
+@keyframes beat{0%,100%{opacity:1}50%{opacity:.35}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1)}
+
+.status{border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-1);border:1px solid var(--line);background:var(--surface);margin-bottom:22px}
+.status-band{padding:12px 22px;display:flex;align-items:center;gap:11px;background:var(--red);color:#fff;box-shadow:inset 0 -1px 0 0 rgba(200,16,46,0.15)}
+.status-band.amber{background:var(--amber-bg);color:#3D2500;box-shadow:inset 0 -1px 0 0 rgba(232,163,61,0.15)}
+.status-band b{font-size:15px;font-weight:700}
+.status-band .mono{margin-left:auto;font-size:13px;opacity:.9}
+.status-body{padding:22px var(--sp-l)}
+.status-body p{margin:0;color:var(--ink-2)}
+.status-body p+p{margin-top:12px}
+
+.itin{padding:0;overflow:hidden}
+.itin-hd{padding:15px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:#FAFBFD}
+.itin-hd b{font-size:14.5px;font-weight:700}
+.itin-hd .mono{margin-left:auto;font-size:12.5px;color:var(--ink-3)}
+.leg{padding:20px 22px;display:flex;align-items:center;gap:18px}
+.leg+.leg{border-top:1px solid var(--line)}
+.leg.void{background:#FCFCFD}
+.leg.void .leg-pt b,.leg.void .leg-pt span,.leg.void .leg-fl{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--ink-3)}
+@keyframes legIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+.leg.new{background:var(--green-tint);animation:legIn .4s .2s var(--ease-out) both}
+.leg-fl{font-family:var(--f-m);font-size:13.5px;font-weight:600;color:var(--navy);width:78px;flex-shrink:0;line-height:1.35}
+.leg-line{flex:1;display:flex;align-items:center;gap:12px;min-width:0}
+.leg-pt{min-width:0}
+.leg-pt b{display:block;font-family:var(--f-m);font-size:19px;font-weight:500;line-height:1.2}
+.leg-pt span{display:block;font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.leg-arc{flex:1;height:1px;background:var(--line-2);min-width:22px}
+.leg-tag{flex-shrink:0;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px}
+.leg-tag.void{background:var(--red-tint);color:var(--red)}
+.leg-tag.new{background:#fff;color:var(--green);border:1px solid #A8DCC2}
+.leg-tag.ok{background:var(--bg);color:var(--ink-2);border:1px solid var(--line-2)}
+.itin-ft{padding:13px 22px;background:#FAFBFD;border-top:1px solid var(--line);display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);align-items:center}
+.itin-ft b{color:var(--navy);font-weight:600}
+
+.opts{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.opt{display:block;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh-1);transition:border-color .18s,box-shadow .3s var(--ease-out),transform .3s var(--ease-out)}
+.opt:hover{border-color:var(--line-2);box-shadow:var(--sh-2);transform:translateY(-2px)}
+.opt.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-tint),var(--sh-2)}
+.opt-top{display:flex;align-items:flex-start;gap:14px}
+.opt-radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--line-2);flex-shrink:0;margin-top:2px;display:grid;place-items:center;transition:.18s}
+.opt.sel .opt-radio{border-color:var(--blue);background:var(--blue)}
+.opt.sel .opt-radio::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+@keyframes radioPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.opt.sel .opt-radio{animation:radioPop .2s var(--ease-out)}
+.opt-hd{flex:1;min-width:0}
+.opt-hd h3{margin:0 0 4px;font-size:18.5px;font-weight:700;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rec{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px;background:var(--blue-tint);color:var(--blue)}
+.opt-hd p{margin:0;color:var(--ink-2);font-size:15px}
+.opt-facts{display:flex;gap:26px;flex-wrap:wrap;margin:16px 0 0;padding-left:36px}
+.f em{display:block;font-style:normal;font-size:12px;font-weight:600;color:var(--ink-3);margin-bottom:2px}
+.f b{font-size:15px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:6px}
+.f b.good{color:var(--green)}
+@keyframes expandIn{from{opacity:0;max-height:0;padding-top:0;padding-bottom:0;margin-top:0}to{opacity:1;max-height:500px;padding-top:14px;padding-bottom:14px;margin-top:var(--sp-m)}}
+.opt-incl{display:block;margin:var(--sp-m) 0 0 36px;padding:14px var(--sp-m);background:var(--bg);border-radius:var(--r-s);animation:expandIn .3s var(--ease-out) both;overflow:hidden}
+.opt-incl .ttl{display:block;font-size:12.5px;font-weight:700;color:var(--ink-3);text-transform:uppercase;margin-bottom:9px}
+.incl-list{display:flex;flex-direction:column;gap:7px}
+.incl{display:flex;align-items:flex-start;gap:9px;font-size:14.5px;color:var(--ink-2)}
+.incl .tk{color:var(--green);flex-shrink:0;margin-top:3px;font-size:14px}
+.incl b{color:var(--navy);font-weight:600}
+.incl .bi{vertical-align:-4px}
+
+.pick{display:flex;gap:16px;align-items:flex-start;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:var(--sp-m) 18px;box-shadow:var(--sh-1);transition:border-color .18s,box-shadow .3s var(--ease-out),transform .3s var(--ease-out);margin-bottom:10px}
+.pick:hover{border-color:var(--line-2);box-shadow:var(--sh-2);transform:translateY(-2px)}
+.pick.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-tint),var(--sh-2)}
+.pick-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-2);flex-shrink:0;margin-top:3px;display:grid;place-items:center}
+.pick.sel .pick-radio{border-color:var(--blue);background:var(--blue)}
+.pick.sel .pick-radio::after{content:"";width:7px;height:7px;border-radius:50%;background:#fff}
+.pick-thumb{width:62px;height:44px;border-radius:var(--r-s);flex-shrink:0;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;padding:6px}
+.pick-thumb .bi{max-width:100%;max-height:26px}
+.pick-body{flex:1;min-width:0}
+.pick-body b{display:block;font-size:16.5px;font-weight:700;margin-bottom:3px}
+.pick-body p{margin:0 0 9px;font-size:14.5px;color:var(--ink-2)}
+.pick-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{font-size:12.5px;padding:3px 10px;border-radius:100px;background:var(--bg);color:var(--ink-2);border:1px solid var(--line)}
+.pill.best{background:var(--green-tint);color:var(--green);border-color:#A8DCC2;font-weight:600}
+.hotel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+@media (max-width:620px){.hotel-grid{grid-template-columns:1fr}}
+
+.care-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:12px;margin-bottom:22px}
+@media (max-width:940px) and (min-width:621px){.care-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.care-grid{grid-template-columns:1fr}}
+.care{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--sp-m) 20px;box-shadow:var(--sh-1)}
+.care-ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--green-tint);color:var(--green);font-size:18px;margin-bottom:13px}
+.care b{display:block;font-size:16.5px;font-weight:700;margin-bottom:4px}
+.care p{margin:0 0 12px;font-size:14.5px;color:var(--ink-2)}
+.care-val{padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.care-val span{font-size:13px;color:var(--ink-3)}
+.care-val b{font-family:var(--f-m);font-size:17px;font-weight:500;margin:0;display:flex;align-items:center;gap:7px}
+.care-code{margin-top:10px;padding:9px 12px;border-radius:var(--r-s);background:var(--bg);border:1px dashed var(--line-2);font-family:var(--f-m);font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.care-code button{font-size:12.5px;font-weight:700;color:var(--blue);font-family:var(--f)}
+
+.comp{background:linear-gradient(135deg,#F7FBF9,var(--surface)),radial-gradient(circle at 95% 10%,rgba(14,122,78,.06),transparent 50%);border:1px solid #C8E6D6;border-radius:var(--r);padding:var(--sp-l);margin-bottom:var(--sp-l);box-shadow:var(--sh-1)}
+.comp .amt{font-family:var(--f-m);font-size:40px;font-weight:500;line-height:1;color:var(--green)}
+.comp .amt small{font-size:15px;font-weight:400;color:var(--ink-2);font-family:var(--f);margin-left:8px}
+.comp h2{margin:14px 0 8px}
+.comp p{margin:0 0 18px;color:var(--ink-2);font-size:15.5px;max-width:52ch}
+.pay-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:13.5px;color:var(--ink-3);flex-wrap:wrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 26px;border-radius:100px;font-size:16px;font-weight:700;transition:.18s;border:1.5px solid transparent}
+.btn-1{background:var(--blue);color:#fff;transition:transform .1s,background .18s,box-shadow .18s}
+.btn-1:hover{background:var(--blue-dk);box-shadow:0 4px 14px rgba(29,92,169,.28)}
+.btn-1:active:not(:disabled){transform:scale(.97)}
+.btn-1:disabled{background:var(--line-2);color:#fff;cursor:not-allowed;box-shadow:none}
+.btn-2{border-color:var(--line-2);color:var(--navy);background:var(--surface)}
+.btn-2:hover{border-color:var(--navy);background:#FAFBFD}
+.btn-3{color:var(--blue);padding:14px 6px}
+.btn-3:hover{text-decoration:underline}
+.btn-sm{padding:10px 18px;font-size:14.5px}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+
+.notice{display:flex;gap:13px;align-items:flex-start;padding:15px 18px;border-radius:var(--r);background:var(--blue-tint);border:1px solid #C9DCF0;margin-bottom:var(--sp-l)}
+.notice .ic{width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;flex-shrink:0;display:grid;place-items:center;font-size:14px}
+.notice b{display:block;font-size:14.5px;font-weight:700;margin-bottom:3px}
+.notice p{margin:0;font-size:14px;color:var(--ink-2)}
+.notice .chans{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+.chan{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:var(--surface);border:1px solid #C9DCF0;color:var(--blue);display:flex;align-items:center;gap:6px}
+.chan svg{width:13px;height:13px}
+.chan .bi{height:13px}
+
+.rc{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1);overflow:hidden}
+.rc-hd{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px}
+.rc-hd b{font-size:14px;font-weight:700}
+.rc-hd svg{width:15px;height:15px;color:var(--ink-3)}
+.rc-hd .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:beat 2.4s infinite}
+.rc-bd{padding:16px 17px}
+.rail details.rc{border:none;margin-bottom:0}
+.rail details.rc summary{list-style:none;padding:0;margin:0;font-size:inherit;color:inherit;display:flex;align-items:center;gap:9px}
+.rail details.rc summary::-webkit-details-marker{display:none}
+.rail details.rc summary::after{display:none}
+@media (min-width:941px){
+  .rail details.rc{pointer-events:auto}
+  .rail details.rc[open] summary~*{display:block}
+}
+@media (max-width:940px){
+  .rail details.rc summary{cursor:pointer;padding:14px 17px;border-bottom:1px solid var(--line)}
+  .rail details.rc summary::after{content:"";display:block;width:10px;height:10px;border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);transform:rotate(45deg);margin-left:auto;transition:transform .2s;flex-shrink:0}
+  .rail details.rc[open] summary::after{transform:rotate(-135deg)}
+  .rail details.rc .rc-bd{padding:var(--sp-m) 17px}
+}
+.bstep{display:flex;gap:13px;padding-bottom:15px;position:relative}
+.bstep:last-child{padding-bottom:0}
+.bstep::before{content:"";position:absolute;left:8px;top:18px;bottom:0;width:1.5px;background:var(--line)}
+.bstep:last-child::before{display:none}
+.bstep .bd{width:17px;height:17px;border-radius:50%;flex-shrink:0;border:2px solid var(--line-2);background:var(--surface);z-index:1;margin-top:2px}
+.bstep.done .bd{background:var(--green);border-color:var(--green)}
+.bstep.now .bd{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-tint)}
+.bstep b{display:block;font-size:14px;font-weight:600;line-height:1.4}
+.bstep span{display:block;font-size:12.5px;color:var(--ink-3);font-family:var(--f-m)}
+.bstep.pending b{color:var(--ink-3);font-weight:500}
+.thread{display:flex;flex-direction:column;gap:11px;max-height:280px;overflow-y:auto}
+.tmsg{background:var(--bg);border-radius:10px;border:1px solid var(--line);padding:11px 13px}
+.tmsg .th{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.tmsg .kind{font-size:11px;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:100px;background:var(--surface);border:1px solid var(--line-2);color:var(--ink-2);display:flex;align-items:center;gap:5px}
+.tmsg .kind svg{width:11px;height:11px}
+.tmsg .kind .bi{height:11px}
+.tmsg .tm{margin-left:auto;font-family:var(--f-m);font-size:11.5px;color:var(--ink-3)}
+.tmsg p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.tmsg p b{color:var(--navy);font-weight:600}
+.pref{display:flex;align-items:center;gap:12px;padding:10px 0}
+.pref+.pref{border-top:1px solid var(--line)}
+.pref .pic{width:26px;height:26px;border-radius:7px;background:var(--bg);display:grid;place-items:center;flex-shrink:0;color:var(--ink-2);font-size:13px}
+.pref div{flex:1;min-width:0}
+.pref b{display:block;font-size:14px;font-weight:600}
+.pref span{display:block;font-size:12.5px;color:var(--ink-3)}
+.sw{width:42px;height:24px;border-radius:100px;background:var(--line-2);flex-shrink:0;position:relative;transition:.2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .2s var(--ease-out),width .15s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw:active::after{width:21px;border-radius:9px}
+.sw.on{background:var(--green)}
+.sw.on::after{transform:translateX(18px)}
+.sw.on:active::after{transform:translateX(15px)}
+
+.rows{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-1);margin-bottom:22px}
+.row{display:flex;gap:16px;align-items:flex-start;padding:17px 22px}
+.row+.row{border-top:1px solid var(--line)}
+.row-ic{width:32px;height:32px;border-radius:9px;flex-shrink:0;display:grid;place-items:center;background:var(--green-tint);color:var(--green);font-size:14px}
+.row-ic.wait{background:var(--amber-tint);color:var(--amber)}
+.row-bd{flex:1;min-width:0}
+.row-bd b{display:block;font-size:15.5px;font-weight:700;margin-bottom:2px}
+.row-bd p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.row-val{text-align:right;flex-shrink:0}
+.row-val b{display:block;font-family:var(--f-m);font-size:15px;font-weight:500}
+.row-val span{display:block;font-size:12.5px;color:var(--ink-3)}
+
+details{margin-bottom:22px}
+summary{list-style:none;cursor:pointer;font-size:15px;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:8px;padding:6px 0}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"⌄";font-size:16px;transition:transform .2s}
+details[open] summary::after{transform:rotate(180deg)}
+.det-bd{padding:14px 0 0;font-size:15px;color:var(--ink-2)}
+.det-bd p{margin:0 0 10px}
+.det-bd dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14.5px}
+.det-bd dt{color:var(--ink-3)}
+.det-bd dd{margin:0;color:var(--navy);font-weight:600}
+
+.partners{padding:20px var(--sp-l);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1);margin-bottom:var(--sp-l)}
+.partners .ttl{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.row-logos{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.row-logos .bi{height:22px;filter:grayscale(1);opacity:.6;transition:.2s}
+.row-logos .bi:hover{filter:none;opacity:1}
+
+.help-fab{position:fixed;bottom:22px;right:22px;z-index:45;display:flex;align-items:center;gap:10px;padding:13px 20px 13px 16px;background:var(--navy);color:#fff;border-radius:100px;box-shadow:0 8px 24px rgba(29,39,87,.28);font-size:15px;font-weight:700;transition:.2s}
+.help-fab:hover{background:#141C40;transform:translateY(-2px)}
+.help-fab svg{width:17px;height:17px}
+.help-fab.hide{opacity:0;pointer-events:none}
+.drawer{position:fixed;top:0;bottom:0;right:0;width:420px;max-width:100vw;z-index:50;background:var(--surface);border-left:1px solid var(--line);box-shadow:-18px 0 50px -20px rgba(29,39,87,.28);transform:translateX(100%);transition:transform .38s cubic-bezier(.4,.1,.2,1);display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dr-hd{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.dr-av{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(150deg,var(--blue),var(--navy));color:#fff;font-size:16px}
+.dr-hd div{flex:1;min-width:0}
+.dr-hd b{display:block;font-size:15.5px;font-weight:700}
+.dr-hd span{display:block;font-size:13px;color:var(--green);font-weight:600}
+.dr-x{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--ink-3);font-size:17px;flex-shrink:0}
+.dr-x:hover{background:var(--bg);color:var(--navy)}
+.dr-log{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.m{max-width:88%}
+.m.me{align-self:flex-end}
+.m-b{padding:12px 15px;border-radius:16px;font-size:15px;line-height:1.55}
+.m.ai .m-b{background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:5px}
+.m.me .m-b{background:var(--blue);color:#fff;border-bottom-right-radius:5px}
+.m-b ul{margin:9px 0 0;padding-left:19px}
+.m-b li{margin-bottom:5px}
+.typing{display:flex;gap:5px;padding:15px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--line-2);animation:bob 1.3s infinite}
+.typing i:nth-child(2){animation-delay:.16s}.typing i:nth-child(3){animation-delay:.32s}
+@keyframes bob{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.dr-chips{padding:0 20px 12px;display:flex;gap:7px;flex-wrap:wrap;flex-shrink:0}
+.dchip{padding:8px 14px;border-radius:100px;border:1.5px solid var(--line-2);font-size:14px;color:var(--navy);font-weight:600;transition:.16s}
+.dchip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
+.dr-in{padding:14px 20px 18px;border-top:1px solid var(--line);flex-shrink:0}
+.dr-in-w{display:flex;align-items:flex-end;gap:10px;padding:9px 10px 9px 16px;border:1.5px solid var(--line-2);border-radius:24px;transition:.18s}
+.dr-in-w:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-tint)}
+.dr-in-w textarea{flex:1;border:none;resize:none;font-family:var(--f);font-size:15px;line-height:1.5;max-height:88px;padding:3px 0;color:var(--ink);background:none}
+.dr-in-w textarea:focus{outline:none}
+.dr-send{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;flex-shrink:0;font-size:14px}
+.dr-send:hover{background:var(--blue-dk)}
+.scrim{position:fixed;inset:0;background:rgba(29,39,87,.36);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:49;opacity:0;pointer-events:none;transition:.28s}
+.scrim.on{opacity:1;pointer-events:auto}
+
+.toasts{position:fixed;top:80px;right:var(--sp-l);z-index:60;display:flex;flex-direction:column;gap:10px;max-width:360px}
+.toast{display:flex;gap:12px;align-items:flex-start;padding:14px 17px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-2);animation:tin .36s cubic-bezier(.2,.7,.3,1) both}
+@keyframes tin{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+.toast.out{animation:tout .3s ease forwards}
+@keyframes tout{to{opacity:0;transform:translateY(-12px)}}
+.toast .ic{width:28px;height:28px;border-radius:8px;flex-shrink:0;display:grid;place-items:center;background:var(--blue);color:#fff;font-size:13px}
+.toast b{display:block;font-size:14px;font-weight:700;margin-bottom:2px}
+.toast p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.45}
+
+.ftr{background:var(--navy);color:#B9C3DC;padding:26px 20px;font-size:13.5px}
+.ftr-in{max-width:1040px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.ftr a{color:#DCE4F5;text-decoration:none}
+.ftr .push{margin-left:auto;font-family:var(--f-m);font-size:12px;opacity:.7}
+
+@media (max-width:940px){.wrap{grid-template-columns:1fr;gap:22px}.rail{position:static;order:2}.main{max-width:none}}
+@media (max-width:620px){
+  body{font-size:15.5px}.hdr-in{height:56px}.prog{top:56px}
+  .hdr-ref .lbl,.demo-lbl{display:none}
+  .wrap{padding:var(--sp-m) 14px 44px}
+  .prog-steps{-webkit-mask-image:linear-gradient(to right,black 85%,transparent);mask-image:linear-gradient(to right,black 85%,transparent)}
+  .status-body,.opt{padding:18px 16px}
+  .leg{padding:16px;gap:12px}.leg-fl{width:auto}
+  .opt-facts{padding-left:0}.opt-incl{margin-left:0}
+  .drawer{width:100%;top:auto;bottom:0;left:0;right:0;max-height:85vh;border-left:none;border-top:1px solid var(--line);border-radius:var(--r) var(--r) 0 0;transform:translateY(100%);box-shadow:0 -18px 50px -20px rgba(29,39,87,.28)}
+  .drawer.open{transform:translateY(0)}
+  .toasts{top:70px;right:12px;left:12px;max-width:none}
+  .help-fab{bottom:76px;right:16px}
+  .row{padding:15px 16px}h1{font-size:25px}
+}
+*{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-3)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ BA APP SHELL ═══════════ -->
+<div class="app-shell active" id="appShell">
+  <nav class="app-sidebar" id="appSidebar">
+    <a class="sb-logo" href="#"><img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways"></a>
+    <div class="sb-nav">
+      <button class="sb-item" data-tab="home"><i data-lucide="home"></i><span>Home</span></button>
+      <button class="sb-item" data-tab="book"><i data-lucide="search"></i><span>Book</span></button>
+      <button class="sb-item active" data-tab="trips"><i data-lucide="briefcase"></i><span class="badge" id="sbBadge">1</span><span>My Trips</span></button>
+      <button class="sb-item" data-tab="club"><i data-lucide="award"></i><span>Executive Club</span></button>
+      <button class="sb-item" data-tab="more"><i data-lucide="menu"></i><span>More</span></button>
+    </div>
+    <div class="sb-foot">
+      <span class="sb-av" id="sbAv">—</span>
+      <span id="sbName">—</span>
+    </div>
+  </nav>
+  <header class="app-hdr">
+    <img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways">
+    <div class="app-hdr-r">
+      <button aria-label="Notifications"><i data-lucide="bell"></i></button>
+      <span class="app-hdr-av" id="appAv">—</span>
+    </div>
+  </header>
+  <div class="app-body" id="appBody"></div>
+  <nav class="app-tab-bar" id="appTabs">
+    <button class="app-tab" data-tab="home"><i data-lucide="home"></i>Home</button>
+    <button class="app-tab" data-tab="book"><i data-lucide="search"></i>Book</button>
+    <button class="app-tab active" data-tab="trips"><i data-lucide="briefcase"></i><span class="badge" id="tripBadge">1</span>My Trips</button>
+    <button class="app-tab" data-tab="club"><i data-lucide="award"></i>Exec Club</button>
+    <button class="app-tab" data-tab="more"><i data-lucide="menu"></i>More</button>
+  </nav>
+</div>
+
+<!-- ═══════════ DISRUPTION HUB (existing) ═══════════ -->
+<div class="hub-shell" id="hubShell">
+
+<div class="demo">
+  <div class="demo-in">
+    <span class="demo-lbl"><i data-lucide="flask-conical"></i>Prototype · pick a scenario</span>
+    <div class="demo-pills" id="demoPills"></div>
+  </div>
+</div>
+
+<button class="app-back" id="hubBack"><i data-lucide="chevron-left"></i>My Trips</button>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <a class="logo" href="#">
+      <img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways">
+    </a>
+    <div class="hdr-ref">
+      <span class="lbl">Booking</span>
+      <span class="chip" id="hdrPnr">—</span>
+      <span class="hdr-who" id="hdrWho">—</span>
+    </div>
+  </div>
+</header>
+
+<div class="prog">
+  <div class="prog-in">
+    <div class="prog-steps" id="pSteps"></div>
+    <div class="prog-track"><i id="pFill"></i></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <main class="main" id="main"></main>
+  <aside class="rail" id="rail"></aside>
+</div>
+
+<footer class="ftr">
+  <div class="ftr-in">
+    <span>Need to speak to someone? <a href="#">Call us on 0344 493 0787</a></span>
+    <a href="#">Your rights when flights are disrupted</a>
+    <span class="push" id="ftrRef">—</span>
+  </div>
+</footer>
+
+<button class="help-fab" id="fab"><i data-lucide="message-circle"></i>Need help?</button>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Help">
+  <div class="dr-hd">
+    <div class="dr-av"><i data-lucide="sparkles"></i></div>
+    <div><b>Disruption help</b><span>Answers in seconds, day or night</span></div>
+    <button class="dr-x" id="drX" aria-label="Close">✕</button>
+  </div>
+  <div class="dr-log" id="drLog"></div>
+  <div class="dr-chips" id="drChips"></div>
+  <div class="dr-in">
+    <div class="dr-in-w">
+      <textarea id="drIn" rows="1" placeholder="Ask about your flight, bag, hotel or refund…"></textarea>
+      <button class="dr-send" id="drSend" aria-label="Send"><i data-lucide="arrow-up"></i></button>
+    </div>
+  </div>
+</aside>
+
+<div class="toasts" id="toasts"></div>
+
+</div><!-- /hub-shell -->
+
+<script>
+"use strict";
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money = n => "£" + n.toLocaleString("en-GB");
+const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); };
+const ico = n => `<i data-lucide="${n}"></i>`;
+
+function brand(slug,label,hex,cls){
+  return `<img class="bi ${cls||""}" src="https://cdn.simpleicons.org/${slug}/${hex||"1D2757"}" alt="${esc(label)}" data-label="${esc(label)}" onerror="brandFail(this)">`;
+}
+window.brandFail = el => { const s=document.createElement("span"); s.className="wordmark"; s.textContent=el.dataset.label; el.replaceWith(s); };
+
+/* ═══════════ SCENARIOS ═══════════ */
+const SC = {
+
+cancel:{
+  label:"Flight cancelled", icon:"circle-x", sev:"red",
+  pax:{first:"Alaine",name:"Alaine Mercier",init:"AM",pnr:"K7YQ2M",tier:"Gold",phone:"•••• 4471",email:"a.mercier@•••••.com",party:1,bag:"BA447281",cabin:"Club World"},
+  band:{title:"Your flight is cancelled",when:"Told you at 14:22"},
+  alert:{cta:"See your three options",paras:[
+    `<b>BA0117 to New York</b>, due to leave Heathrow at 14:55 today, has been cancelled because of a technical fault with the aircraft. We're sorry — this one is on us, not the weather.`,
+    `Because the cause was ours, you're owed <b>£520 compensation</b>, and we cover your hotel, meals and transport tonight. You don't have to claim any of it. You don't have to queue.`]},
+  legs:[{no:"BA0117",from:"LHR",to:"JFK",dep:"14:55",arr:"18:05",date:"Wed 12 Aug",state:"void",tag:"Cancelled"}],
+  steps:[["alert","What's happened"],["choose","Your options"],["hotel","Where you'll stay"],["care","Meals & money"],["done","All sorted"]],
+  choose:{eyebrow:["alert","One decision to make"],h1:"How would you like to get to New York?",
+    lede:"Three ways forward. Each one is already held for you — pick one and we'll rebuild the whole trip around it.",
+    options:[
+      {id:"tomorrow",rec:true,title:"Fly tomorrow morning",sub:"Overnight in London, then a direct flight in the same cabin.",
+       newLeg:{no:"BA0113",from:"LHR",to:"JFK",dep:"08:40",arr:"11:55",date:"Thu 13 Aug"},seat:"14A",cabin:"Club World",needsHotel:true,
+       facts:[["Departs","Tomorrow 08:40"],["Arrives JFK","11:55, Thu 13 Aug"],["Cabin","Club World",1]],
+       incl:[`Hotel tonight near the terminal — <b>we book it, you don't pay</b>`,`Dinner tonight and breakfast tomorrow, <b>£46 loaded to your card</b>`,`Transfers both ways, or a covered walkway if you pick the T5 hotel`,`Your bag stays with us and is loaded onto the new flight`]},
+      {id:"tonight",title:"Fly tonight, one stop",sub:"Leaves in six hours via Boston with our partner. Longer journey, but you land in New York in the morning.",
+       newLeg:{no:"BA0213 / AA2166",from:"LHR",to:"JFK",dep:"21:30",arr:"07:10",date:"Thu 13 Aug"},seat:"9C",cabin:"Club World then First",needsHotel:false,
+       facts:[["Departs","Tonight 21:30"],["Arrives JFK","07:10, Thu 13 Aug"],["Operated with",brand("americanairlines","American Airlines","1D2757","bi-sm")]],
+       incl:[`Dinner at Heathrow before you go, <b>£28 loaded to your card</b>`,`Lounge access while you wait`,`Your bag is transferred at Boston for you`,`No hotel needed — you travel overnight`]},
+      {id:"refund",title:"Don't travel — refund me",sub:"Cancel the whole trip and get the fare back. You keep your compensation either way.",
+       newLeg:null,needsHotel:false,
+       facts:[["Fare refund","£2,340"],["Back on your card","3–5 working days"],["Compensation","Still paid",1]],
+       incl:[`Full fare refund of <b>£2,340</b> to the card you paid with`,`Your <b>£520</b> compensation is unaffected`,`Your bag is returned to you at the T5 arrivals belt`,`Nothing else to do — we handle the cancellation`]}
+    ]},
+  hotel:{h1:"Where would you like to stay tonight?",lede:"All three are held and paid for by us. Rooms are guaranteed for the next 20 minutes while you decide."},
+  care:{h1:"Meals, transport and your money",lede:"Nothing here needs a receipt, a form or a phone call. It's already arranged — this page just shows you what you have."},
+  comp:{amount:520,title:"You don't need to claim this",
+    body:"The cancellation was caused by a technical fault — within our control — so under UK261 you're entitled to £520. We've worked it out and approved it.",
+    alt:{label:"Take 30,000 Avios instead",note:"30,000 Avios are in your account now."},
+    detail:[["Cause","Technical fault — within our control"],["Distance","5,541 km, long-haul band"],["Regulation","UK261, Article 7"],["Amount due","£520 per passenger"],["In your booking","1 passenger"]]},
+  msgs:[{kind:"SMS",t:"14:22",body:`British Airways: your flight <b>BA0117</b> to New York on Wed 12 Aug is cancelled. We're sorry. Open your options — no need to queue or call.`},
+        {kind:"Email",t:"14:22",body:`Your BA0117 flight is cancelled — here's what happens next, and the <b>£520</b> compensation you're entitled to.`}]
+},
+
+misconnect:{
+  label:"Missed connection", icon:"git-branch", sev:"amber",
+  pax:{first:"Ade",name:"Ademola Balogun",init:"AB",pnr:"R3TX8P",tier:"Silver",phone:"•••• 8802",email:"a.balogun@•••••.com",party:4,bag:"BA447319",cabin:"World Traveller Plus"},
+  band:{title:"You'll miss your connection",when:"Told you in the air, 09:40"},
+  alert:{cta:"See your onward options",paras:[
+    `<b>BA0286 from San Francisco</b> is landing at Heathrow 3 hours 12 minutes late. Your onward <b>BA0432 to Amsterdam</b> will have gone by the time you clear the terminal.`,
+    `We spotted this while you were still in the air and put all four of you on the next Amsterdam flight before you landed. Your bags are being moved across too. Nothing for you to do at the transfer desk.`]},
+  legs:[{no:"BA0286",from:"SFO",to:"LHR",dep:"20:15",arr:"17:27",date:"Tue 11 Aug",state:"ok",tag:"Landed late"},
+        {no:"BA0432",from:"LHR",to:"AMS",dep:"18:05",arr:"20:20",date:"Wed 12 Aug",state:"void",tag:"Missed"}],
+  steps:[["alert","What's happened"],["choose","Your onward flight"],["hotel","Where you'll stay"],["care","While you wait"],["done","All sorted"]],
+  choose:{eyebrow:["warn","Already held for all four of you"],h1:"Which onward flight to Amsterdam?",
+    lede:"We've held seats together on all three. Pick whichever suits you — nothing costs extra.",
+    options:[
+      {id:"next",rec:true,title:"Next flight, 20:35 tonight",sub:"Two hours forty in the lounge, then a 75-minute hop. All four seats together.",
+       newLeg:{no:"BA0438",from:"LHR",to:"AMS",dep:"20:35",arr:"22:50",date:"Wed 12 Aug"},seat:"12A–12D",cabin:"Euro Traveller",needsHotel:false,
+       facts:[["Departs","Tonight 20:35"],["Arrives AMS","22:50 tonight"],["Seats","4 together",1]],
+       incl:[`Lounge for all four, Galleries Club South`,`Dinner for the family, <b>£72 loaded to your card</b>`,`Bags moved across automatically — skip the transfer desk`,`Boarding passes already in the BA app and your ${brand("apple","Apple Wallet","55637A","bi-sm")}`]},
+      {id:"club",title:"22:10 flight, upgraded cabin",sub:"Ninety minutes later, but we can seat all four in Club Europe at no charge as a goodwill gesture.",
+       newLeg:{no:"BA0440",from:"LHR",to:"AMS",dep:"22:10",arr:"00:25",date:"Thu 13 Aug"},seat:"2A–3D",cabin:"Club Europe",needsHotel:false,
+       facts:[["Departs","Tonight 22:10"],["Arrives AMS","00:25, after midnight"],["Cabin","Club Europe, free",1]],
+       incl:[`Club Europe for all four, no fare difference`,`Lounge and dinner, <b>£72 loaded to your card</b>`,`Bags moved across automatically`,`Arrives after midnight — worth checking your onward transport`]},
+      {id:"morning",title:"Tomorrow morning instead",sub:"Stay overnight near Heathrow and fly at 07:15. Better if the children are done for the day.",
+       newLeg:{no:"BA0430",from:"LHR",to:"AMS",dep:"07:15",arr:"09:30",date:"Thu 13 Aug"},seat:"14A–14D",cabin:"Euro Traveller",needsHotel:true,
+       facts:[["Departs","Tomorrow 07:15"],["Arrives AMS","09:30"],["Hotel","Two rooms, paid",1]],
+       incl:[`Two family rooms tonight, booked and paid by us`,`Dinner and breakfast for four, <b>£128 loaded to your card</b>`,`Bags held overnight and loaded onto the morning flight`,`Transfers to and from the hotel included`]}
+    ]},
+  hotel:{h1:"Two rooms for tonight — which hotel?",lede:"Both held for you and paid for by us. Family rooms, breakfast included."},
+  care:{h1:"While you wait at Heathrow",lede:"Two hours forty to fill with two tired children. Here's what's already yours."},
+  comp:{amount:260,title:"Compensation, halved and explained",
+    body:"You'll reach Amsterdam 3 hours 12 minutes later than booked. Because that's under four hours on a long-haul journey, UK261 reduces the £520 to £260 — we'd rather show you the arithmetic than quietly pay less.",
+    alt:{label:"Take 16,000 Avios instead",note:"16,000 Avios are in your account now."},
+    detail:[["Cause","Late departure from SFO — within our control"],["Journey","11,001 km, long-haul band"],["Arrival delay","3 hours 12 minutes"],["Reduction","50% under Article 7(2)"],["Amount due","£260 each × 4 = £1,040"]]},
+  msgs:[{kind:"App",t:"09:40",body:`Heads up — you'll miss BA0432 to Amsterdam. We've already held <b>4 seats</b> on the next flight. Choose when you land, or we'll confirm the 20:35 automatically.`},
+        {kind:"SMS",t:"17:29",body:`Landed. Your onward options are ready and your bags are being transferred. <b>Skip the transfer desk</b> and go straight to the lounge.`}]
+},
+
+bag:{
+  label:"Bag didn't arrive", icon:"luggage", sev:"amber",
+  pax:{first:"Priya",name:"Priya Raghunathan",init:"PR",pnr:"T5KJ9C",tier:"Gold",phone:"•••• 2317",email:"p.raghunathan@•••••.com",party:1,bag:"BA447290",cabin:"Club World"},
+  band:{title:"Your bag didn't make the flight",when:"Told you at 09:14, before the belt"},
+  alert:{cta:"Choose how to get it back",paras:[
+    `Your bag <b>BA447290</b> missed the transfer container in Johannesburg. It's not lost — we scanned it into the JNB baggage store at 06:02 and it's confirmed onto tonight's <b>BA0058</b>, landing Heathrow 06:15 tomorrow.`,
+    `We raised the file for you before you reached the belt. There's no queue at the baggage desk to join, no form to fill in, and <b>£170</b> is already on your card for anything you need tonight.`]},
+  legs:[{no:"BA0056",from:"JNB",to:"LHR",dep:"20:30",arr:"07:05",date:"Wed 12 Aug",state:"ok",tag:"You arrived"},
+        {no:"BA447290",from:"JNB",to:"LHR",dep:"Bag · held",arr:"On BA0058",date:"Arrives 06:15 Thu",state:"void",tag:"Bag delayed"}],
+  steps:[["alert","What's happened"],["choose","How to get it back"],["care","Money & cover"],["done","All sorted"]],
+  choose:{eyebrow:["warn","One decision, then we handle it"],h1:"How would you like your bag returned?",
+    lede:"It lands at 06:15 tomorrow. Tell us where to send it and you never need to come back to the airport.",
+    options:[
+      {id:"courier",rec:true,title:"Courier it to my address",sub:"Delivered to the address on your booking in Clerkenwell, tomorrow morning.",
+       newLeg:{no:"Courier",from:"LHR",to:"EC1",dep:"07:30",arr:"09:00–12:00",date:"Thu 13 Aug"},needsHotel:false,
+       facts:[["Delivery window","09:00–12:00 tomorrow"],["Cost to you","Nothing",1],["Tracking","Live, on this page"]],
+       incl:[`Straight from the belt to your door — <b>you don't come back to Heathrow</b>`,`Live tracking, and a text when the driver is 20 minutes away`,`Someone must be in to sign, or we can leave it with a neighbour`,`Signed handover photographed and sent to you`]},
+      {id:"office",title:"Send it to my office instead",sub:"Delivered to your registered work address in Canary Wharf during the working day.",
+       newLeg:{no:"Courier",from:"LHR",to:"E14",dep:"07:30",arr:"13:00–17:00",date:"Thu 13 Aug"},needsHotel:false,
+       facts:[["Delivery window","13:00–17:00 tomorrow"],["Cost to you","Nothing",1],["Signed for","Reception"]],
+       incl:[`Delivered to reception, so you don't need to wait in`,`Live tracking and a text on handover`,`We'll send the reception signature to your email`,`Change the address any time before 06:00 tomorrow`]},
+      {id:"collect",title:"I'll collect it from Heathrow",sub:"Ready at the T5 baggage service desk from 07:30 tomorrow. Best if you're flying again soon.",
+       newLeg:{no:"Collect",from:"LHR",to:"T5 desk",dep:"07:30",arr:"Open 24h",date:"Thu 13 Aug"},needsHotel:false,
+       facts:[["Ready from","07:30 tomorrow"],["Where","T5 baggage services"],["Held for","7 days"]],
+       incl:[`Held under your name, no reference number needed`,`Open 24 hours — come when it suits you`,`Bring photo ID, that's all`,`We'll text you the moment it's on the desk`]}
+    ]},
+  care:{h1:"Money for tonight, and what you're covered for",lede:"You shouldn't be out of pocket because our container was late. This is already on your card."},
+  comp:{amount:170,title:"Spend this tonight, no receipts",
+    body:"An essentials allowance for toiletries and a change of clothes, raised to the business band because this is a work trip. It's on your card now — spend it wherever you like.",
+    alt:{label:"Claim up to £340 with receipts",note:"We'll reimburse up to £340 against receipts."},
+    detail:[["Basis","Montreal Convention, Article 19"],["Band","Business trip — higher allowance"],["Paid now","£170, no receipts needed"],["Total liability cover","Up to £1,300"],["If not found in 21 days","Full claim opens automatically"]]},
+  msgs:[{kind:"SMS",t:"09:14",body:`Don't wait at the belt — bag <b>BA447290</b> missed the container in Johannesburg. It's confirmed onto tonight's BA0058. <b>£170</b> is already on your card.`},
+        {kind:"WhatsApp",t:"09:15",body:`We've raised your bag file automatically — reference <b>LHRBA47290</b>. No need to visit the baggage desk.`}]
+},
+
+downgrade:{
+  label:"Downgraded cabin", icon:"arrow-down-narrow-wide", sev:"amber",
+  pax:{first:"Marcus",name:"Marcus Oyelaran",init:"MO",pnr:"H6RB2N",tier:"Gold",phone:"•••• 6690",email:"m.oyelaran@•••••.com",party:1,bag:"BA447402",cabin:"Euro Traveller"},
+  band:{title:"You've been moved out of Club Europe",when:"Told you at 16:48, before boarding"},
+  alert:{cta:"See what you're owed",paras:[
+    `We had to swap the aircraft on <b>BA0432 from Amsterdam</b> and the replacement has a smaller Club Europe cabin. Rows one to three are closed, so you've been moved to <b>Euro Traveller, seat 9C</b>. The flight itself is on time.`,
+    `You're owed <b>£186</b> back — a fixed share of what you paid for that leg — plus a refund of the lounge pass and paid seat you won't now get. We've calculated all of it. You just choose how to take it.`]},
+  legs:[{no:"BA0432",from:"AMS",to:"LHR",dep:"18:05",arr:"18:20",date:"Wed 12 Aug",state:"ok",tag:"On time"}],
+  steps:[["alert","What's happened"],["care","What you're owed"],["done","All sorted"]],
+  care:{h1:"What you're owed, and how to take it",lede:"Three things come back to you. All calculated already — no claim form, no waiting on hold."},
+  comp:{amount:186,title:"Reimbursement is fixed, not negotiable",
+    body:"UK261 sets involuntary downgrade reimbursement at 30% of the fare for that leg on a journey this length. That works out at £186. It isn't a goodwill gesture and we can't offer you less.",
+    alt:{label:"Take 22,000 Avios instead",note:"22,000 Avios are in your account — worth about £242."},
+    detail:[["Cabin","Club Europe → Euro Traveller"],["Segment fare","£620"],["Regulation","UK261, Article 10(2)"],["Band","30% — journeys under 1,500 km"],["Amount due","£186"]]},
+  extraChoice:{h1:"Would you rather fly in Club tomorrow?",
+    lede:"If the cabin mattered more than the timing, we'll move you to tomorrow's flight in Club Europe instead — and you keep the £186.",
+    options:[
+      {id:"take",rec:true,title:"Fly tonight, take the money",sub:"Keep your 18:05 departure in Euro Traveller and take the £186 plus your ancillary refunds.",
+       newLeg:null,needsHotel:false,
+       facts:[["Departs","Tonight 18:05"],["Cabin","Euro Traveller, 9C"],["You receive","£186 + £94",1]],
+       incl:[`<b>£186</b> reimbursement to your card`,`<b>£94</b> back for the lounge pass and paid seat 2A`,`Free lounge access at Schiphol before you go anyway`,`Nothing else to do`]},
+      {id:"club",title:"Fly tomorrow in Club Europe",sub:"Tomorrow's 08:20 has Club Europe available. Hotel in Amsterdam tonight is on us.",
+       newLeg:{no:"BA0430",from:"AMS",to:"LHR",dep:"08:20",arr:"08:35",date:"Thu 13 Aug"},seat:"2A",cabin:"Club Europe",needsHotel:false,
+       facts:[["Departs","Tomorrow 08:20"],["Cabin","Club Europe, 2A",1],["You still receive","£186",1]],
+       incl:[`Club Europe, seat 2A — the cabin you booked`,`Hotel in Amsterdam tonight, booked and paid by us`,`Dinner and breakfast, <b>£46 loaded to your card</b>`,`You keep the <b>£186</b> — the downgrade still happened`]}
+    ]},
+  msgs:[{kind:"SMS",t:"16:48",body:`Aircraft change on <b>BA0432</b> has closed Club Europe. You're now in 9C. <b>£186</b> reimbursement and <b>£94</b> of refunds are calculated and waiting — no claim needed.`},
+        {kind:"Email",t:"16:48",body:`Your Club Europe seat on BA0432 — what happened and the <b>£280</b> coming back to you.`}]
+}
+};
+
+const HOTELS=[
+  {id:"sofitel",name:"Sofitel London Heathrow",slug:"accor",wordmark:"Sofitel",
+   desc:"Connected to Terminal 5 by a covered walkway. No transfer, no waiting outside.",
+   meta:[["Walk from T5","4 minutes",1],["Rating","4.5 / 5"],["Breakfast","Included"]]},
+  {id:"hilton",name:"Hilton Garden Inn Heathrow",slug:"hilton",wordmark:"Hilton",
+   desc:"Ten minutes by shuttle. Quieter, with a 24-hour restaurant if you land late.",
+   meta:[["Shuttle","Every 15 min"],["Rating","4.2 / 5"],["Breakfast","Included"]]},
+  {id:"ren",name:"Renaissance Heathrow",slug:"marriott",wordmark:"Marriott",
+   desc:"Twelve minutes by shuttle. Largest rooms of the three and a gym that stays open.",
+   meta:[["Shuttle","On request"],["Rating","4.3 / 5"],["Breakfast","Included"]]}
+];
+
+const CHAN_ICON = {SMS:ico("message-square"),Email:ico("mail"),App:ico("smartphone"),
+  WhatsApp:brand("whatsapp","WhatsApp","25D366","bi-sm")};
+
+/* ═══════════ STATE ═══════════ */
+let sc,S;
+function loadScenario(key){
+  sc=SC[key];
+  S={key,si:0,option:null,hotel:null,compAccepted:false,altTaken:false,
+     prefs:{sms:true,email:true,app:true},msgs:sc.msgs.map(m=>({...m}))};
+  $("drLog").innerHTML=""; say(bootLine()); chips(bootChips());
+  if($("appAv")) $("appAv").textContent=sc.pax.init;
+  if($("sbAv")) $("sbAv").textContent=sc.pax.init;
+  if($("sbName")) $("sbName").textContent=sc.pax.name;
+  render();
+  setTimeout(()=>toast("New message",firstToast()),reduced?0:1200);
+}
+const stepIds=()=>sc.steps.map(s=>s[0]);
+const curStep=()=>sc.steps[S.si][0];
+
+/* ═══════════ PIECES ═══════════ */
+function itinHTML(){
+  const legs=[...sc.legs];
+  if(S.option&&S.option.newLeg) legs.push({...S.option.newLeg,state:"new",tag:"Confirmed"});
+  return `<div class="card itin">
+    <div class="itin-hd">${ico("plane")}<b>${sc.key==="bag"?"Your flight and your bag":"Your trip"}</b><span class="mono">${sc.pax.pnr}</span></div>
+    ${legs.map(l=>`<div class="leg ${l.state}">
+      <span class="leg-fl">${esc(l.no)}</span>
+      <span class="leg-line">
+        <span class="leg-pt"><b>${esc(l.from)}</b><span>${esc(l.dep)} · ${esc(l.date)}</span></span>
+        <span class="leg-arc"></span>
+        <span class="leg-pt"><b>${esc(l.to)}</b><span>${esc(l.arr)}</span></span>
+      </span>
+      <span class="leg-tag ${l.state}">${esc(l.tag)}</span>
+    </div>`).join("")}
+    <div class="itin-ft">
+      <span>${sc.pax.party>1?`Party of <b>${sc.pax.party}</b>`:`Passenger <b>${esc(sc.pax.name)}</b>`}</span>
+      <span>Cabin <b>${esc(S.option&&S.option.cabin?S.option.cabin:sc.pax.cabin)}</b></span>
+      ${S.option&&S.option.seat?`<span>Seat <b>${esc(S.option.seat)}</b></span>`:""}
+      <span>Bag <b class="mono">${sc.pax.bag}</b></span>
+    </div></div>`;
+}
+
+function noticeHTML(){
+  return `<div class="notice"><span class="ic">${ico("check")}</span><div>
+    <b>We've already let you know</b>
+    <p>Sent the moment this was confirmed, to every channel you've asked for.</p>
+    <div class="chans">
+      <span class="chan">${ico("message-square")}Text to ${sc.pax.phone}</span>
+      <span class="chan">${ico("mail")}Email</span>
+      <span class="chan">${ico("smartphone")}In the app</span>
+      ${S.msgs.some(m=>m.kind==="WhatsApp")?`<span class="chan">${brand("whatsapp","WhatsApp","25D366","bi-sm")}WhatsApp</span>`:""}
+    </div></div></div>`;
+}
+
+function optionsHTML(cfg){
+  return `<div class="opts">${cfg.options.map(o=>`
+    <button class="opt ${S.option&&S.option.id===o.id?"sel":""}" data-opt="${o.id}">
+      <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
+        <h3>${esc(o.title)}${o.rec?`<span class="rec">Best for you</span>`:""}</h3>
+        <p>${esc(o.sub)}</p></span></span>
+      <span class="opt-facts">${o.facts.map(([k,v,g])=>`<span class="f"><em>${esc(k)}</em><b class="${g?"good":""}">${v}</b></span>`).join("")}</span>
+      ${S.option&&S.option.id===o.id?`<span class="opt-incl"><span class="ttl">What's included</span>
+        <span class="incl-list">${o.incl.map(i=>`<span class="incl"><span class="tk">${ico("check")}</span><span>${i}</span></span>`).join("")}</span></span>`:""}
+    </button>`).join("")}</div>`;
+}
+
+/* ═══════════ SCREENS ═══════════ */
+function scAlert(){
+  return `<div class="screen">
+    <div class="status">
+      <div class="status-band ${sc.sev==="amber"?"amber":""}">${ico(sc.sev==="amber"?"triangle-alert":"circle-x")}
+        <b>${esc(sc.band.title)}</b><span class="mono">${esc(sc.band.when)}</span></div>
+      <div class="status-body">${sc.alert.paras.map(p=>`<p>${p}</p>`).join("")}</div>
+    </div>
+    ${itinHTML()}<div style="height:22px"></div>${noticeHTML()}
+    <div class="actions">
+      <button class="btn btn-1" data-adv="1">${esc(sc.alert.cta)} ${ico("arrow-right")}</button>
+      <button class="btn btn-3" data-help="rights">What am I entitled to?</button>
+    </div></div>`;
+}
+
+function scChoose(){
+  const cfg=sc.choose;
+  return `<div class="screen">
+    <span class="eyebrow ${cfg.eyebrow[0]}"><span class="pip"></span>${esc(cfg.eyebrow[1])}</span>
+    <h1>${esc(cfg.h1)}</h1><p class="lede">${esc(cfg.lede)}</p>
+    ${optionsHTML(cfg)}
+    <div class="actions">
+      <button class="btn btn-1" id="confirmOpt" ${S.option?"":"disabled"}>
+        ${S.option?`Confirm — ${esc(S.option.title.toLowerCase())}`:"Choose an option to continue"}</button>
+      <button class="btn btn-3" data-help="which">Which should I pick?</button>
+    </div></div>`;
+}
+
+function scHotel(){
+  const two=sc.key==="misconnect";
+  return `<div class="screen">
+    <span class="eyebrow ok"><span class="pip"></span>Flight confirmed</span>
+    <h1>${esc(sc.hotel.h1)}</h1><p class="lede">${esc(sc.hotel.lede)}</p>
+    <div class="hotel-grid">${HOTELS.slice(0,two?2:3).map(h=>`
+      <button class="pick ${S.hotel&&S.hotel.id===h.id?"sel":""}" data-hotel="${h.id}">
+        <span class="pick-radio"></span>
+        <span class="pick-thumb">${brand(h.slug,h.wordmark,"1D2757")}</span>
+        <span class="pick-body"><b>${esc(h.name)}</b><p>${esc(h.desc)}</p>
+          <span class="pick-meta">${h.meta.map(([k,v,b])=>`<span class="pill ${b?"best":""}">${esc(k)}: ${esc(v)}</span>`).join("")}
+          ${two?`<span class="pill">2 family rooms held</span>`:""}</span>
+        </span></button>`).join("")}</div>
+    <div class="actions" style="margin-top:18px">
+      <button class="btn btn-1" id="confirmHotel" ${S.hotel?"":"disabled"}>
+        ${S.hotel?`Book ${esc(S.hotel.name)}`:"Choose a hotel to continue"}</button>
+      <button class="btn btn-3" data-help="ownhotel">I'd rather arrange my own</button>
+    </div></div>`;
+}
+
+function careCards(){
+  const p=sc.pax,o=S.option;
+  if(sc.key==="cancel"){
+    const on=o&&o.needsHotel;
+    return [
+      {ic:"utensils",t:"Meals",b:on?"Dinner tonight and breakfast tomorrow. Spend it anywhere in the terminal or at the hotel.":"Dinner at Heathrow before you fly.",vl:"Loaded to your card",v:money(on?46:28)},
+      on?{ic:"bus",t:"Transport",b:S.hotel&&S.hotel.id==="sofitel"?"No transfer needed — the covered walkway from T5 takes four minutes.":"Hotel shuttle from the T5 coach station, booked both ways.",vl:"Return transfer",v:"Booked"}
+        :{ic:"armchair",t:"Lounge",b:"Galleries Club South, T5. Food, showers and somewhere quiet until your 21:30 departure.",vl:"Access",v:"Open now"},
+      {ic:"luggage",t:"Your bag",b:o&&o.id==="refund"?"Being returned to the T5 arrivals belt.":on?"Staying with us overnight and loaded onto tomorrow's flight. Nothing to collect.":"Checked through to New York via Boston. We handle the transfer.",code:p.bag}
+    ].filter(Boolean);
+  }
+  if(sc.key==="misconnect"){
+    const on=o&&o.needsHotel;
+    return [
+      {ic:"armchair",t:"Lounge, all four",b:"Galleries Club South, T5. Showers, hot food and a family area — a goodwill grant on your cabin.",vl:"Access",v:"Open now"},
+      {ic:"utensils",t:"Dinner for four",b:on?"Dinner tonight and breakfast tomorrow for the whole family.":"Spend it in the lounge or anywhere in T5. No receipts.",vl:"Loaded to your card",v:money(on?128:72)},
+      {ic:"luggage",t:"Four bags",b:on?"Held overnight and loaded onto the morning flight.":"Being moved to your new flight now. Skip the transfer desk entirely.",code:"4 bags · "+p.bag},
+      {ic:"car",t:"Getting to Amsterdam",b:"Your onward transport in Amsterdam has been notified of the new arrival time.",vl:"Ride waiting",v:brand("uber","Uber","1D2757","bi-sm")}
+    ];
+  }
+  if(sc.key==="bag"){
+    return [
+      {ic:"banknote",t:"Essentials money",b:"For toiletries and a change of clothes tonight. Business band, so the higher amount. No receipts.",vl:"On your card now",v:money(170)},
+      {ic:"truck",t:"Delivery",b:o?`${o.title} — ${o.facts[0][1]}.`:"Choose a delivery option and we'll book it.",vl:"Cost to you",v:"Nothing"},
+      {ic:"shield-check",t:"If it's not found",b:"After 21 days a bag is formally declared lost and a full claim opens by itself. Covered up to £1,300 under the Montreal Convention.",vl:"Cover",v:money(1300)},
+      {ic:"file-text",t:"Your bag file",b:"Raised automatically at 09:14, before you reached the belt. You shouldn't need to quote it to anyone.",code:"LHRBA47290"}
+    ];
+  }
+  return [
+    {ic:"banknote",t:"Fare reimbursement",b:"30% of the Amsterdam–London segment fare, set by UK261. Fixed amount, not a gesture.",vl:"Owed to you",v:money(186)},
+    {ic:"receipt",t:"Ancillary refunds",b:"The lounge pass and paid seat 2A you won't now use. Refunded separately from the fare share.",vl:"Owed to you",v:money(94)},
+    {ic:"armchair",t:"Lounge anyway",b:"You paid for a lounge pass you're being refunded for — we've kept your access at Schiphol regardless.",vl:"Access",v:"Open now"},
+    {ic:"credit-card",t:"Where it goes",b:"Both amounts return to the card you paid with. Or take Avios instead — for you, that's worth more.",vl:"Method",v:brand("mastercard","Mastercard","1D2757","bi-sm")}
+  ];
+}
+
+function scCare(){
+  const c=sc.care,comp=sc.comp;
+  return `<div class="screen">
+    <span class="eyebrow ok"><span class="pip"></span>${sc.key==="downgrade"?"Flight on time, cabin changed":S.hotel?"Hotel booked":"Confirmed"}</span>
+    <h1>${esc(c.h1)}</h1><p class="lede">${esc(c.lede)}</p>
+    <div class="care-grid">${careCards().map(k=>`
+      <div class="care"><div class="care-ic">${ico(k.ic)}</div>
+        <b>${esc(k.t)}</b><p>${esc(k.b)}</p>
+        ${k.vl?`<div class="care-val"><span>${esc(k.vl)}</span><b>${k.v}</b></div>`:""}
+        ${k.code?`<div class="care-code"><span>${esc(k.code)}</span><button data-help="bag">Track it</button></div>`:""}
+      </div>`).join("")}</div>
+
+    <div class="comp">
+      <div class="amt">${money(comp.amount)}<small>${sc.key==="bag"?"already on your card":"already approved"}</small></div>
+      <h2>${esc(comp.title)}</h2><p>${esc(comp.body)}</p>
+      <div class="pay-row">${ico("lock")} Returns to the card you paid with
+        ${brand("visa","Visa","55637A","bi-sm")}${brand("mastercard","Mastercard","55637A","bi-sm")}${brand("applepay","Apple Pay","55637A","bi-sm")}</div>
+      <div class="actions">
+        ${S.compAccepted
+          ? `<button class="btn btn-1" disabled style="background:var(--green)">${ico("check")} ${S.altTaken?"Avios added":"Accepted — on its way"}</button>`
+          : `<button class="btn btn-1" id="acceptComp">${sc.key==="bag"?"Confirm the £170":"Accept "+money(comp.amount)+" to my card"}</button>
+             <button class="btn btn-2 btn-sm" id="altComp">${esc(comp.alt.label)}</button>`}
+      </div>
+    </div>
+
+    <details><summary>${ico("calculator")} How ${money(comp.amount)} was worked out</summary>
+      <div class="det-bd"><p>We don't ask you to prove any of this. It's read from your booking and the cause.</p>
+      <dl>${comp.detail.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></div>
+    </details>
+
+    ${sc.key==="downgrade"?`<h2>${esc(sc.extraChoice.h1)}</h2>
+      <p class="lede" style="font-size:16px">${esc(sc.extraChoice.lede)}</p>
+      ${optionsHTML(sc.extraChoice)}`:""}
+
+    <div class="actions">
+      <button class="btn btn-1" data-adv="1" ${sc.key==="downgrade"&&!S.option?"disabled":""}>
+        ${sc.key==="downgrade"&&!S.option?"Choose one of the two above":"See everything in one place"} ${ico("arrow-right")}</button>
+    </div></div>`;
+}
+
+function summaryRows(){
+  const o=S.option,comp=sc.comp,r=[];
+  if(sc.key==="cancel"){
+    r.push(o.newLeg?{t:"Flight rebooked",p:`${o.newLeg.no} · ${o.newLeg.dep} ${o.newLeg.date} · seat ${o.seat} · ${o.cabin}`,v:"No charge",s:"Fare protected"}
+                   :{t:"Trip cancelled and refunded",p:"Back on the card you paid with",v:money(2340),s:"3–5 working days"});
+    if(o.needsHotel) r.push({t:S.hotel.name,p:`Tonight, one room, breakfast included${S.hotel.id==="sofitel"?" · four-minute covered walk from T5":""}`,v:"Paid by BA",s:"Ref HTL-88214"});
+    r.push({t:"Meals",p:`${o.needsHotel?"Dinner and breakfast":"Dinner at Heathrow"} · spend anywhere, no receipts`,v:money(o.needsHotel?46:28),s:"On your card"});
+    if(o.needsHotel) r.push({t:"Transport",p:S.hotel.id==="sofitel"?"Covered walkway from T5 — no shuttle needed":"Hotel shuttle booked both ways",v:"Included",s:""});
+  }
+  if(sc.key==="misconnect"){
+    r.push({t:"Onward flight confirmed",p:`${o.newLeg.no} · ${o.newLeg.dep} ${o.newLeg.date} · seats ${o.seat} · ${o.cabin}`,v:"No charge",s:"4 seats together"});
+    if(o.needsHotel) r.push({t:S.hotel.name,p:"Two family rooms tonight, breakfast included",v:"Paid by BA",s:"Ref HTL-90711"});
+    r.push({t:"Four bags",p:o.needsHotel?"Held overnight, loaded onto the morning flight":"Transferred to your new flight automatically",v:"Tracked",s:sc.pax.bag});
+    r.push({t:"Lounge and dinner",p:"Galleries Club South for four, food included",v:money(o.needsHotel?128:72),s:"On your card"});
+  }
+  if(sc.key==="bag"){
+    r.push({t:"Bag located and booked",p:"Confirmed onto BA0058, landing Heathrow 06:15 tomorrow",v:"Tracked",s:sc.pax.bag});
+    r.push({t:o.title,p:`${o.facts[0][0]}: ${o.facts[0][1]}`,v:"No charge",s:"Live tracking on"});
+    r.push({t:"Essentials money",p:"Business band, no receipts needed",v:money(170),s:"On your card"});
+    r.push({t:"Bag file",p:"Raised automatically before you reached the belt",v:"LHRBA47290",s:"Montreal Art.19"});
+  }
+  if(sc.key==="downgrade"){
+    r.push(o.newLeg?{t:"Moved to Club Europe tomorrow",p:`${o.newLeg.no} · ${o.newLeg.dep} ${o.newLeg.date} · seat ${o.seat}`,v:"No charge",s:"Cabin restored"}
+                   :{t:"Flying tonight in Euro Traveller",p:"BA0432 · 18:05 · seat 9C",v:"On time",s:""});
+    r.push({t:"Ancillary refunds",p:"Lounge pass and paid seat 2A",v:money(94),s:"2 working days"});
+    if(o.newLeg) r.push({t:"Hotel in Amsterdam",p:"Tonight, breakfast included, booked by us",v:"Paid by BA",s:"Ref HTL-91204"});
+  }
+  r.push({t:sc.key==="bag"?"Essentials confirmed":"Compensation",
+    p:S.compAccepted?(S.altTaken?"Taken as Avios — already in your account":"Accepted — refunding to your card"):"Approved and waiting for you to accept",
+    v:S.altTaken?"Avios":money(comp.amount),
+    s:S.compAccepted?(S.altTaken?"Posted now":"2 working days"):"Not yet accepted",wait:!S.compAccepted});
+  return r;
+}
+
+function scDone(){
+  return `<div class="screen">
+    <span class="eyebrow ok"><span class="pip"></span>Nothing left for you to do</span>
+    <h1>You're sorted, ${esc(sc.pax.first)}.</h1>
+    <p class="lede">Everything below is booked and paid for. We'll keep you posted at every step — you won't need to check back unless you want to.</p>
+    ${itinHTML()}<div style="height:22px"></div>
+    <div class="rows">${summaryRows().map(x=>`
+      <div class="row"><span class="row-ic ${x.wait?"wait":""}">${ico(x.wait?"clock":"check")}</span>
+        <span class="row-bd"><b>${esc(x.t)}</b><p>${esc(x.p)}</p></span>
+        <span class="row-val"><b>${x.v}</b><span>${esc(x.s)}</span></span></div>`).join("")}</div>
+    ${!S.compAccepted?`<div class="actions" style="margin-bottom:22px">
+      <button class="btn btn-1" data-goto="care">Accept your ${money(sc.comp.amount)} ${ico("arrow-right")}</button></div>`:""}
+    <div class="partners">
+      <div class="ttl">Arranged for you across</div>
+      <div class="row-logos">
+        ${brand("britishairways","British Airways")}${brand("americanairlines","American Airlines")}
+        ${brand("iberia","Iberia")}${brand("hilton","Hilton")}${brand("marriott","Marriott")}
+        ${brand("accor","Accor")}${brand("uber","Uber")}${brand("visa","Visa")}
+        ${brand("mastercard","Mastercard")}${brand("whatsapp","WhatsApp")}
+      </div>
+    </div>
+    <details><summary>${ico("settings-2")} Change something</summary>
+      <div class="det-bd"><p>You can change any of this yourself, right here, up to two hours before departure — no phone call needed.</p>
+      <div class="actions">
+        ${stepIds().includes("choose")?`<button class="btn btn-2 btn-sm" data-goto="choose">Change my choice</button>`:""}
+        ${S.hotel?`<button class="btn btn-2 btn-sm" data-goto="hotel">Change hotel</button>`:""}
+        <button class="btn btn-2 btn-sm" data-help="seat">Change seat</button>
+      </div></div>
+    </details></div>`;
+}
+
+const SCREEN={alert:scAlert,choose:scChoose,hotel:scHotel,care:scCare,done:scDone};
+
+/* ═══════════ RAIL ═══════════ */
+function bagStates(){
+  const o=S.option;
+  if(sc.key==="bag"){
+    const base=[["done","Checked in at Johannesburg","Yesterday 18:40"],["done","Missed the transfer container","06:02 today"],
+                ["done","Held in the JNB baggage store","Secure, tagged to you"],["now","Loading onto BA0058","Tonight 19:45"]];
+    if(!o) return [...base,["pending","Choose how to get it back","—"]];
+    if(o.id==="collect") return [...base,["pending","Lands Heathrow T5","06:15 tomorrow"],["pending","On the T5 service desk","From 07:30"]];
+    return [...base,["pending","Lands Heathrow T5","06:15 tomorrow"],["pending",`Courier to ${o.id==="office"?"Canary Wharf":"Clerkenwell"}`,o.facts[0][1]]];
+  }
+  if(sc.key==="misconnect"){
+    const b=[["done","Four bags checked at SFO","Yesterday 18:12"],["done","Unloaded at Heathrow","17:41 today"]];
+    if(!o) return [...b,["now","Waiting on your onward choice","—"]];
+    return o.needsHotel
+      ? [...b,["now","Held overnight in the T5 store","Secure, tagged to you"],["pending","Loaded onto BA0430","06:00 tomorrow"],["pending","Arrives Amsterdam","09:30 tomorrow"]]
+      : [...b,["now","Moving to your new flight","Now"],["pending",`Loaded onto ${o.newLeg.no}`,`${o.newLeg.dep} tonight`],["pending","Arrives Amsterdam",o.newLeg.arr]];
+  }
+  if(sc.key==="downgrade"){
+    return o&&o.newLeg
+      ? [["done","Checked in at Schiphol","16:20 today"],["now","Held overnight at AMS","Tagged to you"],["pending","Loaded onto BA0430","07:40 tomorrow"],["pending","Arrives Heathrow","08:35 tomorrow"]]
+      : [["done","Checked in at Schiphol","16:20 today"],["now","Loaded onto BA0432","17:35"],["pending","Arrives Heathrow T5","18:20 tonight"],["pending","On belt 4","About 18:40"]];
+  }
+  if(!o) return [["done","Checked in at Heathrow T5","Today 12:04"],["now","Held in the T5 baggage store","Now"],["pending","Waiting on your choice","—"]];
+  if(o.id==="refund") return [["done","Checked in at Heathrow T5","Today 12:04"],["done","Pulled from the aircraft","14:31"],["now","On its way to arrivals belt 5","About 20 minutes"],["pending","Ready to collect","—"]];
+  if(o.needsHotel) return [["done","Checked in at Heathrow T5","Today 12:04"],["done","Pulled from the aircraft","14:31"],["now","Held overnight in the T5 store","Secure, tagged to you"],["pending","Loaded onto BA0113","Tomorrow 07:15"],["pending","Arrives New York JFK","Tomorrow 11:55"]];
+  return [["done","Checked in at Heathrow T5","Today 12:04"],["done","Re-tagged for tonight's route","14:38"],["now","Loading onto BA0213","20:45"],["pending","Transferred at Boston","We do this for you"],["pending","Arrives New York JFK","Tomorrow 07:10"]];
+}
+
+function renderRail(){
+  const isWide = window.innerWidth > 940;
+  $("rail").innerHTML=`
+    <details class="rc" open>
+      <summary class="rc-hd"><span class="dot"></span><b>${sc.pax.party>1?"Where your bags are":"Where your bag is"}</b></summary>
+      <div class="rc-bd">${bagStates().map(([st,t,s])=>`<div class="bstep ${st}"><span class="bd"></span><div><b>${esc(t)}</b><span>${esc(s)}</span></div></div>`).join("")}</div>
+    </details>
+    <details class="rc"${isWide?" open":""}>
+      <summary class="rc-hd">${ico("inbox")}<b>What we've sent you</b></summary>
+      <div class="rc-bd"><div class="thread">${[...S.msgs].reverse().map(m=>`
+        <div class="tmsg"><div class="th"><span class="kind">${CHAN_ICON[m.kind]||""}${esc(m.kind)}</span><span class="tm">${esc(m.t)}</span></div>
+        <p>${m.body}</p></div>`).join("")}</div></div>
+    </details>
+    <details class="rc"${isWide?" open":""}>
+      <summary class="rc-hd">${ico("bell")}<b>How we reach you</b></summary>
+      <div class="rc-bd">${[["sms","Text message",sc.pax.phone,ico("message-square")],["email","Email",sc.pax.email,ico("mail")],["app","App notification","On this device",ico("smartphone")]]
+        .map(([k,t,s,i])=>`<div class="pref"><span class="pic">${i}</span>
+          <div><b>${esc(t)}</b><span>${esc(s)}</span></div>
+          <button class="sw ${S.prefs[k]?"on":""}" data-pref="${k}" role="switch" aria-checked="${S.prefs[k]}" aria-label="${esc(t)}"></button></div>`).join("")}</div>
+    </details>`;
+  $("rail").querySelectorAll("[data-pref]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.pref;S.prefs[k]=!S.prefs[k];renderRail();icons();
+    toast("Preferences saved",S.prefs[k]?`We'll also keep you posted by ${k==="sms"?"text":k==="email"?"email":"app notification"}.`:`We'll stop sending ${k==="sms"?"texts":k==="email"?"emails":"app notifications"}.`);
+  });
+}
+
+/* ═══════════ RENDER ═══════════ */
+function renderProgress(){
+  const skip=stepIds().includes("hotel")&&S.option&&!S.option.needsHotel;
+  const vis=sc.steps.filter(s=>!(s[0]==="hotel"&&skip));
+  $("pSteps").innerHTML=vis.map(s=>{
+    const i=sc.steps.indexOf(s),cls=i<S.si?"done":i===S.si?"now":"";
+    return `<button class="pstep ${cls}" data-si="${i}" ${i<S.si?"":"disabled"}>
+      <span class="n">${i<S.si?ico("check"):i+1}</span>${esc(s[1])}</button>`;
+  }).join("");
+  $("pFill").style.width=((S.si+1)/sc.steps.length*100)+"%";
+  $("pSteps").querySelectorAll("[data-si]").forEach(b=>{if(!b.disabled)b.onclick=()=>{S.si=+b.dataset.si;render();};});
+}
+function icons(){ if(window.lucide) lucide.createIcons(); }
+
+function render(){
+  $("hdrPnr").textContent=sc.pax.pnr;
+  $("hdrWho").textContent=sc.pax.init;
+  $("ftrRef").textContent=`Booking ${sc.pax.pnr} · UK261 rules applied`;
+  $("demoPills").innerHTML=Object.entries(SC).map(([k,v])=>
+    `<button class="dp ${k===S.key?"on":""}" data-sc="${k}">${ico(v.icon)}${esc(v.label)}</button>`).join("");
+  $("demoPills").querySelectorAll("[data-sc]").forEach(b=>b.onclick=()=>loadScenario(b.dataset.sc));
+  renderProgress();
+  $("main").innerHTML=SCREEN[curStep()]();
+  renderRail(); icons(); bind();
+  window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});
+}
+
+function advance(){
+  let n=S.si+1;
+  if(stepIds()[n]==="hotel"&&S.option&&!S.option.needsHotel) n++;
+  S.si=Math.min(n,sc.steps.length-1);
+}
+
+function bind(){
+  const m=$("main");
+  m.querySelectorAll("[data-adv]").forEach(b=>b.onclick=()=>{advance();render();});
+  m.querySelectorAll("[data-goto]").forEach(b=>b.onclick=()=>{const i=stepIds().indexOf(b.dataset.goto);if(i>=0){S.si=i;render();}});
+  m.querySelectorAll("[data-help]").forEach(b=>b.onclick=()=>{openDrawer();ask(HELP_Q[b.dataset.help]);});
+  m.querySelectorAll("[data-opt]").forEach(b=>b.onclick=()=>{
+    const pool=curStep()==="care"?sc.extraChoice.options:sc.choose.options;
+    S.option=pool.find(o=>o.id===b.dataset.opt);
+    if(!S.option.needsHotel) S.hotel=null;
+    render();
+  });
+  const co=$("confirmOpt"); if(co) co.onclick=confirmOption;
+  m.querySelectorAll("[data-hotel]").forEach(b=>b.onclick=()=>{S.hotel=HOTELS.find(h=>h.id===b.dataset.hotel);render();});
+  const ch=$("confirmHotel"); if(ch) ch.onclick=confirmHotel;
+  const ac=$("acceptComp"); if(ac) ac.onclick=()=>acceptComp(false);
+  const al=$("altComp"); if(al) al.onclick=()=>acceptComp(true);
+}
+
+/* ═══════════ ACTIONS ═══════════ */
+function notify(kind,body,tt,tb){S.msgs.push({kind,t:now(),body});renderRail();icons();if(tt)toast(tt,tb);}
+
+function confirmOption(){
+  const o=S.option;
+  if(sc.key==="cancel"){
+    if(o.id==="refund") notify("SMS",`Your trip is cancelled and <b>£2,340</b> is on its way back to your card. Your bag is coming to arrivals belt 5 at T5.`,"Refund confirmed","Your bag is on its way to belt 5.");
+    else if(o.needsHotel) notify("SMS",`Booked: <b>${o.newLeg.no}</b> at ${o.newLeg.dep} tomorrow, seat ${o.seat}, same cabin. Now pick your hotel for tonight — we're paying.`,"Flight rebooked",`${o.newLeg.no} at ${o.newLeg.dep} tomorrow. Seat ${o.seat} held.`);
+    else notify("SMS",`Booked: <b>${o.newLeg.no}</b> tonight at ${o.newLeg.dep}, arriving New York ${o.newLeg.arr}. Lounge is open to you now.`,"Flight rebooked",`${o.newLeg.no} tonight. Lounge access added.`);
+  }
+  if(sc.key==="misconnect") notify("App",`Confirmed: <b>${o.newLeg.no}</b> at ${o.newLeg.dep}, ${o.cabin}, seats ${o.seat}. All four boarding passes are in your wallet. Bags are already moving.`,"Seats confirmed",`${o.newLeg.no} · ${o.cabin} · 4 together.`);
+  if(sc.key==="bag") notify("WhatsApp",`Delivery booked: <b>${o.title.toLowerCase()}</b>, ${o.facts[0][1]}. We'll text you when the driver is 20 minutes away.`,"Delivery booked",`${o.facts[0][0]}: ${o.facts[0][1]}.`);
+  advance(); render();
+}
+
+function confirmHotel(){
+  const two=sc.key==="misconnect";
+  notify("Email",`Hotel confirmed: <b>${S.hotel.name}</b> tonight, ${two?"two family rooms, ":""}breakfast included, paid by us.${S.hotel.id==="sofitel"?" A four-minute covered walk from T5.":" Shuttle from the T5 coach station."}`,"Hotel booked",`${S.hotel.name} · tonight · paid by BA.`);
+  advance(); render();
+}
+
+function acceptComp(alt){
+  S.compAccepted=true;S.altTaken=alt;
+  const c=sc.comp;
+  if(alt) notify("Email",c.alt.note.replace(/(\d[\d,]*)/,"<b>$1</b>"),"Avios added",c.alt.note);
+  else if(sc.key==="bag") notify("SMS",`Your <b>£170</b> essentials allowance is confirmed on the card ending 2317. Spend it wherever you like — no receipts.`,"Confirmed","£170 is on your card now.");
+  else notify("Email",`Your <b>${money(c.amount)}</b> is approved and refunding to the card on your booking. Nothing more to do.`,"Accepted",`${money(c.amount)} back within 2 working days.`);
+  render();
+}
+
+function toast(t,b){
+  const el=document.createElement("div");el.className="toast";
+  el.innerHTML=`<span class="ic">${ico("bell")}</span><div><b>${esc(t)}</b><p>${esc(b)}</p></div>`;
+  $("toasts").appendChild(el);icons();
+  setTimeout(()=>{el.classList.add("out");setTimeout(()=>el.remove(),320);},4600);
+}
+
+/* ═══════════ HELP ═══════════ */
+const HELP_Q={rights:"What am I entitled to?",which:"Which option should I pick?",ownhotel:"Can I arrange my own hotel?",bag:"Where is my bag?",seat:"Can I change my seat?"};
+function openDrawer(){$("drawer").classList.add("open");$("scrim").classList.add("on");$("fab").classList.add("hide");}
+function closeDrawer(){$("drawer").classList.remove("open");$("scrim").classList.remove("on");$("fab").classList.remove("hide");}
+$("fab").onclick=openDrawer;$("drX").onclick=closeDrawer;$("scrim").onclick=closeDrawer;
+addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+function say(h){const e=document.createElement("div");e.className="m ai";e.innerHTML=`<div class="m-b">${h}</div>`;$("drLog").appendChild(e);$("drLog").scrollTop=1e6;icons();return true;}
+function me(t){const e=document.createElement("div");e.className="m me";e.innerHTML=`<div class="m-b">${esc(t)}</div>`;$("drLog").appendChild(e);$("drLog").scrollTop=1e6;}
+function thinking(){const e=document.createElement("div");e.className="m ai";e.id="tp";e.innerHTML=`<div class="m-b" style="padding:0;background:none;border:none"><div class="typing"><i></i><i></i><i></i></div></div>`;$("drLog").appendChild(e);$("drLog").scrollTop=1e6;}
+function chips(l){$("drChips").innerHTML=l.map(c=>`<button class="dchip">${esc(c)}</button>`).join("");$("drChips").querySelectorAll(".dchip").forEach(b=>b.onclick=()=>ask(b.textContent));}
+function ask(t){if(!t||!t.trim())return;me(t);$("drIn").value="";autosize();thinking();setTimeout(()=>{const x=$("tp");if(x)x.remove();answer(t.toLowerCase());},reduced?60:760);}
+
+function bootLine(){
+  const w={cancel:"BA0117 cancellation",misconnect:"missed Amsterdam connection",bag:"delayed bag",downgrade:"Club Europe downgrade"}[S.key];
+  return `Hello ${esc(sc.pax.first)}. I can see your ${w} and everything we've arranged for it. Ask me anything — I won't put you in a queue.`;
+}
+function bootChips(){return {
+  cancel:["Which option should I pick?","What am I entitled to?","Where is my bag?"],
+  misconnect:["Which option should I pick?","Why only £260?","Will our bags make it?"],
+  bag:["Where is my bag?","What if it's never found?","Can I spend the £170 anywhere?"],
+  downgrade:["Why only 30%?","Should I take the Avios?","Can I fly in Club tomorrow?"]}[S.key];}
+function firstToast(){return {cancel:"We've texted and emailed you your options for BA0117.",
+  misconnect:"We've held four seats on the next Amsterdam flight.",
+  bag:"Don't wait at the belt — we've already raised your bag file.",
+  downgrade:"£186 reimbursement and £94 of refunds are waiting."}[S.key];}
+
+function answer(q){
+  const o=S.option,c=sc.comp;
+
+  if(/entitl|right|owed|law|261|montreal/.test(q)){
+    if(S.key==="bag") return say(`Bags aren't covered by UK261 — they fall under the <b>Montreal Convention</b>:<ul><li><b>£170 now</b> for essentials, no receipts, already on your card.</li><li>Reimbursement of reasonable extra costs, up to <b>£1,300</b> in total.</li><li>If the bag isn't found within <b>21 days</b>, it's declared lost and a full claim opens by itself.</li></ul>`)&&chips(["What if it's never found?","Where is my bag?"]);
+    if(S.key==="downgrade") return say(`Involuntary downgrade is <b>Article 10(2)</b> of UK261. Under 1,500 km it's a fixed <b>30% of the segment fare</b> — £186 here. Separately you get back the ancillaries you paid for and won't now use: lounge pass and seat 2A, <b>£94</b>. Neither is discretionary and neither needs a claim form.`)&&chips(["Why only 30%?","Should I take the Avios?"]);
+    return say(`Because the cause was ours, three things are owed to you — none of which you have to claim:<ul><li><b>${money(c.amount)} compensation</b> under UK261. Already approved.</li><li><b>A replacement flight</b> in the same cabin at no extra cost — or a full refund.</li><li><b>Hotel, meals and transport</b> if you wait overnight. We book and pay directly.</li></ul>Weather or air traffic control would remove the cash, but never the flight or the hotel.`)&&chips(["Which option should I pick?","Where is my bag?"]);
+  }
+
+  if(/why only|reduc|halv|\b50\b|\b30\b|260|186/.test(q)){
+    if(S.key==="misconnect") return say(`Article 7(2) lets us halve compensation when we get you there <b>under four hours</b> later than booked. Your arrival delay is <b>3 hours 12 minutes</b>, so £520 becomes £260 — each, so <b>£1,040</b> for the four of you. Had it tipped past four hours it would be the full amount, and I'd have told you that too.`);
+    if(S.key==="downgrade") return say(`30% is the band UK261 sets for journeys under 1,500 km. Amsterdam to London is 371 km. Longer routes attract 50% or 75% — this one doesn't, and we can't top it up in cash. What we <i>can</i> do is offer <b>22,000 Avios</b>, worth roughly £242 for you.`)&&chips(["Should I take the Avios?"]);
+  }
+
+  if(/avios|points|worth more/.test(q))
+    return say(`For a Gold member redeeming on premium cabins, Avios usually beat the cash. ${S.key==="downgrade"?"22,000 Avios is worth about <b>£242</b> against <b>£186</b> cash — so yes, if you'll use them within a couple of years.":"The Avios option here is worth slightly more than the cash if you redeem on premium cabins."} Cash is safer if you'd rather have the money now. Either way it's one tap.`);
+
+  if(/which|recommend|should i|best|advice/.test(q)){
+    const rec=(S.key==="downgrade"?sc.extraChoice:sc.choose).options.find(x=>x.rec);
+    return say(`I'd take <b>${esc(rec.title.toLowerCase())}</b>. ${{
+      cancel:"It's the only option that keeps you in Club World the whole way on a direct flight, and the hotel, dinner, breakfast and transfers cost you nothing. Take the one-stop tonight only if landing in the morning genuinely matters.",
+      misconnect:"It gets all four of you to Amsterdam tonight with seats together, and two hours in the lounge with showers and hot food beats most waits. The 22:10 Club Europe flight is tempting, but landing after midnight with two children rarely is.",
+      bag:"Home delivery means you never come back to Heathrow, and you get a text when the driver is twenty minutes out. Choose the office if nobody will be in during the morning.",
+      downgrade:"Flying tonight and taking the money is usually right — you still get home this evening and £280 comes back. Pick tomorrow's Club flight only if the cabin mattered more than the timing."
+    }[S.key]}`)&&chips(["What am I entitled to?"]);
+  }
+
+  if(/bag|luggage|suitcase|where is/.test(q)){
+    const st=bagStates().find(s=>s[0]==="now");
+    return say(`${sc.pax.party>1?"Four bags":`Bag <b>${sc.pax.bag}</b>`} — ${st?st[1].toLowerCase():"in our care"}. ${{
+      cancel:o?(o.needsHotel?"It stays with us tonight and goes onto tomorrow's flight automatically. Nothing to collect, nothing to re-check.":o.id==="refund"?"It's coming to arrivals belt 5 at T5 for you.":"Checked through to New York — we handle the Boston transfer."):"Once you've chosen an option we'll route it to match.",
+      misconnect:o?(o.needsHotel?"Held overnight and loaded onto the morning flight.":"Being moved to your new flight now. Skip the transfer desk entirely."):"All four are held ready for whichever onward flight you pick.",
+      bag:"It's on tonight's BA0058 and lands at 06:15 tomorrow. Every scan appears in the panel on this page, live.",
+      downgrade:"On the aircraft and arriving with you at 18:20."}[S.key]}`)&&chips(bootChips());
+  }
+
+  if(/never found|lost|21 day|claim/.test(q)&&S.key==="bag")
+    return say(`After <b>21 days</b> a delayed bag is formally declared lost, and a full claim opens automatically — you don't start it or chase it. You'd be covered up to <b>£1,300</b> under the Montreal Convention, and the <b>£170</b> you've already had comes off that, not on top. Fewer than 3 in 1,000 delayed bags reach 21 days.`);
+
+  if(/spend|anywhere|receipt|voucher|money/.test(q))
+    return say(`It goes onto the card on your booking — no paper vouchers, no receipts, no queue at a desk. ${S.key==="bag"?"Spend the <b>£170</b> on toiletries and clothes wherever you like.":"Spend it in the terminal or at the hotel."} If you spend more than the allowance and it's reasonable, send the receipts afterwards and we'll top it up.`);
+
+  if(/own hotel|my own|friend|family|arrange/.test(q))
+    return say(`Yes. Pick <b>“I'd rather arrange my own”</b> and we'll reimburse up to <b>£180</b> per room for the night plus reasonable travel. Keep the receipts for that one — it's the only part where we need them. The meal allowance is yours either way.`);
+
+  if(/seat|window|aisle/.test(q))
+    return say(`${o&&o.seat?`You're in <b>${o.seat}</b>, the closest equivalent to what you booked. `:""}You can change it free from your booking up to 24 hours before departure — you'd paid for seat selection on the original flight, so that carries across.`);
+
+  if(/club tomorrow|upgrade|cabin/.test(q)&&S.key==="downgrade")
+    return say(`Yes — tomorrow's <b>BA0430 at 08:20</b> has Club Europe open and seat 2A held for you. We'd cover a hotel in Amsterdam tonight plus dinner and breakfast, and you'd still keep the <b>£186</b>, because the downgrade happened either way. It's the second option on this page.`);
+
+  if(/bags make it|will our bags|transfer/.test(q)&&S.key==="misconnect")
+    return say(`All four are already tagged for whichever flight you choose — we started moving them while you were still taxiing. You don't need the transfer desk or to re-check anything. The panel on this page shows each scan as it happens.`);
+
+  if(/call|phone|speak|human|agent/.test(q))
+    return say(`You can — <b>0344 493 0787</b>, and Gold members go to the front of the queue. But everything on this page is already done or one tap away, so a call would mostly repeat it. If something here isn't working, tell me what and I'll fix it rather than send you to a queue.`);
+
+  if(/why|cause|what happened/.test(q))
+    return say({cancel:`A technical fault with the aircraft. Engineering couldn't release it before the New York curfew and there was no spare at Heathrow. Because it was our aircraft and our fault, it's within our control — which is exactly why the £520 is owed.`,
+      misconnect:`San Francisco departed 2 hours 48 minutes late after a knock-on delay from the inbound aircraft, and we lost more time in the air. Within our control, so compensation applies — reduced, because you'll still land under four hours late.`,
+      bag:`Your bag was in a transfer container that reached the aircraft after loading closed in Johannesburg. It never left the airport, which is why we could confirm it onto tonight's flight rather than start a search.`,
+      downgrade:`We substituted the aircraft at short notice and the replacement has three fewer Club Europe rows. Nine people were moved, chosen by check-in order rather than status — you were among the last to check in.`}[S.key]);
+
+  say(`I can help with your ${{cancel:"flight options, the hotel, meals, your bag or the £520",misconnect:"onward flight, the lounge, your bags or the £260",bag:"bag, the delivery, the £170 or what happens if it's lost",downgrade:"£186, the ancillary refunds or flying in Club tomorrow"}[S.key]}. What would be most useful?`);
+  chips(bootChips());
+}
+
+function autosize(){const t=$("drIn");t.style.height="auto";t.style.height=Math.min(t.scrollHeight,88)+"px";}
+$("drIn").addEventListener("input",autosize);
+$("drIn").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask($("drIn").value);}});
+$("drSend").onclick=()=>ask($("drIn").value);
+
+/* ═══════════ BA APP SHELL ═══════════ */
+const CITIES={LHR:"London",JFK:"New York",SFO:"San Francisco",AMS:"Amsterdam",JNB:"Johannesburg",BOS:"Boston",EC1:"Clerkenwell",E14:"Canary Wharf"};
+
+function appTripCard(key,s){
+  const p=s.pax,legs=s.legs,l0=legs[0];
+  const from=l0.from,to=legs.length>1&&(legs[1]||{}).from!==l0.from?(legs[legs.length-1]||{}).to||l0.to:l0.to;
+  const alertIco=s.sev==="red"?"circle-x":"triangle-alert";
+  const alertLabel={cancel:"Flight cancelled",misconnect:"Connection at risk",bag:"Bag delayed",downgrade:"Cabin downgrade"}[key];
+  const l1=legs[1]||{};
+  const alertMsg={
+    cancel:`${l0.no} on ${l0.date} has been cancelled. Tap to manage.`,
+    misconnect:`${l1.no||""} to ${CITIES[l1.to]||l1.to||""} — you may miss this connection.`,
+    bag:`Bag ${p.bag} didn't make it onto your flight.`,
+    downgrade:`You've been moved from Club Europe to ${p.cabin}.`
+  }[key];
+  return `<div class="trip-card" data-trip="${key}">
+    <div class="trip-card-alert ${s.sev}">${ico(alertIco)}<span>${esc(alertLabel)}</span><span class="tc-act">Manage</span></div>
+    <div class="trip-card-body">
+      <div class="trip-route">
+        <div class="trip-route-pt"><span class="iata">${esc(from)}</span><span class="city">${esc(CITIES[from]||from)}</span></div>
+        <div class="trip-route-line"><i data-lucide="plane"></i></div>
+        <div class="trip-route-pt"><span class="iata">${esc(to)}</span><span class="city">${esc(CITIES[to]||to)}</span></div>
+      </div>
+      <div class="trip-meta">
+        <span>${ico("calendar")} <b>${esc(l0.date)}</b></span>
+        <span>${ico("plane")} <b>${esc(l0.no)}</b></span>
+        <span>${ico("armchair")} <b>${esc(s.legs[0].state==="void"?s.pax.cabin:p.cabin)}</b></span>
+      </div>
+    </div>
+    <div class="trip-card-foot">
+      <span class="pax-count">${ico("user")} ${p.party>1?p.party+" passengers":esc(p.name)}</span>
+      <span class="pnr">${esc(p.pnr)}</span>
+    </div>
+    <div class="trip-card-cta">Manage disruption ${ico("arrow-right")}</div>
+  </div>`;
+}
+
+function renderAppBody(tab){
+  const body=$("appBody");
+  document.querySelectorAll(".app-tab").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
+  document.querySelectorAll(".sb-item").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
+
+  if(tab==="trips"){
+    const greeting=sc?`Hello, ${esc(sc.pax.first)}.`:"Hello.";
+    let html=`<div class="trips-greeting">${greeting}</div>
+      <div class="trips-sub">You have upcoming trips that need your attention.</div>`;
+
+    html+=`<div class="trip-notif">
+      <div class="tn-ic">${ico("alert-triangle")}</div>
+      <div class="tn-bd"><b>Disruption detected</b>
+        <p>We've found an issue with your upcoming trip and prepared your options. No need to call.</p></div>
+      <span class="tn-time">Just now</span></div>`;
+
+    html+=`<div class="trip-section-hd">Affected trips</div>`;
+    html+=`<div class="trips-grid">`;
+    Object.entries(SC).forEach(([k,v])=>{
+      html+=appTripCard(k,v);
+    });
+    html+=`</div>`;
+
+    body.innerHTML=html;
+    body.querySelectorAll("[data-trip]").forEach(c=>c.onclick=()=>{
+      loadScenario(c.dataset.trip);
+      enterHub();
+    });
+  } else {
+    const tabNames={home:"Home",book:"Book a flight",club:"Executive Club",more:"More"};
+    const tabIcons={home:"home",book:"search",club:"award",more:"menu"};
+    body.innerHTML=`<div class="tab-placeholder"><i data-lucide="${tabIcons[tab]}"></i><h2>${esc(tabNames[tab])}</h2><p>Not part of this prototype.<br>Tap <b>My Trips</b> to see your disrupted booking.</p></div>`;
+  }
+  lucide.createIcons();
+}
+
+function enterHub(){
+  if(reduced){
+    $("appShell").classList.remove("active");
+    $("hubShell").classList.add("active");
+    window.scrollTo({top:0,behavior:"auto"});
+    return;
+  }
+  const app=$("appShell"),hub=$("hubShell");
+  app.classList.add("view-exit");
+  app.addEventListener("animationend",function h(){
+    app.removeEventListener("animationend",h);
+    app.classList.remove("active","view-exit");
+    hub.classList.add("active","view-enter");
+    window.scrollTo({top:0,behavior:"auto"});
+    hub.addEventListener("animationend",function h2(){
+      hub.removeEventListener("animationend",h2);
+      hub.classList.remove("view-enter");
+    });
+  });
+}
+
+function exitHub(){
+  if(reduced){
+    $("hubShell").classList.remove("active");
+    $("appShell").classList.add("active");
+    renderAppBody("trips");
+    window.scrollTo({top:0,behavior:"auto"});
+    return;
+  }
+  const app=$("appShell"),hub=$("hubShell");
+  hub.classList.add("view-exit");
+  hub.addEventListener("animationend",function h(){
+    hub.removeEventListener("animationend",h);
+    hub.classList.remove("active","view-exit");
+    app.classList.add("active","view-enter");
+    renderAppBody("trips");
+    window.scrollTo({top:0,behavior:"auto"});
+    app.addEventListener("animationend",function h2(){
+      app.removeEventListener("animationend",h2);
+      app.classList.remove("view-enter");
+    });
+  });
+}
+
+$("hubBack").onclick=exitHub;
+$("appTabs").querySelectorAll(".app-tab").forEach(t=>t.onclick=()=>renderAppBody(t.dataset.tab));
+$("appSidebar").querySelectorAll(".sb-item").forEach(t=>t.onclick=()=>renderAppBody(t.dataset.tab));
+
+loadScenario("cancel");
+renderAppBody("trips");
+</script>
+</body>
+</html>
