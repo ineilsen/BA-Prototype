@@ -15,12 +15,12 @@
   --red:#C8102E; --red-tint:#FDF0F2;
   --amber:#8A5200; --amber-bg:#E8A33D; --amber-tint:#FFF6E8;
   --green:#0E7A4E; --green-tint:#EDF9F2;
-  --bg:#F4F6F9; --surface:#FFFFFF; --line:#E3E8EF; --line-2:#CFD7E3;
+  --bg:#F7F8FA; --surface:#FFFFFF; --line:#E3E8EF; --line-2:#CFD7E3;
   --ink:#1D2757; --ink-2:#55637A; --ink-3:#8A94A6;
-  --r:16px; --r-s:8px;
+  --r:12px; --r-s:6px;
   --sp-xs:4px; --sp-s:8px; --sp-m:16px; --sp-l:24px; --sp-xl:32px; --sp-2xl:48px;
-  --sh-1:0 0 0 1px rgba(29,39,87,.03),0 1px 2px rgba(29,39,87,.05),0 2px 8px rgba(29,39,87,.04);
-  --sh-2:0 0 0 1px rgba(29,39,87,.03),0 4px 12px rgba(29,39,87,.07),0 12px 32px -12px rgba(29,39,87,.14);
+  --sh-1:0 1px 3px rgba(29,39,87,.06);
+  --sh-2:0 2px 8px rgba(29,39,87,.1);
   --ease-out:cubic-bezier(.2,.7,.3,1);
   --f:"Mulish",-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-m:"IBM Plex Mono",monospace;
@@ -41,7 +41,8 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-shell.active{display:grid;grid-template-columns:240px 1fr;grid-template-rows:auto 1fr}
 .hub-shell{display:none;grid-column:2;overflow-y:auto}
 .hub-shell.active{display:block}
-.app-shell.in-hub .app-hdr{display:none}
+.app-shell.in-hub .app-hdr .app-hdr-r{display:none}
+.app-shell.in-hub .app-hdr .hub-hdr-r{display:flex}
 .app-shell.in-hub .app-tab-bar{display:none!important}
 
 .app-sidebar{grid-row:1/-1;position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:var(--sp-l) 0 var(--sp-m);overflow-y:auto;z-index:41}
@@ -64,6 +65,11 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-hdr-r button:hover{background:rgba(255,255,255,.12)}
 .app-hdr-r svg{width:20px;height:20px}
 .app-hdr-av{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+.hub-back-mob{color:#fff;display:none;place-items:center;width:36px;height:36px;border-radius:50%;margin-left:-8px}
+.hub-back-mob svg{width:22px;height:22px}
+.app-shell.in-hub .hub-back-mob{display:grid}
+.hub-hdr-r{margin-left:auto;display:none;align-items:center;gap:10px}
+.hub-hdr-r .chip{padding:4px 11px;border-radius:100px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);font-family:var(--f-m);font-size:12px;color:#fff}
 
 .app-body{overflow-y:auto;padding:0 var(--sp-xl) var(--sp-2xl)}
 
@@ -79,7 +85,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .trips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-m);max-width:800px}
 
 .trip-card{border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-1);overflow:hidden;cursor:pointer;transition:box-shadow .3s var(--ease-out),transform .3s var(--ease-out)}
-.trip-card:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+.trip-card:hover{box-shadow:var(--sh-2)}
 .trip-card-alert{display:flex;align-items:center;gap:10px;padding:11px var(--sp-m);font-size:13.5px;font-weight:600;color:#fff}
 .trip-card-alert.red{background:var(--red)}
 .trip-card-alert.amber{background:var(--amber-bg);color:#3D2500}
@@ -117,6 +123,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .tab-placeholder h2{color:var(--navy);margin-bottom:6px}
 
 .app-back{display:flex;align-items:center;gap:8px;padding:var(--sp-m) var(--sp-l);font-size:15px;font-weight:600;color:var(--blue);border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:28}
+@media (max-width:620px){.app-back{display:none}}
 .app-back svg{width:18px;height:18px}
 
 /* view transitions */
@@ -173,13 +180,13 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .hdr-ref .chip{padding:4px 11px;border-radius:100px;background:var(--bg);border:1px solid var(--line);font-family:var(--f-m);font-size:12.5px;color:var(--navy)}
 .hdr-who{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:700;flex-shrink:0}
 
-.prog{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:29}
+.prog{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:29}
 .prog-in{max-width:1040px;margin:0 auto;padding:0 var(--sp-l)}
 .prog-track{height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:-1px}
 .prog-track i{display:block;height:100%;background:var(--blue);transition:width .6s cubic-bezier(.3,0,.2,1)}
 .prog-steps{display:flex;gap:4px;padding:11px 0 12px;overflow-x:auto;scrollbar-width:none}
 .prog-steps::-webkit-scrollbar{display:none}
-.pstep{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 8px;border-radius:100px;font-size:13.5px;font-weight:500;color:var(--ink-3);white-space:nowrap;flex-shrink:0;transition:.2s}
+.pstep{display:flex;align-items:center;gap:6px;padding:6px 14px 6px 8px;border-radius:100px;font-size:13px;font-weight:500;color:var(--ink-3);white-space:nowrap;flex-shrink:0;transition:.2s}
 .pstep .n{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:11.5px;font-weight:700;border:1.5px solid var(--line-2);color:var(--ink-3);background:var(--surface)}
 .pstep.done{color:var(--ink-2);cursor:pointer}
 .pstep.done:hover{background:var(--blue-tint)}
@@ -212,7 +219,7 @@ h2{font-size:clamp(17px,2vw,19px);font-weight:700;margin:0 0 14px}
 .status-body p+p{margin-top:12px}
 
 .itin{padding:0;overflow:hidden}
-.itin-hd{padding:15px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:#FAFBFD}
+.itin-hd{padding:14px var(--sp-l);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:var(--bg)}
 .itin-hd b{font-size:14.5px;font-weight:700}
 .itin-hd .mono{margin-left:auto;font-size:12.5px;color:var(--ink-3)}
 .leg{padding:20px 22px;display:flex;align-items:center;gap:18px}
@@ -231,12 +238,12 @@ h2{font-size:clamp(17px,2vw,19px);font-weight:700;margin:0 0 14px}
 .leg-tag.void{background:var(--red-tint);color:var(--red)}
 .leg-tag.new{background:#fff;color:var(--green);border:1px solid #A8DCC2}
 .leg-tag.ok{background:var(--bg);color:var(--ink-2);border:1px solid var(--line-2)}
-.itin-ft{padding:13px 22px;background:#FAFBFD;border-top:1px solid var(--line);display:flex;gap:22px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);align-items:center}
+.itin-ft{padding:13px var(--sp-l);background:var(--bg);border-top:1px solid var(--line);display:flex;gap:var(--sp-l);flex-wrap:wrap;font-size:13.5px;color:var(--ink-2);align-items:center}
 .itin-ft b{color:var(--navy);font-weight:600}
 
 .opts{display:flex;flex-direction:column;gap:var(--sp-m);margin-bottom:var(--sp-xl)}
-.opt{display:block;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:var(--sp-l) var(--sp-l);box-shadow:var(--sh-1);transition:border-color .18s,box-shadow .3s var(--ease-out),transform .3s var(--ease-out)}
-.opt:hover{border-color:var(--line-2);box-shadow:var(--sh-2);transform:translateY(-2px)}
+.opt{display:block;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--sp-l);box-shadow:var(--sh-1);transition:border-color .18s,box-shadow .3s var(--ease-out),transform .3s var(--ease-out)}
+.opt:hover{border-color:var(--line-2);box-shadow:var(--sh-2)}
 .opt.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-tint),var(--sh-2)}
 .opt-top{display:flex;align-items:flex-start;gap:14px}
 .opt-radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--line-2);flex-shrink:0;margin-top:2px;display:grid;place-items:center;transition:.18s}
@@ -261,8 +268,8 @@ h2{font-size:clamp(17px,2vw,19px);font-weight:700;margin:0 0 14px}
 .incl b{color:var(--navy);font-weight:600}
 .incl .bi{vertical-align:-4px}
 
-.pick{display:flex;gap:16px;align-items:flex-start;width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:var(--sp-m) 18px;box-shadow:var(--sh-1);transition:border-color .18s,box-shadow .3s var(--ease-out),transform .3s var(--ease-out);margin-bottom:10px}
-.pick:hover{border-color:var(--line-2);box-shadow:var(--sh-2);transform:translateY(-2px)}
+.pick{display:flex;gap:16px;align-items:flex-start;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:var(--sp-m) 18px;box-shadow:var(--sh-1);transition:border-color .18s,box-shadow .3s var(--ease-out);margin-bottom:10px}
+.pick:hover{border-color:var(--line-2);box-shadow:var(--sh-2)}
 .pick.sel{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-tint),var(--sh-2)}
 .pick-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-2);flex-shrink:0;margin-top:3px;display:grid;place-items:center}
 .pick.sel .pick-radio{border-color:var(--blue);background:var(--blue)}
@@ -300,7 +307,7 @@ h2{font-size:clamp(17px,2vw,19px);font-weight:700;margin:0 0 14px}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 26px;border-radius:100px;font-size:16px;font-weight:700;transition:.18s;border:1.5px solid transparent}
 .btn-1{background:var(--blue);color:#fff;transition:transform .1s,background .18s,box-shadow .18s}
-.btn-1:hover{background:var(--blue-dk);box-shadow:0 4px 14px rgba(29,92,169,.28)}
+.btn-1:hover{background:var(--blue-dk)}
 .btn-1:active:not(:disabled){transform:scale(.97)}
 .btn-1:disabled{background:var(--line-2);color:#fff;cursor:not-allowed;box-shadow:none}
 .btn-2{border-color:var(--line-2);color:var(--navy);background:var(--surface)}
@@ -494,10 +501,14 @@ details[open] summary::after{transform:rotate(180deg)}
     </div>
   </nav>
   <header class="app-hdr">
+    <button class="hub-back-mob" id="hubBackMob"><i data-lucide="chevron-left"></i></button>
     <img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways">
     <div class="app-hdr-r">
       <button aria-label="Notifications"><i data-lucide="bell"></i></button>
       <span class="app-hdr-av" id="appAv">—</span>
+    </div>
+    <div class="hub-hdr-r">
+      <span class="chip" id="mobPnr">—</span>
     </div>
   </header>
   <div class="app-body" id="appBody"></div>
@@ -1332,6 +1343,7 @@ function renderAppBody(tab){
 function enterHub(){
   const shell=$("appShell"),body=$("appBody"),hub=$("hubShell");
   shell.classList.add("in-hub");
+  if($("mobPnr")) $("mobPnr").textContent=sc.pax.pnr;
   if(reduced){
     body.style.display="none";
     hub.classList.add("active");
@@ -1379,6 +1391,7 @@ function exitHub(){
 }
 
 $("hubBack").onclick=exitHub;
+$("hubBackMob").onclick=exitHub;
 $("appTabs").querySelectorAll(".app-tab").forEach(t=>t.onclick=()=>renderAppBody(t.dataset.tab));
 $("appSidebar").querySelectorAll(".sb-item").forEach(t=>t.onclick=()=>renderAppBody(t.dataset.tab));
 
