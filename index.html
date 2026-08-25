@@ -747,6 +747,7 @@ const CHAN_ICON = {SMS:ico("message-square"),Email:ico("mail"),App:ico("smartpho
 /* ═══════════ STATE ═══════════ */
 let sc,S;
 function loadScenario(key){
+  if(!SC[key]) return;
   sc=SC[key]; sc.key=key;
   S={key,si:0,option:null,hotel:null,compAccepted:false,altTaken:false,
      prefs:{sms:true,email:true,app:true},msgs:sc.msgs.map(m=>({...m}))};
