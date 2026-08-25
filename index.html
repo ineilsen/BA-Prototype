@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Manage your disruption — British Airways</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231D2757'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='sans-serif'>BA</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -746,7 +747,7 @@ const CHAN_ICON = {SMS:ico("message-square"),Email:ico("mail"),App:ico("smartpho
 /* ═══════════ STATE ═══════════ */
 let sc,S;
 function loadScenario(key){
-  sc=SC[key];
+  sc=SC[key]; sc.key=key;
   S={key,si:0,option:null,hotel:null,compAccepted:false,altTaken:false,
      prefs:{sms:true,email:true,app:true},msgs:sc.msgs.map(m=>({...m}))};
   $("drLog").innerHTML=""; say(bootLine()); chips(bootChips());
@@ -1291,7 +1292,7 @@ function renderAppBody(tab){
       <span class="tn-time">Just now</span></div>`;
 
     html+=`<div class="trip-section-hd">Affected trips</div>`;
-    html+=appTripCard(sc.key,sc);
+    html+=appTripCard(S.key,sc);
 
     html+=`<div class="trip-section-hd" style="margin-top:var(--sp-xl)">Upcoming trips</div>`;
     html+=`<div class="trip-card" style="cursor:default">
