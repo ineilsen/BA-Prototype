@@ -113,8 +113,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .trip-card{border-radius:var(--r);background:var(--surface);border:none;box-shadow:0 4px 20px rgba(29,39,87,.10),0 0 0 1px rgba(29,39,87,.04);overflow:hidden;cursor:pointer;transition:box-shadow .35s var(--ease-out),transform .35s var(--ease-out)}
 .trip-card:hover{box-shadow:0 12px 36px rgba(29,39,87,.14);transform:translateY(-2px)}
 .trip-card-hdr{background:linear-gradient(155deg,#1B2550 0%,#263670 50%,#2E4080 100%);color:#fff;padding:20px;position:relative}
-.trip-card-hdr .tc-ribbon{height:14px;width:auto;opacity:.2;margin-bottom:6px;display:block}
-.trip-card-hdr .tc-ribbon path{fill:#fff}
+.trip-card-hdr .tc-ribbon{height:14px;width:auto;opacity:.25;margin-bottom:6px;display:block;object-fit:contain}
 .trip-card-hdr .tc-flight{font-family:var(--f-m);font-size:12.5px;opacity:.6;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .trip-card-hdr .tc-cabin{font-size:12.5px;opacity:.5;margin-top:8px}
 .trip-card-hdr .tc-cabin span+span::before{content:"·";margin:0 8px}
@@ -1083,7 +1082,7 @@ const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,"
 const ico = n => `<i data-lucide="${n}"></i>`;
 const truncW = (s,n=85) => s.length<=n ? s : s.substring(0,s.lastIndexOf(" ",n))+"…";
 const isMob = () => window.innerWidth <= 620;
-const BA_LOGO_FALLBACK = `<svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg>`;
+const BA_LOGO_FALLBACK = `<img class="ba-ribbon" src="ba-logo-transparent.png" alt="British Airways" style="filter:brightness(0) invert(1)">`;
 const BA_LOGO = `<img class="ba-ribbon" src="british-airways-colour-negative-dark-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK">`;
 const BA_WORDMARK = `<span class="ba-wm">British Airways</span>`;
 
@@ -2163,7 +2162,7 @@ function appTripCard(key,s){
   const terms={LHR:"Heathrow T5",JFK:"JFK T7",SFO:"SFO T1",AMS:"Schiphol",JNB:"JNB T1",BOS:"BOS E"};
   return `<div class="trip-card" data-trip="${key}">
     <div class="trip-card-hdr">
-      <svg class="tc-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg>
+      <img class="tc-ribbon" src="ba-logo-transparent.png" alt="BA">
       <span class="tc-badge ${alertBadgeCls}">${esc(alertLabel)}</span>
       <div class="tc-flight"><b>${esc(l0.no)}</b></div>
       <div class="tc-flight">${esc(p.cabin)} · ${esc(l0.date)}</div>
@@ -2465,7 +2464,7 @@ function showWalletPass(){
     ov.className="wallet-overlay";
     ov.innerHTML=`<div class="wallet-pass">
       <div class="wp-hdr">
-        <div class="wp-logo"><svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#6a8ec8"/></svg></div>
+        <div class="wp-logo"><img src="ba-logo-transparent.png" alt="BA" style="width:28px;height:auto"></div>
         <div class="wp-info"><b>Boarding Pass</b><span>British Airways</span></div>
       </div>
       <div class="wp-body">
