@@ -164,7 +164,13 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .hub-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:var(--sp-l)}
 .hub-tile{background:var(--surface);border-radius:var(--r);box-shadow:0 2px 12px rgba(29,39,87,.06),0 0 0 1px rgba(29,39,87,.04);padding:18px;cursor:pointer;transition:box-shadow .25s,transform .25s var(--ease-out);position:relative}
 .hub-tile:hover{box-shadow:0 6px 24px rgba(29,39,87,.10);transform:translateY(-1px)}
-.hub-tile-emoji{font-size:28px;margin-bottom:10px;line-height:1;display:block}
+.hub-tile-ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;margin-bottom:10px}
+.hub-tile-ic svg{width:20px;height:20px;stroke-width:1.5}
+.hub-tile-ic.ic-navy{background:rgba(29,39,87,.08);color:var(--navy)}
+.hub-tile-ic.ic-blue{background:rgba(29,92,169,.08);color:var(--blue)}
+.hub-tile-ic.ic-green{background:rgba(0,133,66,.08);color:var(--green)}
+.hub-tile-ic.ic-red{background:rgba(200,16,46,.08);color:var(--red)}
+.hub-tile-ic.ic-amber{background:rgba(196,130,14,.08);color:#C4820E}
 .hub-tile b{display:block;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--navy)}
 .hub-tile .htile-badge{position:absolute;top:14px;right:14px;width:10px;height:10px;border-radius:50%;background:var(--red)}
 .hub-tile .htile-status{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;margin-top:4px}
@@ -2300,42 +2306,42 @@ function renderAppBody(tab){
     html+=appTripCard(S.key,sc);
     const tileData={
       cancel:[
-        {em:"✈️",t:"Flight",s:"Action needed",badge:true,st:"action"},
-        {em:"👜",t:"Baggage",s:"1 bag booked",st:"info"},
-        {em:"💺",t:"Seats",s:"Refund available",st:"action"},
-        {em:"🍽️",t:"Meals",s:"Halal booked",st:"ok"},
-        {em:"🍾",t:"Lounge",s:"Eligible",st:"info"},
-        {em:"🏨",t:"Hotel",s:"Voucher issued",badge:true,st:"new"}
+        {ic:"plane",cl:"red",t:"Flight",s:"Action needed",badge:true,st:"action"},
+        {ic:"luggage",cl:"navy",t:"Baggage",s:"1 bag booked",st:"info"},
+        {ic:"armchair",cl:"blue",t:"Seats",s:"Refund available",st:"action"},
+        {ic:"utensils",cl:"green",t:"Meals",s:"Halal booked",st:"ok"},
+        {ic:"wine",cl:"navy",t:"Lounge",s:"Eligible",st:"info"},
+        {ic:"building",cl:"blue",t:"Hotel",s:"Voucher issued",badge:true,st:"new"}
       ],
       misconnect:[
-        {em:"✈️",t:"Flight",s:"Rebooking needed",badge:true,st:"action"},
-        {em:"👜",t:"Baggage",s:"4 bags tracked",st:"info"},
-        {em:"💺",t:"Seats",s:"4 together held",st:"ok"},
-        {em:"🍽️",t:"Meals",s:"£72 loaded",st:"ok"},
-        {em:"🍾",t:"Lounge",s:"Access granted",st:"ok"},
-        {em:"🏨",t:"Hotel",s:"May be needed",st:"info"}
+        {ic:"plane",cl:"red",t:"Flight",s:"Rebooking needed",badge:true,st:"action"},
+        {ic:"luggage",cl:"navy",t:"Baggage",s:"4 bags tracked",st:"info"},
+        {ic:"armchair",cl:"green",t:"Seats",s:"4 together held",st:"ok"},
+        {ic:"utensils",cl:"green",t:"Meals",s:"£72 loaded",st:"ok"},
+        {ic:"wine",cl:"green",t:"Lounge",s:"Access granted",st:"ok"},
+        {ic:"building",cl:"blue",t:"Hotel",s:"May be needed",st:"info"}
       ],
       bag:[
-        {em:"✈️",t:"Flight",s:"Arrived",st:"ok"},
-        {em:"👜",t:"Baggage",s:"Tracking active",badge:true,st:"action"},
-        {em:"🚚",t:"Delivery",s:"Choose method",st:"action"},
-        {em:"💵",t:"Essentials",s:"£170 loaded",st:"ok"},
-        {em:"🛡️",t:"Cover",s:"Montreal Convention",st:"info"},
-        {em:"📄",t:"Bag file",s:"Raised for you",st:"ok"}
+        {ic:"plane",cl:"green",t:"Flight",s:"Arrived",st:"ok"},
+        {ic:"luggage",cl:"red",t:"Baggage",s:"Tracking active",badge:true,st:"action"},
+        {ic:"truck",cl:"red",t:"Delivery",s:"Choose method",st:"action"},
+        {ic:"banknote",cl:"green",t:"Essentials",s:"£170 loaded",st:"ok"},
+        {ic:"shield-check",cl:"blue",t:"Cover",s:"Montreal Convention",st:"info"},
+        {ic:"file-text",cl:"green",t:"Bag file",s:"Raised for you",st:"ok"}
       ],
       downgrade:[
-        {em:"✈️",t:"Flight",s:"On time",st:"ok"},
-        {em:"⬇️",t:"Cabin",s:"Downgraded",badge:true,st:"action"},
-        {em:"💺",t:"Seat",s:"Moved to 9C",st:"action"},
-        {em:"💵",t:"Refund",s:"£186 owed",st:"action"},
-        {em:"🍾",t:"Lounge",s:"Still eligible",st:"ok"},
-        {em:"💳",t:"Ancillaries",s:"£94 refund",st:"info"}
+        {ic:"plane",cl:"green",t:"Flight",s:"On time",st:"ok"},
+        {ic:"arrow-down-circle",cl:"red",t:"Cabin",s:"Downgraded",badge:true,st:"action"},
+        {ic:"armchair",cl:"red",t:"Seat",s:"Moved to 9C",st:"action"},
+        {ic:"banknote",cl:"red",t:"Refund",s:"£186 owed",st:"action"},
+        {ic:"wine",cl:"green",t:"Lounge",s:"Still eligible",st:"ok"},
+        {ic:"credit-card",cl:"blue",t:"Ancillaries",s:"£94 refund",st:"info"}
       ]
     }[S.key]||[];
     html+=`<div class="trip-section-hd" style="margin-top:24px">Your Journey Hub</div>
     <div class="hub-tiles">${tileData.map(t=>`
       <div class="hub-tile" data-trip="${S.key}">
-        <span class="hub-tile-emoji">${t.em}</span>
+        <span class="hub-tile-ic ic-${t.cl}">${ico(t.ic)}</span>
         ${t.badge?'<span class="htile-badge"></span>':''}
         <b>${esc(t.t)}</b>
         <span class="htile-status ${t.st}">${esc(t.s)}<span class="htile-chev">›</span></span>
