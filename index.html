@@ -74,7 +74,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .sb-foot span{font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .app-hdr{background:var(--navy);padding:env(safe-area-inset-top,0) 16px 0;display:none;align-items:center;justify-content:space-between;height:calc(56px + env(safe-area-inset-top,0px));position:sticky;top:0;z-index:40}
-.app-hdr .ba-ribbon{height:clamp(18px,4.5vw,24px);width:auto;max-width:180px;position:absolute;left:50%;transform:translateX(-50%)}
+.app-hdr .ba-ribbon{height:clamp(22px,5.5vw,30px);width:auto;max-width:120px;position:absolute;left:50%;transform:translateX(-50%);object-fit:contain}
 .app-hdr-r{display:flex;align-items:center;gap:12px;z-index:1}
 .app-hdr-r button{color:#fff;display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.1);font-size:0}
 .app-hdr-r button:hover{background:rgba(255,255,255,.18)}
@@ -98,9 +98,10 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-body{overflow-y:auto;overflow-x:hidden;padding:0 var(--sp-xl) var(--sp-2xl);max-width:100vw}
 
 .app-tab-bar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--navy);display:none;justify-content:space-around;padding:0 0 env(safe-area-inset-bottom,8px);border-top:1px solid rgba(255,255,255,.08)}
-.app-tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 16px 10px;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;position:relative;transition:color .2s;border-top:3px solid transparent;letter-spacing:.01em}
-.app-tab svg{width:22px;height:22px;stroke-width:1.8}
+.app-tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 16px 6px;font-size:10px;font-weight:500;color:rgba(255,255,255,.45);text-decoration:none;position:relative;transition:color .2s;border-top:2px solid transparent;letter-spacing:.02em}
+.app-tab svg,.app-tab .tab-ic{width:24px;height:24px;stroke-width:1.5}
 .app-tab.active{color:#fff;border-top-color:#fff}
+.app-tab.active svg,.app-tab.active .tab-ic{stroke-width:1.8}
 .app-tab .badge{position:absolute;top:2px;right:4px;width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;line-height:1}
 
 .trips-greeting{padding:var(--sp-l) 0 var(--sp-m);font-size:clamp(26px,3vw,34px);font-weight:300;color:var(--navy);line-height:1.2;letter-spacing:-.01em}
@@ -979,10 +980,10 @@ details[open] summary::after{transform:rotate(180deg)}
   <nav class="app-sidebar" id="appSidebar">
     <a class="sb-logo" href="#"><img class="ba-ribbon" src="british-airways-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK"></a>
     <div class="sb-nav">
-      <button class="sb-item" data-tab="home"><i data-lucide="home"></i><span>Home</span></button>
-      <button class="sb-item" data-tab="book"><i data-lucide="calendar"></i><span>Book</span></button>
-      <button class="sb-item active" data-tab="trips"><i data-lucide="plane"></i><span class="badge" id="sbBadge">1</span><span>Trips</span></button>
-      <button class="sb-item" data-tab="account"><i data-lucide="user"></i><span>Account</span></button>
+      <button class="sb-item" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V14h6v7"/></svg><span>Home</span></button>
+      <button class="sb-item" data-tab="book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="1.5"/><path d="M3 9h18"/><path d="M8 2v4M16 2v4"/></svg><span>Book</span></button>
+      <button class="sb-item active" data-tab="trips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 3.5c1.5 0 3 1.5 3 3s-1.5 2.5-3 2.5L4 14l-1.5 4.5L6 17l1 2 2.5-1.5L4 14l13.5-5.5"/><path d="M5.5 16l2 2"/><path d="M14 4l4 4"/></svg><span class="badge" id="sbBadge">1</span><span>Trips</span></button>
+      <button class="sb-item" data-tab="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg><span>Account</span></button>
     </div>
     <div class="sb-foot">
       <span class="sb-av" id="sbAv">—</span>
@@ -991,10 +992,10 @@ details[open] summary::after{transform:rotate(180deg)}
   </nav>
   <header class="app-hdr">
     <div class="app-hdr-l">
-      <button class="hub-back-mob" id="hubBackMob"><i data-lucide="chevron-left"></i></button>
-      <button class="app-menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
+      <button class="hub-back-mob" id="hubBackMob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg></button>
+      <button class="app-menu-btn" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
-    <img class="ba-ribbon" src="british-airways-colour-negative-dark-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK">
+    <img class="ba-ribbon" src="ba-logo-transparent.png" alt="British Airways">
     <div class="app-hdr-r"></div>
     <div class="hub-hdr-r">
       <span class="chip" id="mobPnr">—</span>
@@ -1002,10 +1003,10 @@ details[open] summary::after{transform:rotate(180deg)}
   </header>
   <div class="app-body" id="appBody"></div>
   <nav class="app-tab-bar" id="appTabs">
-    <button class="app-tab" data-tab="home"><i data-lucide="home"></i>Home</button>
-    <button class="app-tab" data-tab="book"><i data-lucide="calendar"></i>Book</button>
-    <button class="app-tab active" data-tab="trips"><i data-lucide="plane"></i><span class="badge" id="tripBadge">1</span>Trips</button>
-    <button class="app-tab" data-tab="account"><i data-lucide="user"></i>Account</button>
+    <button class="app-tab" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V14h6v7"/></svg>Home</button>
+    <button class="app-tab" data-tab="book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="1.5"/><path d="M3 9h18"/><path d="M8 2v4M16 2v4"/></svg>Book</button>
+    <button class="app-tab active" data-tab="trips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 3.5c1.5 0 3 1.5 3 3s-1.5 2.5-3 2.5L4 14l-1.5 4.5L6 17l1 2 2.5-1.5L4 14l13.5-5.5"/><path d="M5.5 16l2 2"/><path d="M14 4l4 4"/></svg><span class="badge" id="tripBadge">1</span>Trips</button>
+    <button class="app-tab" data-tab="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6"/></svg>Account</button>
   </nav>
 
 <div class="hub-shell" id="hubShell">
