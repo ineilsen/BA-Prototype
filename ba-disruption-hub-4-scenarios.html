@@ -46,8 +46,10 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-shell.in-hub .app-tab-bar{display:none!important}
 
 .app-sidebar{grid-row:1/-1;position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:var(--sp-l) 0 var(--sp-m);overflow-y:auto;z-index:41}
-.app-sidebar .sb-logo{padding:0 var(--sp-l) var(--sp-xl);display:block}
-.app-sidebar .sb-logo img{height:26px;width:auto}
+.ba-ribbon{height:22px;width:auto;object-fit:contain}
+.ba-wm{font-size:15px;font-weight:800;letter-spacing:.02em;color:var(--navy)}
+.app-sidebar .sb-logo{padding:0 var(--sp-l) var(--sp-xl);display:flex;align-items:center;gap:10px}
+.app-sidebar .sb-logo .ba-ribbon{height:20px}
 .sb-nav{flex:1;display:flex;flex-direction:column;gap:var(--sp-xs);padding:0 var(--sp-s)}
 .sb-item{display:flex;align-items:center;gap:12px;padding:10px var(--sp-m);border-radius:var(--r-s);font-size:14.5px;font-weight:600;color:var(--ink-2);transition:background .16s,color .16s;position:relative}
 .sb-item svg{width:20px;height:20px;flex-shrink:0}
@@ -59,7 +61,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .sb-foot span{font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .app-hdr{background:var(--navy);padding:0 var(--sp-m);display:none;align-items:center;justify-content:center;height:56px;position:sticky;top:0;z-index:40}
-.app-hdr img{height:22px;width:auto;filter:brightness(0) invert(1)}
+.app-hdr .ba-ribbon{height:20px;width:auto}
 .app-hdr-r{position:absolute;right:var(--sp-m);display:flex;align-items:center;gap:12px}
 .app-hdr-r button{color:#fff;display:grid;place-items:center;width:36px;height:36px;border-radius:50%}
 .app-hdr-r button:hover{background:rgba(255,255,255,.12)}
@@ -155,9 +157,106 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .trip-notif .tn-bd p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.45}
 .trip-notif .tn-time{font-size:11.5px;color:var(--ink-3);white-space:nowrap;flex-shrink:0}
 
-.tab-placeholder{padding:60px var(--sp-l);text-align:center;color:var(--ink-3)}
-.tab-placeholder svg{width:48px;height:48px;margin-bottom:14px;opacity:.4}
-.tab-placeholder h2{color:var(--navy);margin-bottom:6px}
+/* ═══ TAB CONTENT — Home / Book / Account ═══ */
+.tab-section{padding:var(--sp-l) 0}
+.tab-section-hd{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+.tab-hero{padding:28px 0 8px}
+.tab-hero h1{font-size:clamp(24px,3vw,32px);margin-bottom:4px}
+.tab-hero p{font-size:15px;color:var(--ink-2);margin:0}
+
+/* Quick actions row */
+.qa-row{display:flex;gap:12px;padding:8px 0 var(--sp-l);overflow-x:auto;scrollbar-width:none}
+.qa-row::-webkit-scrollbar{display:none}
+.qa-btn{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:72px;padding:14px 12px;border-radius:var(--r);background:var(--surface);box-shadow:var(--sh-1);font-size:11.5px;font-weight:600;color:var(--ink-2);text-align:center;flex-shrink:0;transition:box-shadow .2s,transform .2s}
+.qa-btn:hover{box-shadow:var(--sh-2);transform:translateY(-1px)}
+.qa-btn .qa-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:18px;margin-bottom:2px}
+.qa-btn .qa-ic.navy{background:linear-gradient(135deg,var(--navy),#2A3A72);color:#fff}
+.qa-btn .qa-ic.blue{background:var(--blue-tint);color:var(--blue)}
+.qa-btn .qa-ic.green{background:var(--green-tint);color:var(--green)}
+.qa-btn .qa-ic.amber{background:var(--amber-tint);color:var(--amber)}
+
+/* Promo card */
+.promo-card{border-radius:var(--r);overflow:hidden;background:linear-gradient(145deg,var(--navy),#2A3A72);color:#fff;padding:28px 24px;margin-bottom:16px;position:relative;box-shadow:var(--sh-2)}
+.promo-card h3{font-size:20px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em}
+.promo-card p{font-size:14px;opacity:.75;margin:0 0 16px;max-width:70%;line-height:1.5}
+.promo-card .promo-tag{position:absolute;top:20px;right:20px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,.15);text-transform:uppercase;letter-spacing:.05em}
+.promo-card .btn-promo{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:100px;background:#fff;color:var(--navy);font-size:14px;font-weight:700}
+
+/* Destination card */
+.dest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.dest-card{border-radius:var(--r);overflow:hidden;background:var(--surface);box-shadow:var(--sh-1);cursor:pointer;transition:box-shadow .25s,transform .25s}
+.dest-card:hover{box-shadow:var(--sh-2);transform:translateY(-1px)}
+.dest-img{height:120px;background-size:cover;background-position:center;position:relative}
+.dest-img::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.4))}
+.dest-img span{position:absolute;bottom:10px;left:12px;color:#fff;font-size:12px;font-weight:700;z-index:1;letter-spacing:.02em}
+.dest-body{padding:12px 14px}
+.dest-body b{display:block;font-size:15px;font-weight:700;margin-bottom:2px}
+.dest-body span{font-size:13px;color:var(--ink-2)}
+.dest-body .dest-price{float:right;font-family:var(--f-m);font-size:14px;font-weight:500;color:var(--green)}
+
+/* Search form (Book tab) */
+.book-form{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-2);padding:24px;margin-bottom:24px}
+.form-row{display:flex;gap:12px;margin-bottom:14px}
+.form-field{flex:1;display:flex;flex-direction:column;gap:4px}
+.form-field label{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3)}
+.form-field .fi{display:flex;align-items:center;gap:8px;padding:12px 14px;border:1.5px solid var(--line-2);border-radius:var(--r-s);font-size:15px;font-weight:600;color:var(--navy);background:var(--surface)}
+.form-field .fi svg{width:18px;height:18px;color:var(--ink-3);flex-shrink:0}
+.form-swap{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;align-self:flex-end;margin-bottom:4px;flex-shrink:0;color:var(--ink-3);transition:.2s}
+.form-swap:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
+.form-swap svg{width:16px;height:16px}
+.form-tabs{display:flex;gap:0;margin-bottom:20px;border-radius:var(--r-s);overflow:hidden;border:1.5px solid var(--line-2)}
+.form-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:700;color:var(--ink-2);transition:.2s}
+.form-tab.active{background:var(--navy);color:#fff}
+
+/* Account profile card */
+.profile-card{background:linear-gradient(145deg,var(--navy),#2A3A72);color:#fff;border-radius:var(--r);padding:28px 24px;margin-bottom:20px;box-shadow:var(--sh-2)}
+.profile-card .pc-top{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.profile-card .pc-av{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:20px;font-weight:700;flex-shrink:0}
+.profile-card .pc-name{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.profile-card .pc-tier{font-size:13px;opacity:.7;margin-top:2px}
+.pc-stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.15)}
+.pc-stat{flex:1;padding:16px 0 0;text-align:center}
+.pc-stat+.pc-stat{border-left:1px solid rgba(255,255,255,.15)}
+.pc-stat b{display:block;font-family:var(--f-m);font-size:22px;font-weight:500}
+.pc-stat span{display:block;font-size:11.5px;opacity:.6;margin-top:2px}
+
+/* Account menu list */
+.acct-menu{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);overflow:hidden;margin-bottom:16px}
+.acct-item{display:flex;align-items:center;gap:14px;padding:16px 18px;width:100%;transition:background .15s}
+.acct-item:hover{background:var(--bg)}
+.acct-item+.acct-item{border-top:1px solid var(--line)}
+.acct-item .ai-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:16px;flex-shrink:0}
+.acct-item .ai-ic.blue{background:var(--blue-tint);color:var(--blue)}
+.acct-item .ai-ic.green{background:var(--green-tint);color:var(--green)}
+.acct-item .ai-ic.amber{background:var(--amber-tint);color:var(--amber)}
+.acct-item .ai-ic.navy{background:rgba(29,39,87,.08);color:var(--navy)}
+.acct-item b{flex:1;font-size:15px;font-weight:600}
+.acct-item .ai-meta{font-size:13px;color:var(--ink-3);flex-shrink:0}
+.acct-item .ai-chev{color:var(--ink-3);flex-shrink:0}
+.acct-item .ai-chev svg{width:16px;height:16px}
+
+/* Upcoming flight mini card */
+.upcoming-flight{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);padding:18px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px}
+.upcoming-flight .uf-left{flex:1}
+.upcoming-flight .uf-route{font-family:var(--f-m);font-size:18px;font-weight:500;color:var(--navy);margin-bottom:2px}
+.upcoming-flight .uf-meta{font-size:13px;color:var(--ink-2)}
+.upcoming-flight .uf-status{padding:5px 12px;border-radius:100px;font-size:12px;font-weight:700;background:var(--red-tint);color:var(--red);flex-shrink:0;display:flex;align-items:center;gap:4px}
+.upcoming-flight .uf-status svg{width:12px;height:12px}
+
+@media (max-width:620px){
+  .tab-hero{padding:24px 20px 4px}
+  .qa-row{padding:8px 20px var(--sp-l)}
+  .tab-section{padding:0 20px var(--sp-l)}
+  .promo-card{margin:0 20px 16px}
+  .dest-grid{padding:0;gap:10px}
+  .dest-img{height:100px}
+  .book-form{margin:0 20px 20px}
+  .form-row{flex-direction:column;gap:10px}
+  .form-swap{align-self:center;transform:rotate(90deg)}
+  .profile-card{margin:20px 20px 16px}
+  .acct-menu{margin:0 20px 16px}
+  .upcoming-flight{margin:0 20px 16px}
+}
 
 .app-back{display:flex;align-items:center;gap:8px;padding:var(--sp-m) var(--sp-xl);font-size:15.5px;font-weight:600;color:var(--blue);border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:28}
 @media (max-width:620px){.app-back{display:none}}
@@ -171,8 +270,8 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 
 @media (max-width:940px) and (min-width:621px){
   .app-shell.active{grid-template-columns:64px 1fr}
-  .app-sidebar .sb-logo{padding:0 0 var(--sp-l);text-align:center}
-  .app-sidebar .sb-logo img{height:20px}
+  .app-sidebar .sb-logo{padding:0 12px var(--sp-l);justify-content:center}
+  .app-sidebar .sb-logo .ba-ribbon{height:16px}
   .sb-item{justify-content:center;padding:12px}
   .sb-item span:not(.badge){display:none}
   .sb-item .badge{position:absolute;top:2px;right:8px;left:auto}
@@ -209,7 +308,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
   .hub-tile{padding:18px 16px}
   .hub-tile-ic{width:36px;height:36px;border-radius:10px;margin-bottom:10px;font-size:16px}
   .hub-tile b{font-size:14.5px}
-  .app-hdr img{height:20px}
+  .app-hdr .ba-ribbon{height:18px}
 }
 
 /* scenario switcher */
@@ -226,7 +325,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .hdr{display:none}
 .hdr-in{max-width:1040px;margin:0 auto;padding:0 20px;height:62px;display:flex;align-items:center;gap:16px}
 .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
-.logo img{height:28px;width:auto;object-fit:contain}
+.logo .ba-ribbon{height:24px;width:auto;object-fit:contain}
 .logo b{font-size:16px;font-weight:700;color:var(--navy);white-space:nowrap}
 .hdr-ref{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-2)}
 .hdr-ref .chip{padding:4px 11px;border-radius:100px;background:var(--bg);border:1px solid var(--line);font-family:var(--f-m);font-size:12.5px;color:var(--navy)}
@@ -762,7 +861,7 @@ details[open] summary::after{transform:rotate(180deg)}
 <!-- ═══════════ BA APP SHELL ═══════════ -->
 <div class="app-shell active" id="appShell">
   <nav class="app-sidebar" id="appSidebar">
-    <a class="sb-logo" href="#"><img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways"></a>
+    <a class="sb-logo" href="#"><img src="image.png" alt="British Airways" class="ba-ribbon"></a>
     <div class="sb-nav">
       <button class="sb-item" data-tab="home"><i data-lucide="home"></i><span>Home</span></button>
       <button class="sb-item" data-tab="book"><i data-lucide="calendar"></i><span>Book</span></button>
@@ -776,7 +875,7 @@ details[open] summary::after{transform:rotate(180deg)}
   </nav>
   <header class="app-hdr">
     <button class="hub-back-mob" id="hubBackMob"><i data-lucide="chevron-left"></i></button>
-    <img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways">
+    <img src="image.png" alt="British Airways" class="ba-ribbon">
     <div class="app-hdr-r">
       <button aria-label="Notifications"><i data-lucide="bell"></i></button>
       <span class="app-hdr-av" id="appAv">—</span>
@@ -806,9 +905,7 @@ details[open] summary::after{transform:rotate(180deg)}
 
 <header class="hdr">
   <div class="hdr-in">
-    <a class="logo" href="#">
-      <img src="British_Airways-British_Airways_Logo-ref115864.jpg" alt="British Airways">
-    </a>
+    <a class="logo" href="#"><img src="image.png" alt="British Airways" class="ba-ribbon"></a>
     <div class="hdr-ref">
       <span class="lbl">Booking</span>
       <span class="chip" id="hdrPnr">—</span>
@@ -869,6 +966,8 @@ const money = n => "£" + n.toLocaleString("en-GB");
 const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); };
 const ico = n => `<i data-lucide="${n}"></i>`;
 const isMob = () => window.innerWidth <= 620;
+const BA_LOGO = `<img src="image.png" alt="British Airways" class="ba-ribbon">`;
+const BA_WORDMARK = `<span class="ba-wm">British Airways</span>`;
 
 function brand(slug,label,hex,cls){
   return `<img class="bi ${cls||""}" src="https://cdn.simpleicons.org/${slug}/${hex||"1D2757"}" alt="${esc(label)}" data-label="${esc(label)}" onerror="brandFail(this)">`;
@@ -1692,19 +1791,110 @@ function renderAppBody(tab){
   const body=$("appBody");
   document.querySelectorAll(".app-tab").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
   document.querySelectorAll(".sb-item").forEach(t=>t.classList.toggle("active",t.dataset.tab===tab));
+  const pax=sc?sc.pax:{first:"Guest",name:"Guest",init:"G",pnr:"—",tier:"Blue"};
+  const timeGreet=new Date().getHours()<12?"morning":new Date().getHours()<18?"afternoon":"evening";
 
-  if(tab==="trips"){
-    const greeting=sc?`Good ${new Date().getHours()<12?"morning":"afternoon"},<br>${esc(sc.pax.first)}.`:"Hello.";
-    let html=`<div class="trips-greeting">${greeting}</div>`;
+  if(tab==="home"){
+    body.innerHTML=`
+      <div class="tab-hero"><h1>Good ${timeGreet},<br>${esc(pax.first)}.</h1><p>Welcome back to British Airways.</p></div>
+      <div class="qa-row">
+        <button class="qa-btn" onclick="renderAppBody('book')"><span class="qa-ic navy">${ico("plane")}</span>Book</button>
+        <button class="qa-btn" onclick="renderAppBody('trips')"><span class="qa-ic blue">${ico("briefcase")}</span>My trips</button>
+        <button class="qa-btn"><span class="qa-ic green">${ico("wallet")}</span>Avios</button>
+        <button class="qa-btn"><span class="qa-ic amber">${ico("door-open")}</span>Lounges</button>
+        <button class="qa-btn"><span class="qa-ic navy">${ico("qr-code")}</span>Check in</button>
+      </div>
+      <div class="upcoming-flight" onclick="renderAppBody('trips')">
+        <div class="uf-left">
+          <div class="uf-route">${esc(sc?sc.legs[0].from:"LHR")} → ${esc(sc?sc.legs[sc.legs.length-1].to:"JFK")}</div>
+          <div class="uf-meta">${esc(sc?sc.legs[0].no:"BA0117")} · ${esc(sc?sc.legs[0].date:"Today")} · ${esc(pax.cabin||"Club World")}</div>
+        </div>
+        <span class="uf-status">${ico("alert-triangle")} Action</span>
+      </div>
+      <div class="promo-card">
+        <span class="promo-tag">Gold member</span>
+        <h3>Your Tier Points</h3>
+        <p>You're 240 Tier Points from renewing Gold status. Fly before March to keep your benefits.</p>
+        <button class="btn-promo">View progress ${ico("arrow-right")}</button>
+      </div>
+      <div class="tab-section"><div class="tab-section-hd">Popular destinations</div>
+      <div class="dest-grid">
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#1a3a5c,#2a5a8c)"><span>NEW YORK</span></div>
+          <div class="dest-body"><b>New York JFK</b><span>Direct · 7h 40m</span><span class="dest-price">£489</span></div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#5c3a1a,#8c6a3a)"><span>DUBAI</span></div>
+          <div class="dest-body"><b>Dubai DXB</b><span>Direct · 6h 55m</span><span class="dest-price">£399</span></div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#1a5c3a,#2a8c5a)"><span>TOKYO</span></div>
+          <div class="dest-body"><b>Tokyo HND</b><span>Direct · 11h 45m</span><span class="dest-price">£649</span></div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#5c1a3a,#8c3a5a)"><span>CAPE TOWN</span></div>
+          <div class="dest-body"><b>Cape Town CPT</b><span>Direct · 11h 30m</span><span class="dest-price">£579</span></div>
+        </div>
+      </div></div>`;
+  }
 
+  else if(tab==="book"){
+    body.innerHTML=`
+      <div class="tab-hero"><h1>Book a flight</h1></div>
+      <div class="book-form">
+        <div class="form-tabs">
+          <button class="form-tab active">Return</button>
+          <button class="form-tab">One way</button>
+          <button class="form-tab">Multi-city</button>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>From</label><div class="fi">${ico("plane-takeoff")} London Heathrow (LHR)</div></div>
+          <button class="form-swap">${ico("arrow-left-right")}</button>
+          <div class="form-field"><label>To</label><div class="fi">${ico("plane-landing")} Where to?</div></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Depart</label><div class="fi">${ico("calendar")} Select date</div></div>
+          <div class="form-field"><label>Return</label><div class="fi">${ico("calendar")} Select date</div></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Passengers</label><div class="fi">${ico("users")} 1 Adult</div></div>
+          <div class="form-field"><label>Cabin</label><div class="fi">${ico("armchair")} Economy</div></div>
+        </div>
+        <button class="btn btn-1" style="width:100%;margin-top:8px">Search flights ${ico("search")}</button>
+      </div>
+      <div class="tab-section"><div class="tab-section-hd">Avios deals</div>
+      <div class="dest-grid">
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#2a3a72,#4a6aaa)"><span>PARIS CDG</span></div>
+          <div class="dest-body"><b>Paris</b><span>From 9,500 Avios</span><span class="dest-price">+ £1</span></div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#1a5c5c,#2a8c8c)"><span>BARCELONA</span></div>
+          <div class="dest-body"><b>Barcelona</b><span>From 11,000 Avios</span><span class="dest-price">+ £1</span></div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#3a2a1a,#6a5a3a)"><span>ROME FCO</span></div>
+          <div class="dest-body"><b>Rome</b><span>From 13,000 Avios</span><span class="dest-price">+ £1</span></div>
+        </div>
+        <div class="dest-card">
+          <div class="dest-img" style="background:linear-gradient(135deg,#1a2a5c,#3a4a7c)"><span>AMSTERDAM</span></div>
+          <div class="dest-body"><b>Amsterdam</b><span>From 8,500 Avios</span><span class="dest-price">+ £1</span></div>
+        </div>
+      </div></div>`;
+    body.querySelectorAll(".form-tab").forEach(t=>t.onclick=()=>{
+      body.querySelectorAll(".form-tab").forEach(x=>x.classList.remove("active"));
+      t.classList.add("active");
+    });
+  }
+
+  else if(tab==="trips"){
+    let html=`<div class="trips-greeting">Good ${timeGreet},<br>${esc(pax.first)}.</div>`;
     html+=`<div class="trip-notif">
       <div class="tn-ic">${ico("info")}</div>
       <div class="tn-bd"><b>Flight disruption detected</b>
         <p>Your outbound flight has been affected. We've prepared your options — no need to call.</p></div>
       <span class="tn-time">Just now</span></div>`;
-
     html+=appTripCard(S.key,sc);
-
     const tileData={
       cancel:[
         {ic:"plane",cls:"flight",t:"Flight",s:"Action needed",badge:true,st:"action"},
@@ -1739,7 +1929,6 @@ function renderAppBody(tab){
         {ic:"credit-card",cls:"hotel",t:"Ancillaries",s:"£94 refund",st:"info"}
       ]
     }[S.key]||[];
-
     html+=`<div class="trip-section-hd" style="margin-top:28px">Your Journey Hub</div>
     <div class="hub-tiles">${tileData.map(t=>`
       <div class="hub-tile" data-trip="${S.key}">
@@ -1748,18 +1937,44 @@ function renderAppBody(tab){
         <b>${esc(t.t)}</b>
         <span class="htile-status ${t.st}">${esc(t.s)}</span>
       </div>`).join("")}</div>`;
-
     body.innerHTML=html;
     body.querySelectorAll("[data-trip]").forEach(c=>c.onclick=()=>{
       loadScenario(c.dataset.trip);
       enterHub();
     });
-  } else {
-    const tabNames={home:"Home",book:"Book a flight",account:"Account"};
-    const tabIcons={home:"home",book:"calendar",account:"user"};
-    body.innerHTML=`<div class="tab-placeholder"><i data-lucide="${tabIcons[tab]}"></i><h2>${esc(tabNames[tab])}</h2><p>Not part of this prototype.<br>Tap <b>My Trips</b> to see your disrupted booking.</p></div>`;
   }
-  lucide.createIcons();
+
+  else if(tab==="account"){
+    body.innerHTML=`
+      <div class="profile-card">
+        <div class="pc-top">
+          <div class="pc-av">${esc(pax.init)}</div>
+          <div><div class="pc-name">${esc(pax.name)}</div><div class="pc-tier">${ico("award")} Executive Club · Gold</div></div>
+        </div>
+        <div class="pc-stats">
+          <div class="pc-stat"><b>47,820</b><span>Avios balance</span></div>
+          <div class="pc-stat"><b>1,260</b><span>Tier Points</span></div>
+          <div class="pc-stat"><b>Gold</b><span>Status</span></div>
+        </div>
+      </div>
+      <div class="acct-menu">
+        <button class="acct-item"><span class="ai-ic blue">${ico("user")}</span><b>Personal details</b><span class="ai-meta">Verified</span><span class="ai-chev">${ico("chevron-right")}</span></button>
+        <button class="acct-item"><span class="ai-ic green">${ico("credit-card")}</span><b>Payment methods</b><span class="ai-meta">2 cards</span><span class="ai-chev">${ico("chevron-right")}</span></button>
+        <button class="acct-item"><span class="ai-ic amber">${ico("plane")}</span><b>Travel preferences</b><span class="ai-chev">${ico("chevron-right")}</span></button>
+        <button class="acct-item"><span class="ai-ic navy">${ico("shield")}</span><b>Security & login</b><span class="ai-chev">${ico("chevron-right")}</span></button>
+      </div>
+      <div class="acct-menu">
+        <button class="acct-item"><span class="ai-ic blue">${ico("bell")}</span><b>Notifications</b><span class="ai-meta">On</span><span class="ai-chev">${ico("chevron-right")}</span></button>
+        <button class="acct-item"><span class="ai-ic green">${ico("smartphone")}</span><b>Linked devices</b><span class="ai-meta">2 devices</span><span class="ai-chev">${ico("chevron-right")}</span></button>
+        <button class="acct-item"><span class="ai-ic navy">${ico("file-text")}</span><b>Documents</b><span class="ai-meta">Passport</span><span class="ai-chev">${ico("chevron-right")}</span></button>
+      </div>
+      <div class="acct-menu">
+        <button class="acct-item"><span class="ai-ic amber">${ico("help-circle")}</span><b>Help & support</b><span class="ai-chev">${ico("chevron-right")}</span></button>
+        <button class="acct-item"><span class="ai-ic navy">${ico("log-out")}</span><b>Sign out</b><span class="ai-chev">${ico("chevron-right")}</span></button>
+      </div>`;
+  }
+
+  icons();
 }
 
 function enterHub(){
