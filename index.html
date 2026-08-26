@@ -2353,6 +2353,8 @@ function renderAppBody(tab){
 
 function enterHub(){
   const shell=$("appShell"),body=$("appBody"),hub=$("hubShell");
+  hub.classList.remove("view-exit","view-enter");
+  body.classList.remove("view-exit","view-enter");
   shell.classList.add("in-hub");
   if($("mobPnr")) $("mobPnr").textContent=sc.pax.pnr;
   if(reduced){
@@ -2377,6 +2379,12 @@ function enterHub(){
 
 function exitHub(){
   const shell=$("appShell"),body=$("appBody"),hub=$("hubShell");
+  if(!hub.classList.contains("active")){
+    hub.classList.remove("view-exit","view-enter");
+    shell.classList.remove("in-hub");
+    body.style.display="";
+    return;
+  }
   if(reduced){
     hub.classList.remove("active");
     shell.classList.remove("in-hub");
