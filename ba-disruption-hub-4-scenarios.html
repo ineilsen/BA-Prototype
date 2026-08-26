@@ -54,7 +54,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-shell.in-hub .app-tab-bar{display:none!important}
 
 .app-sidebar{grid-row:1/-1;position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:var(--sp-l) 0 var(--sp-m);overflow-y:auto;z-index:41}
-.ba-ribbon{height:clamp(18px,3vw,28px);width:auto;object-fit:contain}
+.ba-ribbon{height:clamp(16px,3vw,24px);width:auto;max-width:200px;object-fit:contain}
 .ba-wm{font-size:15px;font-weight:800;letter-spacing:.02em;color:var(--navy)}
 .app-sidebar .sb-logo{padding:0 var(--sp-l) var(--sp-xl);display:flex;align-items:center;gap:10px}
 .app-sidebar .sb-logo .ba-ribbon{height:20px}
@@ -69,7 +69,7 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .sb-foot span{font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 .app-hdr{background:var(--navy);padding:0 16px;display:none;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:40}
-.app-hdr .ba-ribbon{height:clamp(22px,6vw,30px);width:auto;position:absolute;left:50%;transform:translateX(-50%)}
+.app-hdr .ba-ribbon{height:clamp(18px,4.5vw,24px);width:auto;max-width:180px;position:absolute;left:50%;transform:translateX(-50%)}
 .app-hdr-r{display:flex;align-items:center;gap:12px;z-index:1}
 .app-hdr-r button{color:#fff;display:grid;place-items:center;width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.1);font-size:0}
 .app-hdr-r button:hover{background:rgba(255,255,255,.18)}
@@ -502,48 +502,49 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .care-code button{font-size:12.5px;font-weight:700;color:var(--blue);font-family:var(--f)}
 
 /* ═══════════ PREMIUM SERVICE SECTIONS ═══════════ */
-.svc-section{margin-bottom:24px}
-.svc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;padding:0 2px}
-.svc-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);overflow:hidden;margin-bottom:12px}
-.svc-card-img{height:140px;background-size:cover;background-position:center;position:relative}
-.svc-card-img .svc-badge{position:absolute;bottom:10px;right:10px;padding:5px 14px;border-radius:8px;font-size:11.5px;font-weight:700}
+.svc-section{margin-bottom:16px}
+.svc-label{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px;padding:0 2px}
+.svc-card{background:var(--surface);border-radius:var(--r);box-shadow:0 1px 6px rgba(29,39,87,.06),0 0 0 1px rgba(29,39,87,.04);overflow:hidden;margin-bottom:8px}
+.svc-card-img{height:100px;background-size:cover;background-position:center;position:relative}
+.svc-card-img .svc-badge{position:absolute;bottom:8px;right:8px;padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700}
 .svc-badge.green{background:var(--green);color:#fff}
 .svc-badge.amber{background:var(--amber-bg);color:#fff}
 .svc-badge.blue{background:var(--blue);color:#fff}
-.svc-card-body{padding:16px}
-.svc-card-body h3{font-size:16px;font-weight:700;margin:0 0 4px;color:var(--navy)}
-.svc-card-body p{font-size:13px;color:var(--ink-2);margin:0 0 4px;line-height:1.45}
-.svc-card-body .svc-meta{font-size:12px;color:var(--ink-3);margin:0}
-.svc-card-actions{display:flex;gap:8px;padding:0 16px 16px}
-.svc-card-actions button{flex:1;padding:11px 12px;border-radius:var(--r-s);font-size:13.5px;font-weight:700;text-align:center}
+.svc-badge.red{background:var(--red);color:#fff}
+.svc-card-body{padding:14px 16px}
+.svc-card-body h3{font-size:15px;font-weight:700;margin:0 0 3px;color:var(--navy)}
+.svc-card-body p{font-size:12.5px;color:var(--ink-2);margin:0 0 2px;line-height:1.4}
+.svc-card-body .svc-meta{font-size:11.5px;color:var(--ink-3);margin:0}
+.svc-card-actions{display:flex;gap:8px;padding:0 16px 14px}
+.svc-card-actions button{flex:1;padding:10px 12px;border-radius:var(--r-s);font-size:13px;font-weight:700;text-align:center}
 .svc-card-actions .svc-outline{border:1.5px solid var(--line-2);color:var(--navy);background:var(--surface)}
 .svc-card-actions .svc-fill{background:var(--navy);color:#fff;border:none}
 
-.svc-voucher{border-radius:var(--r);padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.svc-voucher{border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
 .svc-voucher.gold{background:linear-gradient(135deg,#8A6E2F,#C4A44A);color:#fff}
 .svc-voucher.green-bg{background:linear-gradient(135deg,var(--green),#14A068);color:#fff}
-.svc-voucher .svc-v-ic{font-size:28px;flex-shrink:0}
+.svc-voucher .svc-v-ic{font-size:24px;flex-shrink:0}
 .svc-voucher .svc-v-body{flex:1;min-width:0}
-.svc-voucher .svc-v-body b{display:block;font-size:14px;font-weight:700}
-.svc-voucher .svc-v-body .svc-v-amt{font-family:var(--f-m);font-size:24px;font-weight:600;line-height:1.2;margin:2px 0}
-.svc-voucher .svc-v-body span{font-size:11.5px;opacity:.8}
-.svc-voucher .svc-v-btn{padding:8px 16px;border-radius:var(--r-s);background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,.3);flex-shrink:0;backdrop-filter:blur(4px)}
+.svc-voucher .svc-v-body b{display:block;font-size:13px;font-weight:700}
+.svc-voucher .svc-v-body .svc-v-amt{font-family:var(--f-m);font-size:20px;font-weight:600;line-height:1.2;margin:1px 0}
+.svc-voucher .svc-v-body span{font-size:11px;opacity:.8}
+.svc-voucher .svc-v-btn{padding:7px 14px;border-radius:var(--r-s);background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,.3);flex-shrink:0;backdrop-filter:blur(4px)}
 
-.svc-partner{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.svc-partner .svc-p-logo{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:800;background:var(--bg);color:var(--navy)}
+.svc-partner{background:var(--surface);border-radius:var(--r);box-shadow:0 1px 6px rgba(29,39,87,.06),0 0 0 1px rgba(29,39,87,.04);padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.svc-partner .svc-p-logo{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;font-size:18px;font-weight:800;background:var(--bg);color:var(--navy)}
 .svc-partner .svc-p-body{flex:1;min-width:0}
-.svc-partner .svc-p-body b{display:block;font-size:14.5px;font-weight:700;color:var(--navy)}
-.svc-partner .svc-p-body span{display:block;font-size:12.5px;color:var(--ink-2)}
-.svc-partner .svc-p-btn{padding:7px 16px;border-radius:100px;background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;flex-shrink:0}
+.svc-partner .svc-p-body b{display:block;font-size:13.5px;font-weight:700;color:var(--navy)}
+.svc-partner .svc-p-body span{display:block;font-size:12px;color:var(--ink-2);line-height:1.35}
+.svc-partner .svc-p-btn{padding:6px 14px;border-radius:100px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
 
-.svc-comp{background:linear-gradient(150deg,#F2FAF6 0%,var(--surface) 50%,#F7FCFA 100%);border-radius:var(--r);box-shadow:var(--sh-2);padding:20px;margin-bottom:16px}
-.svc-comp .svc-comp-tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--green-tint);color:var(--green);margin-bottom:10px}
-.svc-comp .svc-comp-amt{font-family:var(--f-m);font-size:32px;font-weight:600;color:var(--green);line-height:1}
-.svc-comp .svc-comp-amt small{font-size:14px;font-weight:400;color:var(--ink-2);font-family:var(--f);margin-left:8px}
-.svc-comp h3{font-size:15px;font-weight:700;margin:10px 0 4px}
-.svc-comp p{font-size:13px;color:var(--ink-2);margin:0;line-height:1.5}
-.svc-comp .svc-comp-actions{margin-top:14px;display:flex;gap:8px}
-.svc-comp .svc-comp-actions button{flex:1;padding:12px;border-radius:var(--r-s);font-size:14px;font-weight:700}
+.svc-comp{background:linear-gradient(150deg,#F2FAF6 0%,var(--surface) 50%,#F7FCFA 100%);border-radius:var(--r);box-shadow:0 2px 10px rgba(29,39,87,.07);padding:16px;margin-bottom:12px}
+.svc-comp .svc-comp-tag{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--green-tint);color:var(--green);margin-bottom:8px}
+.svc-comp .svc-comp-amt{font-family:var(--f-m);font-size:28px;font-weight:600;color:var(--green);line-height:1}
+.svc-comp .svc-comp-amt small{font-size:13px;font-weight:400;color:var(--ink-2);font-family:var(--f);margin-left:6px}
+.svc-comp h3{font-size:14px;font-weight:700;margin:8px 0 3px}
+.svc-comp p{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.45}
+.svc-comp .svc-comp-actions{margin-top:12px;display:flex;gap:8px}
+.svc-comp .svc-comp-actions button{flex:1;padding:11px;border-radius:var(--r-s);font-size:13px;font-weight:700}
 
 .comp{background:linear-gradient(150deg,#F2FAF6 0%,var(--surface) 50%,#F7FCFA 100%);border:none;border-radius:var(--r);padding:var(--sp-2xl) var(--sp-xl);margin-bottom:var(--sp-2xl);box-shadow:var(--sh-2)}
 .comp .amt{font-family:var(--f-m);font-size:48px;font-weight:500;line-height:1;color:var(--green)}
@@ -945,7 +946,7 @@ details[open] summary::after{transform:rotate(180deg)}
 <!-- ═══════════ BA APP SHELL ═══════════ -->
 <div class="app-shell active" id="appShell">
   <nav class="app-sidebar" id="appSidebar">
-    <a class="sb-logo" href="#"><svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg></a>
+    <a class="sb-logo" href="#"><img class="ba-ribbon" src="british-airways-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK"></a>
     <div class="sb-nav">
       <button class="sb-item" data-tab="home"><i data-lucide="home"></i><span>Home</span></button>
       <button class="sb-item" data-tab="book"><i data-lucide="calendar"></i><span>Book</span></button>
@@ -962,7 +963,7 @@ details[open] summary::after{transform:rotate(180deg)}
       <button class="hub-back-mob" id="hubBackMob"><i data-lucide="chevron-left"></i></button>
       <button class="app-menu-btn" aria-label="Menu"><i data-lucide="menu"></i></button>
     </div>
-    <svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg>
+    <img class="ba-ribbon" src="british-airways-colour-negative-dark-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK">
     <div class="app-hdr-r"></div>
     <div class="hub-hdr-r">
       <span class="chip" id="mobPnr">—</span>
@@ -989,7 +990,7 @@ details[open] summary::after{transform:rotate(180deg)}
 
 <header class="hdr">
   <div class="hdr-in">
-    <a class="logo" href="#"><svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg></a>
+    <a class="logo" href="#"><img class="ba-ribbon" src="british-airways-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK"></a>
     <div class="hdr-ref">
       <span class="lbl">Booking</span>
       <span class="chip" id="hdrPnr">—</span>
@@ -1051,7 +1052,8 @@ const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,"
 const ico = n => `<i data-lucide="${n}"></i>`;
 const truncW = (s,n=85) => s.length<=n ? s : s.substring(0,s.lastIndexOf(" ",n))+"…";
 const isMob = () => window.innerWidth <= 620;
-const BA_LOGO = `<svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg>`;
+const BA_LOGO_FALLBACK = `<svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg>`;
+const BA_LOGO = `<img class="ba-ribbon" src="british-airways-colour-negative-dark-colour.svg" alt="British Airways" onerror="this.outerHTML=BA_LOGO_FALLBACK">`;
 const BA_WORDMARK = `<span class="ba-wm">British Airways</span>`;
 
 function brand(slug,label,hex,cls){
@@ -1314,36 +1316,29 @@ function scAlert(){
     <div class="svc-section">
       <div class="svc-label">Your flight</div>
       <div class="svc-card">
-        <div class="svc-card-body" style="padding:20px">
-          <span class="svc-badge ${sc.sev==="red"?"red":"amber"}" style="float:right;margin:-4px -4px 8px 8px">${esc(statusLabel)}</span>
-          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px">Your Flight</div>
-          <h3 style="font-size:18px;margin-bottom:8px">${esc(l0.no)} ${esc(l0.from)} › ${esc(to)}</h3>
-          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px">
+        <div class="svc-card-body" style="padding:14px 16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div><span style="font-family:var(--f-m);font-size:13px;font-weight:600;color:var(--navy)">${esc(l0.no)}</span><span style="font-size:12px;color:var(--ink-3);margin-left:8px">${esc(l0.date)}</span></div>
+            <span class="svc-badge ${sc.sev==="red"?"red":"amber"}">${esc(statusLabel)}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
             <div>
-              <div style="font-size:11px;color:var(--ink-3)">Original dep.</div>
-              <div style="font-family:var(--f-m);font-size:22px;font-weight:600">${esc(l0.dep)}</div>
-              <div style="font-size:11px;color:var(--ink-3)">${esc(l0.from)} T5</div>
+              <div style="font-family:var(--f-m);font-size:20px;font-weight:600">${esc(l0.dep)}</div>
+              <div style="font-size:11px;color:var(--ink-3)">${esc(l0.from)}</div>
             </div>
-            <div style="flex:1;text-align:center;padding:0 12px">
-              <div style="font-size:11px;color:var(--ink-3)">${esc(l0.date)}</div>
-              <div style="border-top:1.5px dashed var(--line-2);margin:6px 0;position:relative">
+            <div style="flex:1;text-align:center;padding:0 10px">
+              <div style="border-top:1.5px dashed var(--line-2);position:relative;margin:4px 0">
                 <span style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);color:var(--ink-3)">${ico("plane")}</span>
               </div>
             </div>
             <div style="text-align:right">
-              <div style="font-size:11px;color:var(--ink-3)">Original arr.</div>
-              <div style="font-family:var(--f-m);font-size:22px;font-weight:600">${esc(l0.arr)}</div>
-              <div style="font-size:11px;color:var(--ink-3)">${esc(to)} T${to==="JFK"?"7":to==="SFO"?"I":"1"}</div>
+              <div style="font-family:var(--f-m);font-size:20px;font-weight:600">${esc(l0.arr)}</div>
+              <div style="font-size:11px;color:var(--ink-3)">${esc(to)}</div>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:14px;padding:10px 12px;border-radius:8px;background:${sc.sev==="red"?"var(--red-tint)":"var(--amber-tint)"};font-size:12px;font-weight:600;color:${sc.sev==="red"?"var(--red)":"var(--amber)"}">
-            <span style="width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 2s infinite"></span>
-            ${esc(l0.tag)} · Updated ${now()}
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)">
-            <span>🎫 ${esc(sc.pax.cabin)}</span><span>·</span>
-            <span>${ico("user")} ${sc.pax.party>1?sc.pax.party+" passengers":"1 passenger"}</span><span>·</span>
-            <span>${esc(sc.legs[0].aircraft||"A350-1000")}</span>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 10px;border-radius:8px;background:${sc.sev==="red"?"var(--red-tint)":"var(--amber-tint)"};font-size:11.5px;font-weight:600;color:${sc.sev==="red"?"var(--red)":"var(--amber)"}">
+            <span style="width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 2s infinite"></span>
+            ${esc(l0.tag)} · ${esc(sc.pax.cabin)} · ${sc.pax.party>1?sc.pax.party+" pax":"1 pax"}
           </div>
         </div>
       </div>
@@ -1398,45 +1393,34 @@ function scChooseMob(){
     <h1 style="font-size:22px;margin-bottom:4px">${esc(cfg.h1)}</h1>
     <p style="font-size:14px;color:var(--ink-2);margin:0 0 16px;line-height:1.5">${esc(cfg.lede)}</p>
 
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">${cfg.options.map(o=>{
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">${cfg.options.map(o=>{
       const sel=S.option&&S.option.id===o.id;
       const leg=o.newLeg;
-      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}" style="border-radius:var(--r);box-shadow:var(--sh-1);border:${sel?"2px solid var(--blue)":"1.5px solid var(--line)"};padding:0;overflow:hidden;background:var(--surface)">
-        <span class="opt-top" style="padding:14px 16px ${leg?"8px":"14px"}">
+      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}" style="border-radius:var(--r);box-shadow:0 1px 6px rgba(29,39,87,.06),0 0 0 1px rgba(29,39,87,.04);border:${sel?"2px solid var(--blue)":"1.5px solid var(--line)"};padding:0;overflow:hidden;background:var(--surface)">
+        <span class="opt-top" style="padding:12px 14px">
           <span class="opt-radio" style="margin-top:2px"></span>
           <span class="opt-hd" style="flex:1">
-            <h3 style="font-size:15px;margin:0">${o.rec?`<span class="rec" style="font-size:11px">Recommended</span>`:""}${esc(o.title)}</h3>
-            <p style="font-size:12.5px;color:var(--ink-2);margin:2px 0 0">${esc(o.sub)}</p>
+            <h3 style="font-size:14.5px;margin:0;line-height:1.3">${o.rec?`<span class="rec" style="font-size:10px">Recommended</span>`:""}${esc(o.title)}</h3>
+            <p style="font-size:12px;color:var(--ink-2);margin:2px 0 0;line-height:1.4">${esc(o.sub).substring(0,80)}${o.sub.length>80?"…":""}</p>
           </span>
-          ${leg?`<span style="padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--green-tint);color:var(--green);flex-shrink:0">Seats available</span>`:""}
         </span>
 
-        ${leg?`<div style="padding:0 16px 12px">
-          <div style="background:var(--bg);border-radius:var(--r-s);padding:12px 14px;margin-top:4px">
-            <div style="font-size:12px;color:var(--ink-2);margin-bottom:6px"><b style="color:var(--navy)">${esc(leg.no)}</b> · ${esc(leg.from)} → ${esc(leg.to)}</div>
-            <div style="display:flex;justify-content:space-between;align-items:flex-end">
-              <div><div style="font-family:var(--f-m);font-size:20px;font-weight:600">${esc(leg.dep)}</div>
-                <div style="font-size:10.5px;color:var(--ink-3)">${esc(leg.from)} T5</div></div>
-              <div style="flex:1;text-align:center;font-size:11px;color:var(--ink-3);padding:0 8px">
-                <div>7h 30m</div>
-                <div style="border-top:1px dashed var(--line-2);margin:4px 0;position:relative">
-                  <span style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--ink-3)">${ico("plane")}</span></div>
-                <div>Non-stop</div>
-              </div>
-              <div style="text-align:right"><div style="font-family:var(--f-m);font-size:20px;font-weight:600">${esc(leg.arr)}</div>
-                <div style="font-size:10.5px;color:var(--ink-3)">${esc(leg.to)} T7</div></div>
-            </div>
-            <div style="font-size:11.5px;color:var(--ink-2);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)">${esc(leg.date)}${o.cabin?" · "+esc(o.cabin):""}${o.seat?" · Seat "+esc(o.seat):""}</div>
+        ${leg?`<div style="padding:0 14px 10px">
+          <div style="background:var(--bg);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px">
+            <div><div style="font-family:var(--f-m);font-size:16px;font-weight:600">${esc(leg.dep)}</div><div style="font-size:10px;color:var(--ink-3)">${esc(leg.from)}</div></div>
+            <div style="flex:1;border-top:1px dashed var(--line-2);position:relative"><span style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);color:var(--ink-3);font-size:12px">${ico("plane")}</span></div>
+            <div style="text-align:right"><div style="font-family:var(--f-m);font-size:16px;font-weight:600">${esc(leg.arr)}</div><div style="font-size:10px;color:var(--ink-3)">${esc(leg.to)}</div></div>
+            <div style="font-size:10.5px;color:var(--ink-2);border-left:1px solid var(--line);padding-left:10px;line-height:1.4">${esc(leg.date)}<br>${o.cabin?esc(o.cabin):""}</div>
           </div>
         </div>`:""}
 
-        <div style="padding:0 16px ${sel?"0":"12px"}">
-          <div style="font-size:12px;color:var(--ink-2)">${o.facts.map(([k,v,g])=>`<span style="display:inline-block;margin-right:12px">${esc(k)}: <b style="color:${g?"var(--green)":"var(--navy)"}">${v}</b></span>`).join("")}</div>
+        <div style="padding:0 14px 10px">
+          <div style="font-size:11.5px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 10px">${o.facts.map(([k,v,g])=>`<span>${esc(k)}: <b style="color:${g?"var(--green)":"var(--navy)"}">${v}</b></span>`).join("")}</div>
         </div>
 
-        ${sel?`<div style="padding:10px 16px 14px;margin-top:8px;background:var(--blue-tint);border-top:1px solid rgba(29,92,169,.1)">
-          <div style="font-size:11.5px;font-weight:700;color:var(--blue);margin-bottom:6px">What's included</div>
-          ${o.incl.map(i=>`<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink);padding:3px 0">${ico("check")} ${i}</div>`).join("")}
+        ${sel?`<div class="opt-expand" style="padding:8px 14px 12px;background:var(--blue-tint);border-top:1px solid rgba(29,92,169,.08)">
+          <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:4px">What's included</div>
+          ${o.incl.map(i=>`<div style="display:flex;align-items:flex-start;gap:5px;font-size:11.5px;color:var(--ink);padding:2px 0;line-height:1.35">${ico("check")} ${i}</div>`).join("")}
         </div>`:""}
       </button>`;}).join("")}</div>
 
@@ -1816,35 +1800,35 @@ function scDoneMob(){
   const resolved=rows.filter(x=>!x.wait);
   const pending=rows.filter(x=>x.wait);
   return `<div class="screen">
-    <div style="text-align:center;padding:20px 0 8px">
-      <div style="width:56px;height:56px;border-radius:50%;background:var(--green-tint);display:inline-grid;place-items:center;margin-bottom:12px">
-        <span style="color:var(--green);font-size:28px">${ico("check")}</span>
+    <div style="text-align:center;padding:16px 0 6px">
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--green-tint);display:inline-grid;place-items:center;margin-bottom:8px">
+        <span style="color:var(--green);font-size:22px">${ico("check")}</span>
       </div>
-      <h1 style="font-size:22px;margin:0 0 4px">You're sorted, ${esc(sc.pax.first)}.</h1>
-      <p style="font-size:14px;color:var(--ink-2);margin:0">Everything below is booked and paid for.</p>
+      <h1 style="font-size:20px;margin:0 0 3px">You're sorted, ${esc(sc.pax.first)}.</h1>
+      <p style="font-size:13px;color:var(--ink-2);margin:0">Everything below is booked and paid for.</p>
     </div>
 
     ${pending.length?`<div class="svc-section">
       <div class="svc-label" style="color:var(--amber)">⏳ Needs your attention</div>
       ${pending.map(x=>`<div class="svc-partner" style="border-left:3px solid var(--amber-bg)">
-        <div class="svc-p-logo" style="background:var(--amber-tint);color:var(--amber);width:40px;height:40px">${ico("clock")}</div>
+        <div class="svc-p-logo" style="background:var(--amber-tint);color:var(--amber)">${ico("clock")}</div>
         <div class="svc-p-body">
           <b>${esc(x.t)}</b>
           <span>${esc(x.p)}</span>
         </div>
-        <span style="font-family:var(--f-m);font-weight:600;color:var(--amber);font-size:14px">${x.v}</span>
+        <span style="font-family:var(--f-m);font-weight:600;color:var(--amber);font-size:12px;white-space:nowrap">${x.v}</span>
       </div>`).join("")}
     </div>`:""}
 
     <div class="svc-section">
       <div class="svc-label">✓ Confirmed</div>
       ${resolved.map(x=>`<div class="svc-partner">
-        <div class="svc-p-logo" style="background:var(--green-tint);color:var(--green);width:40px;height:40px">${ico("check")}</div>
+        <div class="svc-p-logo" style="background:var(--green-tint);color:var(--green)">${ico("check")}</div>
         <div class="svc-p-body">
           <b>${esc(x.t)}</b>
           <span>${esc(x.p)}</span>
         </div>
-        <span style="font-family:var(--f-m);font-weight:600;color:var(--green);font-size:14px">${x.v}</span>
+        <span style="font-family:var(--f-m);font-weight:600;color:var(--green);font-size:12px;white-space:nowrap">${x.v}</span>
       </div>`).join("")}
     </div>
 
@@ -1952,13 +1936,18 @@ function render(){
   $("demoPills").innerHTML=Object.entries(SC).map(([k,v])=>
     `<button class="dp ${k===S.key?"on":""}" data-sc="${k}">${ico(v.icon)}${esc(v.label)}</button>`).join("");
   $("demoPills").querySelectorAll("[data-sc]").forEach(b=>b.onclick=()=>loadScenario(b.dataset.sc));
+  const prevStep=render._lastStep;
+  const newStep=curStep();
+  render._lastStep=newStep;
   renderProgress();
   const mainEl=$("main");
-  mainEl.innerHTML=SCREEN[curStep()]();
+  mainEl.innerHTML=SCREEN[newStep]();
   renderRail(); icons(); bind();
-  const scrn=mainEl.querySelector(".screen");
-  if(scrn) scrn.scrollTop=0;
-  window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});
+  if(prevStep!==newStep){
+    const scrn=mainEl.querySelector(".screen");
+    if(scrn) scrn.scrollTop=0;
+    window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});
+  }
 }
 
 function advance(){
