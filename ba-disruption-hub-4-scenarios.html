@@ -482,8 +482,9 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .pick-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-2);flex-shrink:0;margin-top:3px;display:grid;place-items:center}
 .pick.sel .pick-radio{border-color:var(--blue);background:var(--blue)}
 .pick.sel .pick-radio::after{content:"";width:7px;height:7px;border-radius:50%;background:#fff}
-.pick-thumb{width:62px;height:44px;border-radius:var(--r-s);flex-shrink:0;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;padding:6px}
-.pick-thumb .bi{max-width:100%;max-height:26px}
+.pick-thumb{width:62px;height:44px;border-radius:var(--r-s);flex-shrink:0;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;padding:6px;overflow:hidden}
+.pick-thumb .bi{width:auto;height:22px;max-width:48px;object-fit:contain}
+.pick-thumb .wordmark{font-size:11px;font-weight:700;color:var(--navy);text-align:center;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 .pick-body{flex:1;min-width:0}
 .pick-body b{display:block;font-size:16.5px;font-weight:700;margin-bottom:3px}
 .pick-body p{margin:0 0 9px;font-size:14.5px;color:var(--ink-2)}
@@ -541,6 +542,29 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .svc-partner .svc-p-body b{display:block;font-size:13.5px;font-weight:700;color:var(--navy)}
 .svc-partner .svc-p-body span{display:block;font-size:12px;color:var(--ink-2);line-height:1.35}
 .svc-partner .svc-p-btn{padding:6px 14px;border-radius:100px;background:var(--navy);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
+.aw-badge{display:inline-flex;align-items:center;gap:6px;background:#000;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;font-family:var(--f);cursor:pointer;flex:1;justify-content:center;transition:opacity .2s}
+.aw-badge:hover{opacity:.85}
+.aw-badge svg{width:20px;height:20px;flex-shrink:0}
+.wallet-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.wallet-overlay.show{opacity:1;pointer-events:auto}
+.wallet-pass{width:100%;max-width:380px;border-radius:16px;overflow:hidden;transform:translateY(80px);transition:transform .4s var(--ease-out);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.wallet-overlay.show .wallet-pass{transform:translateY(0)}
+.wp-hdr{background:linear-gradient(155deg,#1B2550,#263670);color:#fff;padding:24px 20px;display:flex;align-items:center;gap:14px}
+.wp-hdr .wp-logo{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.12);display:grid;place-items:center}
+.wp-hdr .wp-logo svg{width:22px;height:22px;color:#fff}
+.wp-hdr .wp-info{flex:1}
+.wp-hdr .wp-info b{display:block;font-size:16px}
+.wp-hdr .wp-info span{font-size:12px;opacity:.6}
+.wp-body{background:#fff;padding:20px}
+.wp-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-size:13px;color:#333}
+.wp-row:last-child{border:none}
+.wp-row b{color:#1D2757}
+.wp-barcode{text-align:center;padding:16px 0 8px}
+.wp-barcode svg{width:200px;height:60px}
+.wp-actions{display:flex;gap:10px;padding:16px 20px;background:#f5f5f5}
+.wp-actions button{flex:1;padding:12px;border-radius:10px;font-size:14px;font-weight:700;font-family:var(--f)}
+.wp-add{background:#000;color:#fff;border:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.wp-cancel{background:#fff;color:#333;border:1px solid #ddd}
 
 .svc-comp{background:linear-gradient(150deg,#F2FAF6 0%,var(--surface) 50%,#F7FCFA 100%);border-radius:var(--r);box-shadow:0 2px 10px rgba(29,39,87,.07);padding:16px;margin-bottom:12px}
 .svc-comp .svc-comp-tag{display:inline-block;padding:3px 10px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--green-tint);color:var(--green);margin-bottom:8px}
@@ -867,7 +891,9 @@ details[open] summary::after{transform:rotate(180deg)}
   /* Hotel picks — compact */
   .pick{padding:12px;border-radius:12px;gap:10px}
   .pick-radio{width:16px;height:16px}
-  .pick-thumb{width:48px;height:36px;border-radius:8px}
+  .pick-thumb{width:48px;height:36px;border-radius:8px;padding:4px}
+  .pick-thumb .bi{height:18px;max-width:38px}
+  .pick-thumb .wordmark{font-size:10px;max-width:38px}
   .pick-body b{font-size:14px;margin-bottom:1px}
   .pick-body p{font-size:12px;margin-bottom:4px;-webkit-line-clamp:1;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
   .pick.sel .pick-body p{-webkit-line-clamp:unset}
@@ -1785,7 +1811,7 @@ function scDone(){
       <button class="btn btn-1" data-goto="care">Accept your ${money(sc.comp.amount)} ${ico("arrow-right")}</button></div>`:""}
     <div style="display:flex;gap:12px;margin-bottom:22px">
       <button class="btn btn-2 btn-sm" style="flex:1">${ico("download")} Download PDF</button>
-      <button class="btn btn-2 btn-sm" style="flex:1">${ico("smartphone")} Apple Wallet</button>
+      <button class="aw-badge" onclick="showWalletPass()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 4H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zM3 6h18v2H3V6zm0 4h18v2H3v-2zm0 8v-4h18v4H3z"/></svg> Add to Wallet</button>
     </div>
     <div class="partners">
       <div class="ttl">Arranged for you across</div>
@@ -1848,13 +1874,13 @@ function scDoneMob(){
         </div>
         <button class="svc-p-btn">PDF</button>
       </div>
-      <div class="svc-partner" role="article" aria-label="Add to Apple Wallet">
-        <div class="svc-p-logo" aria-hidden="true">${ico("smartphone")}</div>
+      <div class="svc-partner" role="article" aria-label="Add to Apple Wallet" onclick="showWalletPass()" style="cursor:pointer">
+        <div class="svc-p-logo" aria-hidden="true" style="background:#000;color:#fff">${ico("wallet")}</div>
         <div class="svc-p-body">
           <b>Add to Apple Wallet</b>
           <span>Boarding pass and vouchers in one tap</span>
         </div>
-        <button class="svc-p-btn">Add</button>
+        <button class="svc-p-btn" style="background:#000">Add</button>
       </div>
     </div>
 
@@ -2425,6 +2451,53 @@ pickRandomScenario();
 window.addEventListener("pageshow",e=>{if(e.persisted) pickRandomScenario();});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden) pickRandomScenario();});
 document.addEventListener("keydown",e=>{if(e.key==="d"&&e.ctrlKey){e.preventDefault();$("hubShell").querySelector(".demo").classList.toggle("show")}});
+
+function showWalletPass(){
+  let ov=document.getElementById("walletOverlay");
+  if(!ov){
+    const p=sc.pax,l=sc.legs[0];
+    const seat=S.option?S.option.seat||"14A":"14A";
+    const gate=l.from==="LHR"?"A10":"B22";
+    const barW=200,barH=50;
+    let bars="";for(let i=0;i<40;i++){const w=1+Math.floor(Math.abs(Math.sin(i*7))*3);const x=i*5;bars+=`<rect x="${x}" y="0" width="${w}" height="${barH}" fill="#1D2757"/>`;}
+    ov=document.createElement("div");
+    ov.id="walletOverlay";
+    ov.className="wallet-overlay";
+    ov.innerHTML=`<div class="wallet-pass">
+      <div class="wp-hdr">
+        <div class="wp-logo"><svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#6a8ec8"/></svg></div>
+        <div class="wp-info"><b>Boarding Pass</b><span>British Airways</span></div>
+      </div>
+      <div class="wp-body">
+        <div class="wp-row"><span>Passenger</span><b>${esc(p.name)}</b></div>
+        <div class="wp-row"><span>Flight</span><b>${esc(l.no)}</b></div>
+        <div class="wp-row"><span>Route</span><b>${esc(l.from)} → ${esc(l.to)}</b></div>
+        <div class="wp-row"><span>Date</span><b>${esc(l.date)}</b></div>
+        <div class="wp-row"><span>Departure</span><b>${esc(l.dep)}</b></div>
+        <div class="wp-row"><span>Gate</span><b>${gate}</b></div>
+        <div class="wp-row"><span>Seat</span><b>${seat}</b></div>
+        <div class="wp-row"><span>Cabin</span><b>${esc(p.cabin)}</b></div>
+        <div class="wp-row"><span>Booking Ref</span><b>${esc(p.pnr)}</b></div>
+      </div>
+      <div class="wp-barcode"><svg viewBox="0 0 ${barW} ${barH}" xmlns="http://www.w3.org/2000/svg">${bars}</svg></div>
+      <div class="wp-actions">
+        <button class="wp-cancel" onclick="hideWalletPass()">Cancel</button>
+        <button class="wp-add" onclick="addedToWallet()"><svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" style="width:16px;height:16px"><path d="M21 4H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zM3 6h18v2H3V6zm0 4h18v2H3v-2zm0 8v-4h18v4H3z"/></svg> Add</button>
+      </div>
+    </div>`;
+    document.body.appendChild(ov);
+    ov.onclick=e=>{if(e.target===ov) hideWalletPass();};
+  }
+  requestAnimationFrame(()=>ov.classList.add("show"));
+}
+function hideWalletPass(){
+  const ov=document.getElementById("walletOverlay");
+  if(ov){ov.classList.remove("show");setTimeout(()=>ov.remove(),350);}
+}
+function addedToWallet(){
+  hideWalletPass();
+  toast("Apple Wallet","Boarding pass added to your wallet");
+}
 </script>
 </body>
 </html>
