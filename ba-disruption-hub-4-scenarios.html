@@ -1304,10 +1304,11 @@ function scAlert(){
   const l0=sc.legs[0],to=sc.legs[sc.legs.length-1].to;
   const mob=isMob();
   const statusLabel={cancel:"Cancelled",misconnect:"Delayed — connection at risk",bag:"Bag delayed",downgrade:"Cabin changed"}[sc.key];
-  const opt0=sc.choose?.options?.[0]||sc.extraChoice?.options?.[0]||{};
+  const opts=sc.choose?.options||sc.extraChoice?.options||[];
+  const opt0=opts[0]||{};
   const proactive={
-    cancel:[`We've held <b>${sc.choose.options.length} options</b> for you, including ${opt0.newLeg?opt0.newLeg.no+' at '+opt0.newLeg.dep:'a full refund'}`,`<b>£${sc.comp.amount} compensation</b> calculated — no claim form needed`,`Hotel, meals and transport tonight are covered`],
-    misconnect:[`<b>${sc.pax.party} seats held together</b> on ${sc.choose.options[0].newLeg.no} at ${sc.choose.options[0].newLeg.dep}`,`Your bags are being transferred to the new flight automatically`,`Galleries Club lounge access for your wait`],
+    cancel:[`We've held <b>${opts.length} options</b> for you, including ${opt0.newLeg?opt0.newLeg.no+' at '+opt0.newLeg.dep:'a full refund'}`,`<b>£${sc.comp.amount} compensation</b> calculated — no claim form needed`,`Hotel, meals and transport tonight are covered`],
+    misconnect:[`<b>${sc.pax.party} seats held together</b> on ${opt0.newLeg?opt0.newLeg.no:''} at ${opt0.newLeg?opt0.newLeg.dep:''}`,`Your bags are being transferred to the new flight automatically`,`Galleries Club lounge access for your wait`],
     bag:[`Bag file <b>${sc.pax.bag}</b> raised automatically at 09:14`,`Located on tonight's <b>BA0058</b>, landing Heathrow 06:15 tomorrow`,`<b>£${sc.comp.amount}</b> essentials allowance already on your card`],
     downgrade:[`Moved to <b>${sc.legs[0].no}</b> seat 9C — flight is on time`,`<b>£${sc.comp.amount}</b> reimbursement calculated under UK261`,`Lounge pass and seat 2A refund of <b>£94</b> included`]
   }[sc.key]||[];
