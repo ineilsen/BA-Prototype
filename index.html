@@ -386,6 +386,7 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .eyebrow.alert{color:var(--red)} .eyebrow.ok{color:var(--green)} .eyebrow.warn{color:var(--amber)}
 .eyebrow .pip{width:8px;height:8px;border-radius:50%;background:currentColor;animation:beat 2.4s infinite}
 @keyframes beat{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1)}
 
 .hub-breadcrumb{margin-bottom:var(--sp-m);font-size:14px;color:var(--ink-3)}
@@ -1036,6 +1037,7 @@ const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const money = n => "£" + n.toLocaleString("en-GB");
 const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); };
 const ico = n => `<i data-lucide="${n}"></i>`;
+const truncW = (s,n=85) => s.length<=n ? s : s.substring(0,s.lastIndexOf(" ",n))+"…";
 const isMob = () => window.innerWidth <= 620;
 const BA_LOGO = `<svg class="ba-ribbon" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 C20 8 60 4 120 16 C150 22 170 30 185 36 C180 38 174 42 165 44 C145 38 120 28 90 22 C60 16 30 14 6 18 Z" fill="#C8102E"/><path d="M185 36 C190 33 196 34 195 39 C194 44 186 47 178 46 C172 45 168 44 165 44 C174 42 180 38 185 36Z" fill="#2E5FAC"/></svg>`;
 const BA_WORDMARK = `<span class="ba-wm">British Airways</span>`;
@@ -1044,6 +1046,17 @@ function brand(slug,label,hex,cls){
   return `<img class="bi ${cls||""}" src="https://cdn.simpleicons.org/${slug}/${hex||"1D2757"}" alt="${esc(label)}" data-label="${esc(label)}" onerror="brandFail(this)">`;
 }
 window.brandFail = el => { const s=document.createElement("span"); s.className="wordmark"; s.textContent=el.dataset.label; el.replaceWith(s); };
+
+function scenarioPartners(){
+  const ba=brand("britishairways","British Airways");
+  const map={
+    cancel:[ba,brand("americanairlines","American Airlines"),brand("hilton","Hilton"),brand("marriott","Marriott"),brand("accor","Accor"),brand("uber","Uber"),brand("visa","Visa")],
+    misconnect:[ba,brand("hilton","Hilton"),brand("marriott","Marriott"),brand("uber","Uber"),brand("whatsapp","WhatsApp")],
+    bag:[ba,brand("uber","Uber"),brand("whatsapp","WhatsApp"),brand("mastercard","Mastercard")],
+    downgrade:[ba,brand("mastercard","Mastercard"),brand("visa","Visa")]
+  };
+  return (map[sc.key]||[ba]).join("");
+}
 
 /* ═══════════ SCENARIOS ═══════════ */
 const SC = {
@@ -1065,9 +1078,9 @@ cancel:{
        facts:[["Departs","Tomorrow 08:40"],["Arrives JFK","11:55, Thu 13 Aug"],["Cabin","Club World",1]],
        incl:[`Hotel tonight near the terminal — <b>we book it, you don't pay</b>`,`Dinner tonight and breakfast tomorrow, <b>£46 loaded to your card</b>`,`Transfers both ways, or a covered walkway if you pick the T5 hotel`,`Your bag stays with us and is loaded onto the new flight`]},
       {id:"tonight",title:"Fly tonight, one stop",sub:"Leaves in six hours via Boston with our partner. Longer journey, but you land in New York in the morning.",
-       newLeg:{no:"BA0213 / AA2166",from:"LHR",to:"JFK",dep:"21:30",arr:"07:10",date:"Thu 13 Aug"},seat:"9C",cabin:"Club World then First",needsHotel:false,
+       newLeg:{no:"BA0213 / AA2166",from:"LHR",to:"JFK",dep:"21:30",arr:"07:10",date:"Thu 13 Aug"},seat:"9C",cabin:"Club World then First*",needsHotel:false,
        facts:[["Departs","Tonight 21:30"],["Arrives JFK","07:10, Thu 13 Aug"],["Operated with",brand("americanairlines","American Airlines","1D2757","bi-sm")]],
-       incl:[`Dinner at Heathrow before you go, <b>£28 loaded to your card</b>`,`Lounge access while you wait`,`Your bag is transferred at Boston for you`,`No hotel needed — you travel overnight`]},
+       incl:[`Dinner at Heathrow before you go, <b>£28 loaded to your card</b>`,`Lounge access while you wait`,`Your bag is transferred at Boston for you`,`No hotel needed — you travel overnight`,`*AA First cabin subject to availability at departure`]},
       {id:"refund",title:"Don't travel — refund me",sub:"Cancel the whole trip and get the fare back. You keep your compensation either way.",
        newLeg:null,needsHotel:false,
        facts:[["Fare refund","£2,340"],["Back on your card","3–5 working days"],["Compensation","Still paid",1]],
@@ -1148,7 +1161,7 @@ bag:{
   care:{h1:"Money for tonight, and what you're covered for",lede:"You shouldn't be out of pocket because our container was late. This is already on your card."},
   comp:{amount:170,title:"Spend this tonight, no receipts",
     body:"An essentials allowance for toiletries and a change of clothes, raised to the business band because this is a work trip. It's on your card now — spend it wherever you like.",
-    alt:{label:"Claim up to £340 with receipts",note:"We'll reimburse up to £340 against receipts."},
+    alt:{label:"Claim reasonable additional expenses",note:"Submit receipts for reasonable essentials — toiletries, clothing and medication."},
     detail:[["Basis","Montreal Convention, Article 19"],["Band","Business trip — higher allowance"],["Paid now","£170, no receipts needed"],["Total liability cover","Up to £1,300"],["If not found in 21 days","Full claim opens automatically"]]},
   msgs:[{kind:"SMS",t:"09:14",body:`Don't wait at the belt — bag <b>BA447290</b> missed the container in Johannesburg. It's confirmed onto tonight's BA0058. <b>£170</b> is already on your card.`},
         {kind:"WhatsApp",t:"09:15",body:`We've raised your bag file automatically — reference <b>LHRBA47290</b>. No need to visit the baggage desk.`}]
@@ -1162,7 +1175,7 @@ downgrade:{
     `We had to swap the aircraft on <b>BA0432 from Amsterdam</b> and the replacement has a smaller Club Europe cabin. Rows one to three are closed, so you've been moved to <b>Euro Traveller, seat 9C</b>. The flight itself is on time.`,
     `You're owed <b>£186</b> back — a fixed share of what you paid for that leg — plus a refund of the lounge pass and paid seat you won't now get. We've calculated all of it. You just choose how to take it.`]},
   legs:[{no:"BA0432",from:"AMS",to:"LHR",dep:"18:05",arr:"18:20",date:"Wed 12 Aug",state:"ok",tag:"On time"}],
-  steps:[["alert","What's happened"],["care","What you're owed"],["done","All sorted"]],
+  steps:[["alert","What's happened"],["care","What you're owed"],["hotel","Where you'll stay"],["done","All sorted"]],
   care:{h1:"What you're owed, and how to take it",lede:"Three things come back to you. All calculated already — no claim form, no waiting on hold."},
   comp:{amount:186,title:"Reimbursement is fixed, not negotiable",
     body:"UK261 sets involuntary downgrade reimbursement at 30% of the fare for that leg on a journey this length. That works out at £186. It isn't a goodwill gesture and we can't offer you less.",
@@ -1176,7 +1189,7 @@ downgrade:{
        facts:[["Departs","Tonight 18:05"],["Cabin","Euro Traveller, 9C"],["You receive","£186 + £94",1]],
        incl:[`<b>£186</b> reimbursement to your card`,`<b>£94</b> back for the lounge pass and paid seat 2A`,`Free lounge access at Schiphol before you go anyway`,`Nothing else to do`]},
       {id:"club",title:"Fly tomorrow in Club Europe",sub:"Tomorrow's 08:20 has Club Europe available. Hotel in Amsterdam tonight is on us.",
-       newLeg:{no:"BA0430",from:"AMS",to:"LHR",dep:"08:20",arr:"08:35",date:"Thu 13 Aug"},seat:"2A",cabin:"Club Europe",needsHotel:false,
+       newLeg:{no:"BA0430",from:"AMS",to:"LHR",dep:"08:20",arr:"08:35",date:"Thu 13 Aug"},seat:"2A",cabin:"Club Europe",needsHotel:true,
        facts:[["Departs","Tomorrow 08:20"],["Cabin","Club Europe, 2A",1],["You still receive","£186",1]],
        incl:[`Club Europe, seat 2A — the cabin you booked`,`Hotel in Amsterdam tonight, booked and paid by us`,`Dinner and breakfast, <b>£46 loaded to your card</b>`,`You keep the <b>£186</b> — the downgrade still happened`]}
     ]},
@@ -1277,11 +1290,12 @@ function scAlert(){
   const l0=sc.legs[0],to=sc.legs[sc.legs.length-1].to;
   const mob=isMob();
   const statusLabel={cancel:"Cancelled",misconnect:"Delayed — connection at risk",bag:"Bag delayed",downgrade:"Cabin changed"}[sc.key];
+  const opt0=sc.choose?.options?.[0]||sc.extraChoice?.options?.[0]||{};
   const proactive={
-    cancel:["We've already identified your next available flight","Your paid ancillaries can be transferred or refunded","BA may proactively refund eligible items"],
-    misconnect:["We're holding seats on the next connection for your party","Your bags are being tracked and will transfer automatically","Lounge access has been arranged for your wait"],
-    bag:["Your bag file was raised automatically at 09:14","We've located your bag on the next inbound flight","Essentials allowance has been loaded to your card"],
-    downgrade:["Your seat has been reassigned to the best available","Fare difference refund has been calculated automatically","Your lounge access has been preserved"]
+    cancel:[`We've held <b>${sc.choose.options.length} options</b> for you, including ${opt0.newLeg?opt0.newLeg.no+' at '+opt0.newLeg.dep:'a full refund'}`,`<b>£${sc.comp.amount} compensation</b> calculated — no claim form needed`,`Hotel, meals and transport tonight are covered`],
+    misconnect:[`<b>${sc.pax.party} seats held together</b> on ${sc.choose.options[0].newLeg.no} at ${sc.choose.options[0].newLeg.dep}`,`Your bags are being transferred to the new flight automatically`,`Galleries Club lounge access for your wait`],
+    bag:[`Bag file <b>${sc.pax.bag}</b> raised automatically at 09:14`,`Located on tonight's <b>BA0058</b>, landing Heathrow 06:15 tomorrow`,`<b>£${sc.comp.amount}</b> essentials allowance already on your card`],
+    downgrade:[`Moved to <b>${sc.legs[0].no}</b> seat 9C — flight is on time`,`<b>£${sc.comp.amount}</b> reimbursement calculated under UK261`,`Lounge pass and seat 2A refund of <b>£94</b> included`]
   }[sc.key]||[];
 
   return `<div class="screen">
@@ -1310,7 +1324,11 @@ function scAlert(){
               <div style="font-size:11px;color:var(--ink-3)">${esc(to)} T${to==="JFK"?"7":to==="SFO"?"I":"1"}</div>
             </div>
           </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)">
+          <div style="display:flex;align-items:center;gap:6px;margin-top:14px;padding:10px 12px;border-radius:8px;background:${sc.sev==="red"?"var(--red-tint)":"var(--amber-tint)"};font-size:12px;font-weight:600;color:${sc.sev==="red"?"var(--red)":"var(--amber)"}">
+            <span style="width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 2s infinite"></span>
+            ${esc(l0.tag)} · Updated ${now()}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)">
             <span>🎫 ${esc(sc.pax.cabin)}</span><span>·</span>
             <span>${ico("user")} ${sc.pax.party>1?sc.pax.party+" passengers":"1 passenger"}</span><span>·</span>
             <span>${esc(sc.legs[0].aircraft||"A350-1000")}</span>
@@ -1585,16 +1603,16 @@ function scCareMob(){
   if(transCard){
     html+=`<div class="svc-section">
       <div class="svc-label">Transportation</div>
-      <div class="svc-partner">
-        <div class="svc-p-logo">${transCard.ic==="car"?"🚗":transCard.ic==="truck"?"🚚":"🚌"}</div>
+      <div class="svc-partner" role="article" aria-label="${esc(transCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">${transCard.ic==="car"?"🚗":transCard.ic==="truck"?"🚚":"🚌"}</div>
         <div class="svc-p-body">
           <b>${esc(transCard.t)}</b>
-          <span>${esc(transCard.b).substring(0,60)}${transCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(transCard.b))}</span>
         </div>
         <button class="svc-p-btn">${transCard.ic==="truck"?"Choose":"Book ride"}</button>
       </div>
-      <div class="svc-partner">
-        <div class="svc-p-logo">🧾</div>
+      <div class="svc-partner" role="article" aria-label="Claim transport expense">
+        <div class="svc-p-logo" aria-hidden="true">🧾</div>
         <div class="svc-p-body">
           <b>Claim transport expense</b>
           <span>If you arranged your own transport during disruption</span>
@@ -1607,11 +1625,11 @@ function scCareMob(){
   if(bagCard){
     html+=`<div class="svc-section">
       <div class="svc-label">Baggage</div>
-      <div class="svc-partner">
-        <div class="svc-p-logo">👜</div>
+      <div class="svc-partner" role="article" aria-label="${esc(bagCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">👜</div>
         <div class="svc-p-body">
           <b>${esc(bagCard.t)}</b>
-          <span>${esc(bagCard.b).substring(0,60)}${bagCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(bagCard.b))}</span>
         </div>
         ${bagCard.code?`<button class="svc-p-btn" data-help="bag">Track</button>`:""}
       </div></div>`;
@@ -1622,11 +1640,11 @@ function scCareMob(){
   if(loungeCard){
     html+=`<div class="svc-section">
       <div class="svc-label">Lounge Access</div>
-      <div class="svc-partner">
-        <div class="svc-p-logo">🍾</div>
+      <div class="svc-partner" role="article" aria-label="${esc(loungeCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">🍾</div>
         <div class="svc-p-body">
           <b>${esc(loungeCard.t)}</b>
-          <span>${esc(loungeCard.b).substring(0,60)}${loungeCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(loungeCard.b))}</span>
         </div>
         <button class="svc-p-btn">Access</button>
       </div></div>`;
@@ -1638,19 +1656,19 @@ function scCareMob(){
   if(fileCard||coverCard){
     html+=`<div class="svc-section">
       <div class="svc-label">Documentation</div>`;
-    if(fileCard) html+=`<div class="svc-partner">
-        <div class="svc-p-logo">📄</div>
+    if(fileCard) html+=`<div class="svc-partner" role="article" aria-label="${esc(fileCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">📄</div>
         <div class="svc-p-body">
           <b>${esc(fileCard.t)}</b>
-          <span>${esc(fileCard.b).substring(0,60)}${fileCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(fileCard.b))}</span>
         </div>
         ${fileCard.code?`<button class="svc-p-btn">${esc(fileCard.code)}</button>`:""}
       </div>`;
-    if(coverCard) html+=`<div class="svc-partner">
-        <div class="svc-p-logo">🛡️</div>
+    if(coverCard) html+=`<div class="svc-partner" role="article" aria-label="${esc(coverCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">🛡️</div>
         <div class="svc-p-body">
           <b>${esc(coverCard.t)}</b>
-          <span>${esc(coverCard.b).substring(0,60)}${coverCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(coverCard.b))}</span>
         </div>
       </div>`;
     html+=`</div>`;
@@ -1662,19 +1680,19 @@ function scCareMob(){
   if(refundCard||whereCard){
     html+=`<div class="svc-section">
       <div class="svc-label">Refunds</div>`;
-    if(refundCard) html+=`<div class="svc-partner">
-        <div class="svc-p-logo">🧾</div>
+    if(refundCard) html+=`<div class="svc-partner" role="article" aria-label="${esc(refundCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">🧾</div>
         <div class="svc-p-body">
           <b>${esc(refundCard.t)}</b>
-          <span>${esc(refundCard.b).substring(0,60)}${refundCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(refundCard.b))}</span>
         </div>
         <span style="font-family:var(--f-m);font-weight:600;color:var(--green);font-size:15px">${refundCard.v}</span>
       </div>`;
-    if(whereCard) html+=`<div class="svc-partner">
-        <div class="svc-p-logo">💳</div>
+    if(whereCard) html+=`<div class="svc-partner" role="article" aria-label="${esc(whereCard.t)}">
+        <div class="svc-p-logo" aria-hidden="true">💳</div>
         <div class="svc-p-body">
           <b>${esc(whereCard.t)}</b>
-          <span>${esc(whereCard.b).substring(0,60)}${whereCard.b.length>60?"…":""}</span>
+          <span>${truncW(esc(whereCard.b))}</span>
         </div>
       </div>`;
     html+=`</div>`;
@@ -1684,7 +1702,7 @@ function scCareMob(){
   html+=`<div class="svc-section">
     <div class="svc-label">Compensation</div>
     <div class="svc-comp">
-      <span class="svc-comp-tag">${sc.key==="bag"?"Essentials":"EC 261/2004"}</span>
+      <span class="svc-comp-tag">${sc.key==="bag"?"Essentials":"UK261"}</span>
       <div class="svc-comp-amt">${money(comp.amount)}<small>${sc.key==="bag"?"on your card":"approved"}</small></div>
       <h3>${esc(comp.title)}</h3>
       <p>${esc(comp.body).substring(0,120)}${comp.body.length>120?"…":""}</p>
@@ -1763,14 +1781,13 @@ function scDone(){
         <span class="row-val"><b>${x.v}</b><span>${esc(x.s)}</span></span></div>`).join("")}</div>
     ${!S.compAccepted?`<div class="actions" style="margin-bottom:22px">
       <button class="btn btn-1" data-goto="care">Accept your ${money(sc.comp.amount)} ${ico("arrow-right")}</button></div>`:""}
+    <div style="display:flex;gap:12px;margin-bottom:22px">
+      <button class="btn btn-2 btn-sm" style="flex:1">${ico("download")} Download PDF</button>
+      <button class="btn btn-2 btn-sm" style="flex:1">${ico("smartphone")} Apple Wallet</button>
+    </div>
     <div class="partners">
       <div class="ttl">Arranged for you across</div>
-      <div class="row-logos">
-        ${brand("britishairways","British Airways")}${brand("americanairlines","American Airlines")}
-        ${brand("iberia","Iberia")}${brand("hilton","Hilton")}${brand("marriott","Marriott")}
-        ${brand("accor","Accor")}${brand("uber","Uber")}${brand("visa","Visa")}
-        ${brand("mastercard","Mastercard")}${brand("whatsapp","WhatsApp")}
-      </div>
+      <div class="row-logos">${scenarioPartners()}</div>
     </div>
     <details><summary>${ico("settings-2")} Change something</summary>
       <div class="det-bd"><p>You can change any of this yourself, right here, up to two hours before departure — no phone call needed.</p>
@@ -1817,6 +1834,26 @@ function scDoneMob(){
         </div>
         <span style="font-family:var(--f-m);font-weight:600;color:var(--green);font-size:14px">${x.v}</span>
       </div>`).join("")}
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-label">Your documents</div>
+      <div class="svc-partner" role="article" aria-label="Download confirmation">
+        <div class="svc-p-logo" aria-hidden="true">${ico("download")}</div>
+        <div class="svc-p-body">
+          <b>Download everything</b>
+          <span>Confirmation, vouchers and boarding pass</span>
+        </div>
+        <button class="svc-p-btn">PDF</button>
+      </div>
+      <div class="svc-partner" role="article" aria-label="Add to Apple Wallet">
+        <div class="svc-p-logo" aria-hidden="true">${ico("smartphone")}</div>
+        <div class="svc-p-body">
+          <b>Add to Apple Wallet</b>
+          <span>Boarding pass and vouchers in one tap</span>
+        </div>
+        <button class="svc-p-btn">Add</button>
+      </div>
     </div>
 
     <div class="actions">
