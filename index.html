@@ -1274,17 +1274,72 @@ function optionsHTML(cfg){
 
 /* ═══════════ SCREENS ═══════════ */
 function scAlert(){
-  const breadcrumb=`${sc.legs[0].no} · ${sc.legs[0].from} → ${sc.legs[sc.legs.length-1].to}`;
+  const l0=sc.legs[0],to=sc.legs[sc.legs.length-1].to;
   const mob=isMob();
+  const statusLabel={cancel:"Cancelled",misconnect:"Delayed — connection at risk",bag:"Bag delayed",downgrade:"Cabin changed"}[sc.key];
+  const proactive={
+    cancel:["We've already identified your next available flight","Your paid ancillaries can be transferred or refunded","BA may proactively refund eligible items"],
+    misconnect:["We're holding seats on the next connection for your party","Your bags are being tracked and will transfer automatically","Lounge access has been arranged for your wait"],
+    bag:["Your bag file was raised automatically at 09:14","We've located your bag on the next inbound flight","Essentials allowance has been loaded to your card"],
+    downgrade:["Your seat has been reassigned to the best available","Fare difference refund has been calculated automatically","Your lounge access has been preserved"]
+  }[sc.key]||[];
+
   return `<div class="screen">
-    <div class="hub-breadcrumb"><span class="mono">${esc(breadcrumb)}</span></div>
-    <div class="status">
-      <div class="status-band ${sc.sev==="amber"?"amber":""}">${ico(sc.sev==="amber"?"triangle-alert":"circle-x")}
-        <b>${esc(sc.band.title)}</b></div>
-      <div class="status-body">${mob?`<p>${sc.alert.paras[0]}</p>`:sc.alert.paras.map(p=>`<p>${p}</p>`).join("")}</div>
+    <div class="svc-section">
+      <div class="svc-label">Your flight</div>
+      <div class="svc-card">
+        <div class="svc-card-body" style="padding:20px">
+          <span class="svc-badge ${sc.sev==="red"?"red":"amber"}" style="float:right;margin:-4px -4px 8px 8px">${esc(statusLabel)}</span>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px">Your Flight</div>
+          <h3 style="font-size:18px;margin-bottom:8px">${esc(l0.no)} ${esc(l0.from)} › ${esc(to)}</h3>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px">
+            <div>
+              <div style="font-size:11px;color:var(--ink-3)">Original dep.</div>
+              <div style="font-family:var(--f-m);font-size:22px;font-weight:600">${esc(l0.dep)}</div>
+              <div style="font-size:11px;color:var(--ink-3)">${esc(l0.from)} T5</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:0 12px">
+              <div style="font-size:11px;color:var(--ink-3)">${esc(l0.date)}</div>
+              <div style="border-top:1.5px dashed var(--line-2);margin:6px 0;position:relative">
+                <span style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);color:var(--ink-3)">${ico("plane")}</span>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:11px;color:var(--ink-3)">Original arr.</div>
+              <div style="font-family:var(--f-m);font-size:22px;font-weight:600">${esc(l0.arr)}</div>
+              <div style="font-size:11px;color:var(--ink-3)">${esc(to)} T${to==="JFK"?"7":to==="SFO"?"I":"1"}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)">
+            <span>🎫 ${esc(sc.pax.cabin)}</span><span>·</span>
+            <span>${ico("user")} ${sc.pax.party>1?sc.pax.party+" passengers":"1 passenger"}</span><span>·</span>
+            <span>${esc(sc.legs[0].aircraft||"A350-1000")}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    ${mob?"":itinHTML()+'<div style="height:16px"></div>'}
-    ${mob?"":noticeHTML()}
+
+    <div class="svc-section">
+      <div class="svc-card" style="border-left:3px solid ${sc.sev==="red"?"var(--red)":"var(--amber-bg)"}">
+        <div class="svc-card-body" style="padding:16px 18px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px">${ico("info")}</span>
+            <div>
+              <p style="margin:0;font-size:14px;color:var(--ink);line-height:1.55">${sc.alert.paras[0]}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    ${proactive.length?`<div class="svc-section">
+      <div class="svc-label">What we've already done</div>
+      ${proactive.map(p=>`<div class="svc-partner" style="margin-bottom:8px">
+        <div class="svc-p-logo" style="width:36px;height:36px;border-radius:50%;background:var(--green-tint);color:var(--green);font-size:16px">${ico("check")}</div>
+        <div class="svc-p-body"><span style="font-size:13.5px;color:var(--ink)">${esc(p)}</span></div>
+      </div>`).join("")}
+    </div>`:""}
+
     <div class="actions">
       <button class="btn btn-1" data-adv="1">${esc(sc.alert.cta)} ${ico("arrow-right")}</button>
       <button class="btn btn-3" data-help="rights">What am I entitled to?</button>
@@ -1309,29 +1364,55 @@ function scChoose(){
 function scChooseMob(){
   const cfg=sc.choose;
   return `<div class="screen">
-    <span class="eyebrow ${cfg.eyebrow[0]}"><span class="pip"></span>${esc(cfg.eyebrow[1])}</span>
-    <h1>${esc(cfg.h1)}</h1>
-    <div class="opts" style="gap:8px;margin-bottom:10px">${cfg.options.map(o=>{
+    <div class="svc-label" style="margin-bottom:6px">Your options</div>
+    <h1 style="font-size:22px;margin-bottom:4px">${esc(cfg.h1)}</h1>
+    <p style="font-size:14px;color:var(--ink-2);margin:0 0 16px;line-height:1.5">${esc(cfg.lede)}</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">${cfg.options.map(o=>{
       const sel=S.option&&S.option.id===o.id;
       const leg=o.newLeg;
-      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}">
-        <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
-          <h3>${o.rec?`<span class="rec">Recommended</span>`:""}${esc(o.title)}</h3>
-          <p>${esc(o.sub)}</p></span></span>
-        <div class="opt-detail"><div>
-          ${leg?`<span class="opt-flight-card" style="margin-left:0;margin-top:8px">
-            <span class="ofc-route"><b>${esc(leg.no)}</b> · ${esc(leg.from)} → ${esc(leg.to)}</span>
-            <span class="ofc-times"><span class="ofc-time">${esc(leg.dep)}</span><span class="ofc-dur">${ico("plane")}</span><span class="ofc-time">${esc(leg.arr)}</span></span>
-            <span class="ofc-meta">${esc(leg.date)}${o.cabin?" · "+esc(o.cabin):""}${o.seat?" · Seat "+esc(o.seat):""}</span>
-          </span>`:""}
-          <span class="opt-facts" style="padding-left:0;margin-top:8px">${o.facts.map(([k,v,g])=>`<span class="f"><em>${esc(k)}</em><b class="${g?"good":""}">${v}</b></span>`).join("")}</span>
-          ${sel?`<span class="opt-incl" style="margin-left:0;margin-top:8px"><span class="ttl">What's included</span>
-            <span class="incl-list">${o.incl.map(i=>`<span class="incl"><span class="tk">${ico("check")}</span><span>${i}</span></span>`).join("")}</span></span>`:""}
-        </div></div>
+      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}" style="border-radius:var(--r);box-shadow:var(--sh-1);border:${sel?"2px solid var(--blue)":"1.5px solid var(--line)"};padding:0;overflow:hidden;background:var(--surface)">
+        <span class="opt-top" style="padding:14px 16px ${leg?"8px":"14px"}">
+          <span class="opt-radio" style="margin-top:2px"></span>
+          <span class="opt-hd" style="flex:1">
+            <h3 style="font-size:15px;margin:0">${o.rec?`<span class="rec" style="font-size:11px">Recommended</span>`:""}${esc(o.title)}</h3>
+            <p style="font-size:12.5px;color:var(--ink-2);margin:2px 0 0">${esc(o.sub)}</p>
+          </span>
+          ${leg?`<span style="padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--green-tint);color:var(--green);flex-shrink:0">Seats available</span>`:""}
+        </span>
+
+        ${leg?`<div style="padding:0 16px 12px">
+          <div style="background:var(--bg);border-radius:var(--r-s);padding:12px 14px;margin-top:4px">
+            <div style="font-size:12px;color:var(--ink-2);margin-bottom:6px"><b style="color:var(--navy)">${esc(leg.no)}</b> · ${esc(leg.from)} → ${esc(leg.to)}</div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end">
+              <div><div style="font-family:var(--f-m);font-size:20px;font-weight:600">${esc(leg.dep)}</div>
+                <div style="font-size:10.5px;color:var(--ink-3)">${esc(leg.from)} T5</div></div>
+              <div style="flex:1;text-align:center;font-size:11px;color:var(--ink-3);padding:0 8px">
+                <div>7h 30m</div>
+                <div style="border-top:1px dashed var(--line-2);margin:4px 0;position:relative">
+                  <span style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--ink-3)">${ico("plane")}</span></div>
+                <div>Non-stop</div>
+              </div>
+              <div style="text-align:right"><div style="font-family:var(--f-m);font-size:20px;font-weight:600">${esc(leg.arr)}</div>
+                <div style="font-size:10.5px;color:var(--ink-3)">${esc(leg.to)} T7</div></div>
+            </div>
+            <div style="font-size:11.5px;color:var(--ink-2);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)">${esc(leg.date)}${o.cabin?" · "+esc(o.cabin):""}${o.seat?" · Seat "+esc(o.seat):""}</div>
+          </div>
+        </div>`:""}
+
+        <div style="padding:0 16px ${sel?"0":"12px"}">
+          <div style="font-size:12px;color:var(--ink-2)">${o.facts.map(([k,v,g])=>`<span style="display:inline-block;margin-right:12px">${esc(k)}: <b style="color:${g?"var(--green)":"var(--navy)"}">${v}</b></span>`).join("")}</div>
+        </div>
+
+        ${sel?`<div style="padding:10px 16px 14px;margin-top:8px;background:var(--blue-tint);border-top:1px solid rgba(29,92,169,.1)">
+          <div style="font-size:11.5px;font-weight:700;color:var(--blue);margin-bottom:6px">What's included</div>
+          ${o.incl.map(i=>`<div style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink);padding:3px 0">${ico("check")} ${i}</div>`).join("")}
+        </div>`:""}
       </button>`;}).join("")}</div>
+
     <div class="actions">
       <button class="btn btn-1" id="confirmOpt" ${S.option?"":"disabled"}>
-        ${S.option?`Confirm — ${esc(S.option.title.toLowerCase())}`:"Choose an option"}</button>
+        ${S.option?`Confirm — ${esc(S.option.title.toLowerCase())}`:"Choose an option to continue"}</button>
       <button class="btn btn-3" data-help="which">Which should I pick?</button>
     </div></div>`;
 }
@@ -1703,27 +1784,44 @@ function scDone(){
 
 function scDoneMob(){
   const rows=summaryRows();
+  const resolved=rows.filter(x=>!x.wait);
+  const pending=rows.filter(x=>x.wait);
   return `<div class="screen">
-    <span class="eyebrow ok"><span class="pip"></span>All sorted</span>
-    <h1>You're sorted, ${esc(sc.pax.first)}.</h1>
+    <div style="text-align:center;padding:20px 0 8px">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--green-tint);display:inline-grid;place-items:center;margin-bottom:12px">
+        <span style="color:var(--green);font-size:28px">${ico("check")}</span>
+      </div>
+      <h1 style="font-size:22px;margin:0 0 4px">You're sorted, ${esc(sc.pax.first)}.</h1>
+      <p style="font-size:14px;color:var(--ink-2);margin:0">Everything below is booked and paid for.</p>
+    </div>
 
-    <div class="disc-group">${rows.map((x,i)=>`
-      <div class="disc${i===0?" open":""}" data-disc>
-        <button class="disc-hd">
-          <span class="disc-ic ${x.wait?"amber":"green"}">${ico(x.wait?"clock":"check")}</span>
-          <span class="disc-title"><b>${esc(x.t)}</b><span>${esc(x.s)}</span></span>
-          <span class="disc-val">${x.v}</span>
-          <span class="disc-arrow">${ico("chevron-right")}</span>
-        </button>
-        <div class="disc-bd"><div class="disc-bd-inner">
-          <p>${esc(x.p)}</p>
-        </div></div>
+    ${pending.length?`<div class="svc-section">
+      <div class="svc-label" style="color:var(--amber)">⏳ Needs your attention</div>
+      ${pending.map(x=>`<div class="svc-partner" style="border-left:3px solid var(--amber-bg)">
+        <div class="svc-p-logo" style="background:var(--amber-tint);color:var(--amber);width:40px;height:40px">${ico("clock")}</div>
+        <div class="svc-p-body">
+          <b>${esc(x.t)}</b>
+          <span>${esc(x.p)}</span>
+        </div>
+        <span style="font-family:var(--f-m);font-weight:600;color:var(--amber);font-size:14px">${x.v}</span>
+      </div>`).join("")}
+    </div>`:""}
+
+    <div class="svc-section">
+      <div class="svc-label">✓ Confirmed</div>
+      ${resolved.map(x=>`<div class="svc-partner">
+        <div class="svc-p-logo" style="background:var(--green-tint);color:var(--green);width:40px;height:40px">${ico("check")}</div>
+        <div class="svc-p-body">
+          <b>${esc(x.t)}</b>
+          <span>${esc(x.p)}</span>
+        </div>
+        <span style="font-family:var(--f-m);font-weight:600;color:var(--green);font-size:14px">${x.v}</span>
       </div>`).join("")}
     </div>
 
     <div class="actions">
       ${!S.compAccepted?`<button class="btn btn-1" data-goto="care">Accept ${money(sc.comp.amount)} ${ico("arrow-right")}</button>`
-        :`<button class="btn btn-1" data-adv="0" style="background:var(--green)" disabled>${ico("check")} Everything confirmed</button>`}
+        :`<button class="btn btn-1" data-adv="0" style="background:var(--green);border:none;color:#fff" disabled>${ico("check")} Everything confirmed</button>`}
     </div></div>`;
 }
 
