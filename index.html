@@ -264,6 +264,7 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .hub-breadcrumb{margin-bottom:var(--sp-m);font-size:14px;color:var(--ink-3)}
 .hub-breadcrumb .mono{font-size:13px}
 .section-label{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--sp-s)}
+@media (max-width:620px){.mob-hide{display:none}}
 .status{border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-2);border:none;background:var(--surface);margin-bottom:var(--sp-2xl)}
 .status-band{padding:18px var(--sp-l);display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--navy),#2A3A72);color:#fff}
 .status-band.amber{background:linear-gradient(135deg,#B87D1A,#D49A2E);color:#fff}
@@ -524,94 +525,151 @@ details[open] summary::after{transform:rotate(180deg)}
 
 @media (max-width:940px){.wrap{grid-template-columns:1fr;gap:22px}.rail{position:static;order:2}.main{max-width:none}}
 @media (max-width:620px){
-  body{font-size:16px;line-height:1.6}
-  .hdr-in{height:56px}.prog{top:0}
+  body{font-size:16px;line-height:1.55}
+  .hdr-in{height:56px}
   .hdr-ref .lbl,.demo-lbl{display:none}
 
-  /* Hub layout — generous, airy mobile spacing */
-  .wrap{padding:32px 20px 100px;gap:32px}
-  h1{font-size:28px;line-height:1.18;margin-bottom:16px;letter-spacing:-.025em}
-  h2{font-size:20px;margin-bottom:14px;letter-spacing:-.01em}
-  .lede{font-size:16px;line-height:1.6;margin-bottom:28px}
-  .eyebrow{margin-bottom:18px;font-size:12.5px}
+  /* ═══ VIEWPORT-LOCKED HUB ═══ */
+  .hub-shell.active{display:flex;flex-direction:column;height:calc(100dvh - 56px);overflow:hidden}
+  .hub-shell .prog{position:relative;top:0;flex-shrink:0}
+  .hub-shell .prog-in{padding:0 20px}
+  .hub-shell .prog-steps{-webkit-mask-image:linear-gradient(to right,black 82%,transparent);mask-image:linear-gradient(to right,black 82%,transparent)}
+  .pstep{padding:5px 10px 5px 5px;font-size:11.5px}
+  .pstep .n{width:16px;height:16px;font-size:10px}
+  .prog-track{height:2px}
+  .hub-shell .app-back{display:none}
+  .hub-shell .ftr{display:none}
+  .hub-shell .wrap{flex:1;padding:0;overflow:hidden;display:flex;flex-direction:column}
+  .hub-shell .rail{display:none}
+  .hub-shell .main{flex:1;display:flex;flex-direction:column;overflow:hidden;max-width:none}
 
-  /* Progress — minimal, calm */
-  .prog-in{padding:0 20px}
-  .prog-steps{-webkit-mask-image:linear-gradient(to right,black 82%,transparent);mask-image:linear-gradient(to right,black 82%,transparent)}
-  .pstep{padding:6px 11px 6px 6px;font-size:12px}
-  .pstep .n{width:18px;height:18px;font-size:10.5px}
+  /* Each screen fills viewport, no scroll */
+  .screen{flex:1;display:flex;flex-direction:column;padding:24px 20px env(safe-area-inset-bottom,20px);overflow-y:auto;-webkit-overflow-scrolling:touch;animation:screenSlide .4s var(--ease-out) both}
+  @keyframes screenSlide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
 
-  /* Status card — hero treatment */
-  .status{margin-bottom:32px;border-radius:var(--r)}
-  .status-band{padding:18px 20px;gap:12px}
-  .status-band b{font-size:16px;line-height:1.35}
-  .status-body{padding:24px 20px 28px}
-  .status-body p{font-size:16px;line-height:1.65}
+  /* Actions anchored at bottom */
+  .screen .actions{margin-top:auto;padding-top:16px;flex-shrink:0;flex-direction:column;gap:10px}
 
-  /* Option cards — spacious, tappable */
-  .opts{gap:16px;margin-bottom:32px}
-  .opt{padding:24px 20px 28px;border-radius:var(--r)}
-  .opt-top{gap:12px}
-  .opt-hd h3{font-size:19px;margin-bottom:8px}
-  .opt-hd p{font-size:15px;line-height:1.55}
-  .opt-facts{padding-left:0;gap:20px;margin-top:16px}
-  .opt-flight-card{margin-left:0;margin-top:14px;padding:16px}
-  .ofc-time{font-size:20px}
-  .opt-incl{margin-left:0;margin-top:16px;padding:16px 18px;border-radius:var(--r-s)}
-  .incl{font-size:14px}
+  /* Typography — confident but compact */
+  h1{font-size:26px;line-height:1.18;margin-bottom:10px;letter-spacing:-.025em}
+  h2{font-size:19px;margin-bottom:10px;letter-spacing:-.01em}
+  .lede{font-size:15px;line-height:1.5;margin-bottom:20px;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .eyebrow{margin-bottom:12px;font-size:12px}
+  .section-label{margin-bottom:6px}
+  .hub-breadcrumb{margin-bottom:10px}
 
-  /* Itinerary — clean */
+  /* Status card — compact hero */
+  .status{margin-bottom:20px;border-radius:var(--r)}
+  .status-band{padding:14px 20px;gap:10px}
+  .status-band b{font-size:15px;line-height:1.3}
+  .status-band .mono{display:none}
+  .status-body{padding:16px 20px 20px}
+  .status-body p{font-size:14.5px;line-height:1.5}
+  .status-body p+p{display:none}
+
+  /* Itinerary — compact inline */
+  .screen .card.itin{margin-bottom:16px}
   .itin{border-radius:var(--r)}
-  .leg{padding:18px 20px;gap:12px}
-  .leg-fl{width:auto;font-size:13px}
-  .leg-pt b{font-size:18px}
+  .itin-hd{padding:12px 16px}
+  .itin-hd b{font-size:13.5px}
+  .leg{padding:12px 16px;gap:10px}
+  .leg-fl{width:auto;font-size:12px}
+  .leg-pt b{font-size:16px}
+  .leg-pt span{font-size:11.5px}
+  .leg-tag{font-size:10.5px;padding:2px 7px}
+  .itin-ft{padding:10px 16px;font-size:12.5px;gap:12px}
+  .leg-arc{min-width:16px}
 
-  /* Compensation card — premium mobile */
-  .comp{padding:28px 20px 32px;margin-bottom:32px;border-radius:var(--r)}
-  .comp .amt{font-size:40px}
-  .comp .amt small{font-size:14px}
-  .comp p{font-size:15.5px;line-height:1.6}
+  /* Notice — compact */
+  .notice{padding:14px 16px;border-radius:var(--r-s);margin-bottom:12px}
+  .notice .ic{width:28px;height:28px}
+  .notice b{font-size:13.5px}
+  .notice p{font-size:13px}
+  .notice .chans{gap:5px;margin-top:6px}
 
-  /* Care cards — full width, stacked */
-  .care{padding:22px 20px;border-radius:var(--r)}
-  .care-ic{width:44px;height:44px;border-radius:12px}
-  .care b{font-size:17px}
-  .care p{font-size:15px;line-height:1.55}
-  .care-grid{gap:14px;margin-bottom:28px}
+  /* Option cards — compact, tappable */
+  .opts{gap:12px;margin-bottom:16px}
+  .opt{padding:16px 16px 20px;border-radius:var(--r)}
+  .opt-top{gap:10px}
+  .opt-radio{width:20px;height:20px}
+  .opt-hd h3{font-size:17px;margin-bottom:4px;gap:8px}
+  .opt-hd p{font-size:13.5px;line-height:1.45;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .opt.sel .opt-hd p{-webkit-line-clamp:unset}
+  .rec{font-size:10.5px;padding:2px 7px}
+  .opt-facts{padding-left:0;gap:14px;margin-top:12px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .opt-facts::-webkit-scrollbar{display:none}
+  .f em{font-size:11px}
+  .f b{font-size:13.5px}
+  .opt-flight-card{margin-left:0;margin-top:12px;padding:12px;border-radius:var(--r-s)}
+  .ofc-route{font-size:13px;margin-bottom:8px}
+  .ofc-time{font-size:18px}
+  .ofc-meta{font-size:12px}
+  .opt-incl{margin-left:0;margin-top:12px;padding:12px 14px;border-radius:var(--r-s)}
+  .opt-incl .ttl{font-size:11.5px;margin-bottom:6px}
+  .incl{font-size:13px;gap:7px}
 
-  /* Hotel picks */
-  .pick{padding:18px;border-radius:var(--r)}
+  /* Compensation — compact */
+  .comp{padding:20px;margin-bottom:20px;border-radius:var(--r)}
+  .comp .amt{font-size:36px}
+  .comp .amt small{font-size:13px}
+  .comp h2{margin:12px 0 6px;font-size:17px}
+  .comp p{font-size:14px;line-height:1.5;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .pay-row{font-size:12px;margin-bottom:12px}
 
-  /* Buttons — big, full-width touch targets */
-  .btn{padding:18px 28px;font-size:17px;width:100%}
-  .btn-sm{padding:14px 20px;font-size:15px}
-  .actions{flex-direction:column;gap:10px;margin-top:8px}
+  /* Care cards — horizontal scroll */
+  .care-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-bottom:16px;padding-bottom:4px;scrollbar-width:none}
+  .care-grid::-webkit-scrollbar{display:none}
+  .care{min-width:260px;flex-shrink:0;scroll-snap-align:start;padding:18px 16px;border-radius:var(--r)}
+  .care-ic{width:36px;height:36px;border-radius:10px;margin-bottom:10px;font-size:16px}
+  .care b{font-size:15px;margin-bottom:4px}
+  .care p{font-size:13px;line-height:1.45;margin-bottom:10px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .care-val span{font-size:12px}
+  .care-val b{font-size:15px}
 
-  /* Summary rows */
-  .row{padding:18px 20px}
-  .rows{border-radius:var(--r)}
+  /* Hotel picks — compact */
+  .pick{padding:14px;border-radius:var(--r)}
+  .pick-radio{width:18px;height:18px}
+  .pick-body b{font-size:15px}
+  .pick-body p{font-size:13px;margin-bottom:6px}
+  .hotel-grid{gap:10px;margin-bottom:12px}
 
-  /* Notice */
-  .notice{padding:18px 20px;border-radius:var(--r)}
+  /* Buttons — full-width, prominent */
+  .btn{padding:16px 24px;font-size:16px;width:100%}
+  .btn-sm{padding:12px 16px;font-size:14px}
+  .btn-3{padding:10px 6px;font-size:14px}
 
-  /* Details/accordion */
-  details{margin-bottom:28px}
+  /* Summary rows — compact */
+  .row{padding:14px 16px;gap:12px}
+  .row-ic{width:28px;height:28px;border-radius:8px;font-size:12px}
+  .row-bd b{font-size:14px}
+  .row-bd p{font-size:13px}
+  .row-val b{font-size:13.5px}
+  .row-val span{font-size:11.5px}
+  .rows{border-radius:var(--r);margin-bottom:16px}
+
+  /* Details — compact */
+  details{margin-bottom:16px}
+  summary{font-size:14px}
+  .det-bd{font-size:13.5px}
+  .det-bd dl{font-size:13px}
+
+  /* Partners — compact */
+  .partners{padding:16px;border-radius:var(--r);margin-bottom:12px}
+  .partners .ttl{margin-bottom:10px;font-size:11.5px}
+  .row-logos{gap:16px}
+  .row-logos .bi{height:18px}
 
   /* Drawer as bottom sheet */
   .drawer{width:100%;top:auto;bottom:0;left:0;right:0;max-height:85vh;border-left:none;border-top:none;border-radius:24px 24px 0 0;transform:translateY(100%);box-shadow:0 -20px 60px -20px rgba(29,39,87,.3)}
   .drawer.open{transform:translateY(0)}
 
   /* Toasts & FAB */
-  .toasts{top:70px;right:14px;left:14px;max-width:none}
-  .toast{border-radius:var(--r)}
-  .help-fab{bottom:78px;right:16px;padding:14px 20px 14px 16px;font-size:14.5px;box-shadow:0 6px 24px rgba(29,39,87,.28)}
-
-  /* Footer */
-  .ftr{padding:48px 20px;font-size:13.5px}
-
-  /* Partners */
-  .partners{padding:20px;border-radius:var(--r)}
-  .row-logos{gap:20px}
+  .toasts{top:66px;right:12px;left:12px;max-width:none}
+  .toast{border-radius:var(--r-s);padding:12px 14px}
+  .toast .ic{width:24px;height:24px;border-radius:6px;font-size:12px}
+  .toast b{font-size:13px}
+  .toast p{font-size:12.5px}
+  .help-fab{bottom:20px;right:16px;padding:12px 18px 12px 14px;font-size:13.5px;box-shadow:0 4px 16px rgba(29,39,87,.25)}
 }
 *{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 ::-webkit-scrollbar{width:6px;height:6px}
@@ -975,7 +1033,8 @@ function scAlert(){
         <b>${esc(sc.band.title)}</b></div>
       <div class="status-body">${sc.alert.paras.map(p=>`<p>${p}</p>`).join("")}</div>
     </div>
-    ${itinHTML()}<div style="height:24px"></div>${noticeHTML()}
+    <div class="mob-hide">${itinHTML()}<div style="height:16px"></div></div>
+    ${noticeHTML()}
     <div class="actions">
       <button class="btn btn-1" data-adv="1">${esc(sc.alert.cta)} ${ico("arrow-right")}</button>
       <button class="btn btn-3" data-help="rights">What am I entitled to?</button>
@@ -1235,8 +1294,11 @@ function render(){
     `<button class="dp ${k===S.key?"on":""}" data-sc="${k}">${ico(v.icon)}${esc(v.label)}</button>`).join("");
   $("demoPills").querySelectorAll("[data-sc]").forEach(b=>b.onclick=()=>loadScenario(b.dataset.sc));
   renderProgress();
-  $("main").innerHTML=SCREEN[curStep()]();
+  const mainEl=$("main");
+  mainEl.innerHTML=SCREEN[curStep()]();
   renderRail(); icons(); bind();
+  const scrn=mainEl.querySelector(".screen");
+  if(scrn) scrn.scrollTop=0;
   window.scrollTo({top:0,behavior:reduced?"auto":"smooth"});
 }
 
