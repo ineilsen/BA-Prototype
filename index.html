@@ -532,10 +532,10 @@ details[open] summary::after{transform:rotate(180deg)}
   /* ═══ VIEWPORT-LOCKED HUB ═══ */
   .hub-shell.active{display:flex;flex-direction:column;height:calc(100dvh - 56px);overflow:hidden}
   .hub-shell .prog{position:relative;top:0;flex-shrink:0}
-  .hub-shell .prog-in{padding:0 20px}
-  .hub-shell .prog-steps{-webkit-mask-image:linear-gradient(to right,black 82%,transparent);mask-image:linear-gradient(to right,black 82%,transparent)}
-  .pstep{padding:5px 10px 5px 5px;font-size:11.5px}
-  .pstep .n{width:16px;height:16px;font-size:10px}
+  .hub-shell .prog-in{padding:0 16px}
+  .hub-shell .prog-steps{-webkit-mask-image:linear-gradient(to right,black 80%,transparent);mask-image:linear-gradient(to right,black 80%,transparent)}
+  .pstep{padding:4px 8px 4px 4px;font-size:11px}
+  .pstep .n{width:15px;height:15px;font-size:9.5px}
   .prog-track{height:2px}
   .hub-shell .app-back{display:none}
   .hub-shell .ftr{display:none}
@@ -543,121 +543,127 @@ details[open] summary::after{transform:rotate(180deg)}
   .hub-shell .rail{display:none}
   .hub-shell .main{flex:1;display:flex;flex-direction:column;overflow:hidden;max-width:none}
 
-  /* Each screen fills viewport, no scroll */
-  .screen{flex:1;display:flex;flex-direction:column;padding:24px 20px env(safe-area-inset-bottom,20px);overflow-y:auto;-webkit-overflow-scrolling:touch;animation:screenSlide .4s var(--ease-out) both}
-  @keyframes screenSlide{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+  /* Each screen — flex column, smooth scroll when needed */
+  .screen{flex:1;display:flex;flex-direction:column;padding:20px 16px calc(env(safe-area-inset-bottom,12px) + 12px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;animation:screenSlide .35s var(--ease-out) both}
+  @keyframes screenSlide{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
 
   /* Actions anchored at bottom */
-  .screen .actions{margin-top:auto;padding-top:16px;flex-shrink:0;flex-direction:column;gap:10px}
+  .screen .actions{margin-top:auto;padding-top:12px;flex-shrink:0;flex-direction:column;gap:8px}
 
-  /* Typography — confident but compact */
-  h1{font-size:26px;line-height:1.18;margin-bottom:10px;letter-spacing:-.025em}
-  h2{font-size:19px;margin-bottom:10px;letter-spacing:-.01em}
-  .lede{font-size:15px;line-height:1.5;margin-bottom:20px;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
-  .eyebrow{margin-bottom:12px;font-size:12px}
-  .section-label{margin-bottom:6px}
-  .hub-breadcrumb{margin-bottom:10px}
+  /* Typography — compact, no overflow */
+  h1{font-size:22px;line-height:1.2;margin-bottom:8px;letter-spacing:-.02em;overflow-wrap:break-word;word-wrap:break-word}
+  h2{font-size:17px;margin-bottom:8px;letter-spacing:-.01em;overflow-wrap:break-word}
+  .lede{font-size:14px;line-height:1.45;margin-bottom:14px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .eyebrow{margin-bottom:8px;font-size:11.5px}
+  .section-label{margin-bottom:4px;font-size:11.5px}
+  .hub-breadcrumb{margin-bottom:6px;font-size:12.5px}
 
   /* Status card — compact hero */
-  .status{margin-bottom:20px;border-radius:var(--r)}
-  .status-band{padding:14px 20px;gap:10px}
-  .status-band b{font-size:15px;line-height:1.3}
+  .status{margin-bottom:14px;border-radius:14px}
+  .status-band{padding:12px 16px;gap:8px}
+  .status-band b{font-size:14px;line-height:1.3}
+  .status-band svg{width:14px;height:14px}
   .status-band .mono{display:none}
-  .status-body{padding:16px 20px 20px}
-  .status-body p{font-size:14.5px;line-height:1.5}
+  .status-body{padding:14px 16px 16px}
+  .status-body p{font-size:13.5px;line-height:1.45}
   .status-body p+p{display:none}
 
   /* Itinerary — compact inline */
-  .screen .card.itin{margin-bottom:16px}
-  .itin{border-radius:var(--r)}
-  .itin-hd{padding:12px 16px}
-  .itin-hd b{font-size:13.5px}
-  .leg{padding:12px 16px;gap:10px}
-  .leg-fl{width:auto;font-size:12px}
-  .leg-pt b{font-size:16px}
-  .leg-pt span{font-size:11.5px}
-  .leg-tag{font-size:10.5px;padding:2px 7px}
-  .itin-ft{padding:10px 16px;font-size:12.5px;gap:12px}
-  .leg-arc{min-width:16px}
+  .screen .card.itin{margin-bottom:12px}
+  .itin{border-radius:12px}
+  .itin-hd{padding:10px 14px}
+  .itin-hd b{font-size:12.5px}
+  .leg{padding:10px 14px;gap:8px}
+  .leg-fl{width:auto;font-size:11.5px}
+  .leg-pt b{font-size:15px}
+  .leg-pt span{font-size:11px}
+  .leg-tag{font-size:10px;padding:2px 6px}
+  .itin-ft{padding:8px 14px;font-size:11.5px;gap:10px}
+  .leg-arc{min-width:14px}
 
   /* Notice — compact */
-  .notice{padding:14px 16px;border-radius:var(--r-s);margin-bottom:12px}
-  .notice .ic{width:28px;height:28px}
-  .notice b{font-size:13.5px}
-  .notice p{font-size:13px}
-  .notice .chans{gap:5px;margin-top:6px}
+  .notice{padding:12px 14px;border-radius:10px;margin-bottom:10px}
+  .notice .ic{width:24px;height:24px;font-size:12px}
+  .notice b{font-size:13px}
+  .notice p{font-size:12.5px}
+  .notice .chans{gap:4px;margin-top:5px}
+  .chan{font-size:11px;padding:3px 8px}
 
   /* Option cards — compact, tappable */
-  .opts{gap:12px;margin-bottom:16px}
-  .opt{padding:16px 16px 20px;border-radius:var(--r)}
-  .opt-top{gap:10px}
-  .opt-radio{width:20px;height:20px}
-  .opt-hd h3{font-size:17px;margin-bottom:4px;gap:8px}
-  .opt-hd p{font-size:13.5px;line-height:1.45;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
-  .opt.sel .opt-hd p{-webkit-line-clamp:unset}
-  .rec{font-size:10.5px;padding:2px 7px}
-  .opt-facts{padding-left:0;gap:14px;margin-top:12px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .opts{gap:10px;margin-bottom:12px}
+  .opt{padding:14px;border-radius:14px}
+  .opt-top{gap:8px}
+  .opt-radio{width:18px;height:18px;margin-top:1px}
+  .opt.sel .opt-radio::after{width:7px;height:7px}
+  .opt-hd h3{font-size:15.5px;margin-bottom:2px;gap:6px}
+  .opt-hd p{font-size:13px;line-height:1.4;-webkit-line-clamp:1;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .opt.sel .opt-hd p{-webkit-line-clamp:3}
+  .rec{font-size:10px;padding:2px 6px}
+  .opt-facts{padding-left:0;gap:12px;margin-top:10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   .opt-facts::-webkit-scrollbar{display:none}
-  .f em{font-size:11px}
-  .f b{font-size:13.5px}
-  .opt-flight-card{margin-left:0;margin-top:12px;padding:12px;border-radius:var(--r-s)}
-  .ofc-route{font-size:13px;margin-bottom:8px}
-  .ofc-time{font-size:18px}
-  .ofc-meta{font-size:12px}
-  .opt-incl{margin-left:0;margin-top:12px;padding:12px 14px;border-radius:var(--r-s)}
-  .opt-incl .ttl{font-size:11.5px;margin-bottom:6px}
-  .incl{font-size:13px;gap:7px}
+  .f em{font-size:10.5px}
+  .f b{font-size:12.5px}
+  .opt-flight-card{margin-left:0;margin-top:10px;padding:10px;border-radius:10px}
+  .ofc-route{font-size:12px;margin-bottom:6px}
+  .ofc-time{font-size:16px}
+  .ofc-meta{font-size:11px}
+  .opt-incl{margin-left:0;margin-top:10px;padding:10px 12px;border-radius:10px}
+  .opt-incl .ttl{font-size:11px;margin-bottom:5px}
+  .incl{font-size:12.5px;gap:5px}
+  .incl .tk{font-size:12px}
 
   /* Compensation — compact */
-  .comp{padding:20px;margin-bottom:20px;border-radius:var(--r)}
-  .comp .amt{font-size:36px}
-  .comp .amt small{font-size:13px}
-  .comp h2{margin:12px 0 6px;font-size:17px}
-  .comp p{font-size:14px;line-height:1.5;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
-  .pay-row{font-size:12px;margin-bottom:12px}
+  .comp{padding:16px;margin-bottom:12px;border-radius:14px}
+  .comp .amt{font-size:32px}
+  .comp .amt small{font-size:12px;margin-left:8px}
+  .comp h2{margin:8px 0 4px;font-size:15px}
+  .comp p{font-size:13px;line-height:1.4;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .pay-row{font-size:11px;margin-bottom:8px;gap:6px}
+  .pay-row .bi{height:14px}
 
-  /* Care cards — horizontal scroll */
-  .care-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-bottom:16px;padding-bottom:4px;scrollbar-width:none}
+  /* Care cards — compact horizontal scroll */
+  .care-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin-bottom:12px;padding-bottom:2px;scrollbar-width:none;margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
   .care-grid::-webkit-scrollbar{display:none}
-  .care{min-width:260px;flex-shrink:0;scroll-snap-align:start;padding:18px 16px;border-radius:var(--r)}
-  .care-ic{width:36px;height:36px;border-radius:10px;margin-bottom:10px;font-size:16px}
-  .care b{font-size:15px;margin-bottom:4px}
-  .care p{font-size:13px;line-height:1.45;margin-bottom:10px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
-  .care-val span{font-size:12px}
-  .care-val b{font-size:15px}
+  .care{min-width:200px;flex-shrink:0;scroll-snap-align:start;padding:14px;border-radius:12px}
+  .care-ic{width:30px;height:30px;border-radius:8px;margin-bottom:8px;font-size:14px}
+  .care b{font-size:14px;margin-bottom:2px}
+  .care p{font-size:12px;line-height:1.35;margin-bottom:8px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .care-val{padding-top:8px}
+  .care-val span{font-size:11px}
+  .care-val b{font-size:13px}
+  .care-code{margin-top:6px;padding:6px 10px;font-size:12px}
 
   /* Hotel picks — compact */
-  .pick{padding:14px;border-radius:var(--r)}
-  .pick-radio{width:18px;height:18px}
-  .pick-body b{font-size:15px}
-  .pick-body p{font-size:13px;margin-bottom:6px}
-  .hotel-grid{gap:10px;margin-bottom:12px}
+  .pick{padding:12px;border-radius:12px;gap:10px}
+  .pick-radio{width:16px;height:16px}
+  .pick-thumb{width:48px;height:36px;border-radius:8px}
+  .pick-body b{font-size:14px;margin-bottom:1px}
+  .pick-body p{font-size:12px;margin-bottom:4px;-webkit-line-clamp:1;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .pick.sel .pick-body p{-webkit-line-clamp:unset}
+  .pick-meta{gap:4px}
+  .pill{font-size:11px;padding:2px 7px}
+  .hotel-grid{gap:8px;margin-bottom:10px}
 
   /* Buttons — full-width, prominent */
-  .btn{padding:16px 24px;font-size:16px;width:100%}
-  .btn-sm{padding:12px 16px;font-size:14px}
-  .btn-3{padding:10px 6px;font-size:14px}
+  .btn{padding:14px 20px;font-size:15px;width:100%}
+  .btn-sm{padding:10px 14px;font-size:13px}
+  .btn-3{padding:8px 4px;font-size:13px}
 
   /* Summary rows — compact */
-  .row{padding:14px 16px;gap:12px}
-  .row-ic{width:28px;height:28px;border-radius:8px;font-size:12px}
-  .row-bd b{font-size:14px}
-  .row-bd p{font-size:13px}
-  .row-val b{font-size:13.5px}
-  .row-val span{font-size:11.5px}
-  .rows{border-radius:var(--r);margin-bottom:16px}
+  .row{padding:12px 14px;gap:10px}
+  .row-ic{width:24px;height:24px;border-radius:6px;font-size:11px}
+  .row-bd b{font-size:13px}
+  .row-bd p{font-size:12px;-webkit-line-clamp:1;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+  .row-val b{font-size:12.5px}
+  .row-val span{font-size:10.5px}
+  .rows{border-radius:12px;margin-bottom:10px}
 
-  /* Details — compact */
-  details{margin-bottom:16px}
-  summary{font-size:14px}
-  .det-bd{font-size:13.5px}
-  .det-bd dl{font-size:13px}
+  /* Details — hidden on mobile to save space */
+  .screen details{display:none}
+  .comp .actions .btn-sm{display:none}
 
-  /* Partners — compact */
-  .partners{padding:16px;border-radius:var(--r);margin-bottom:12px}
-  .partners .ttl{margin-bottom:10px;font-size:11.5px}
-  .row-logos{gap:16px}
-  .row-logos .bi{height:18px}
+  /* Partners — hidden on mobile */
+  .partners{display:none}
 
   /* Drawer as bottom sheet */
   .drawer{width:100%;top:auto;bottom:0;left:0;right:0;max-height:85vh;border-left:none;border-top:none;border-radius:24px 24px 0 0;transform:translateY(100%);box-shadow:0 -20px 60px -20px rgba(29,39,87,.3)}
