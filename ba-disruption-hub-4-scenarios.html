@@ -523,6 +523,48 @@ details[open] summary::after{transform:rotate(180deg)}
 .ftr a{color:#DCE4F5;text-decoration:none}
 .ftr .push{margin-left:auto;font-family:var(--f-m);font-size:12px;opacity:.7}
 
+/* ═══════════ DISCLOSURE ACCORDION ═══════════ */
+.disc-group{display:flex;flex-direction:column;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh-1);background:var(--surface);margin-bottom:16px}
+.disc+.disc{border-top:1px solid var(--line)}
+.disc-hd{display:flex;align-items:center;gap:12px;padding:16px;width:100%;transition:background .2s}
+.disc-hd:active{background:var(--bg)}
+.disc-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;font-size:16px}
+.disc-ic.green{background:var(--green-tint);color:var(--green)}
+.disc-ic.blue{background:var(--blue-tint);color:var(--blue)}
+.disc-ic.amber{background:var(--amber-tint);color:var(--amber)}
+.disc-ic.navy{background:rgba(29,39,87,.08);color:var(--navy)}
+.disc-ic.red{background:var(--red-tint);color:var(--red)}
+.disc-title{flex:1;min-width:0}
+.disc-title b{display:block;font-size:15px;font-weight:700;line-height:1.3}
+.disc-title span{display:block;font-size:12px;color:var(--ink-3);margin-top:1px}
+.disc-val{font-family:var(--f-m);font-size:15px;font-weight:500;color:var(--green);flex-shrink:0}
+.disc-arrow{color:var(--ink-3);transition:transform .35s var(--ease-out);flex-shrink:0;display:grid;place-items:center}
+.disc-arrow svg{width:16px;height:16px}
+.disc.open .disc-arrow{transform:rotate(90deg);color:var(--blue)}
+.disc-bd{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .4s var(--ease-out),opacity .3s .05s}
+.disc-bd>div{overflow:hidden}
+.disc.open .disc-bd{grid-template-rows:1fr;opacity:1}
+.disc-bd-inner{padding:0 16px 16px}
+.disc-bd-inner p{margin:0 0 8px;font-size:14px;color:var(--ink-2);line-height:1.5}
+.disc-bd-inner p:last-child{margin-bottom:0}
+.disc-bd-inner .care-code{margin-top:8px}
+.disc-hero{display:flex;align-items:baseline;gap:10px;padding:16px 0;margin-bottom:8px}
+.disc-hero .dh-amt{font-family:var(--f-m);font-size:36px;font-weight:500;color:var(--green);line-height:1}
+.disc-hero .dh-label{font-size:13px;color:var(--ink-2)}
+.disc-summary-row{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.disc-summary-row+.disc-summary-row{border-top:1px solid var(--line)}
+.disc-summary-row .row-ic{width:28px;height:28px;border-radius:7px;font-size:12px}
+.disc-summary-row .row-bd{flex:1;min-width:0}
+.disc-summary-row .row-bd b{font-size:14px;margin-bottom:0}
+.disc-summary-row .row-bd p{font-size:12px}
+.disc-summary-row .row-val b{font-size:13px}
+.disc-summary-row .row-val span{font-size:11px}
+@media (min-width:621px){
+  .disc-bd{grid-template-rows:1fr;opacity:1}
+  .disc-arrow{display:none}
+  .disc-hd:active{background:none}
+}
+
 @media (max-width:940px){.wrap{grid-template-columns:1fr;gap:22px}.rail{position:static;order:2}.main{max-width:none}}
 @media (max-width:620px){
   body{font-size:16px;line-height:1.55}
@@ -676,6 +718,36 @@ details[open] summary::after{transform:rotate(180deg)}
   .toast b{font-size:13px}
   .toast p{font-size:12.5px}
   .help-fab{bottom:20px;right:16px;padding:12px 18px 12px 14px;font-size:13.5px;box-shadow:0 4px 16px rgba(29,39,87,.25)}
+
+  /* ═══ DISCLOSURE — MOBILE ═══ */
+  .disc-group{margin-bottom:12px;border-radius:14px}
+  .disc-hd{padding:14px}
+  .disc-ic{width:32px;height:32px;border-radius:8px;font-size:14px}
+  .disc-title b{font-size:14px}
+  .disc-title span{font-size:11px}
+  .disc-val{font-size:13px}
+  .disc-bd-inner{padding:0 14px 12px}
+  .disc-bd-inner p{font-size:13px;line-height:1.45}
+  .disc-hero{padding:12px 0;margin-bottom:4px}
+  .disc-hero .dh-amt{font-size:30px}
+  .disc-hero .dh-label{font-size:12px}
+  .disc-summary-row{padding:12px 14px}
+  .disc-summary-row .row-ic{width:24px;height:24px;border-radius:6px;font-size:11px}
+  .disc-summary-row .row-bd b{font-size:13px}
+  .disc-summary-row .row-bd p{font-size:11px}
+  .disc-summary-row .row-val b{font-size:12px}
+  .disc-summary-row .row-val span{font-size:10px}
+
+  /* Mobile accordion: compact options */
+  .mob-disc-opt{padding:12px 14px;border-radius:12px}
+  .mob-disc-opt .opt-hd h3{font-size:14px;margin-bottom:0;gap:5px}
+  .mob-disc-opt .opt-hd p{font-size:12px;margin:0}
+  .mob-disc-opt .opt-radio{width:16px;height:16px;margin-top:0}
+  .mob-disc-opt.sel .opt-radio::after{width:6px;height:6px}
+  .mob-disc-opt .opt-top{gap:8px;align-items:center}
+  .mob-disc-opt .opt-detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease-out);margin-top:0}
+  .mob-disc-opt .opt-detail>div{overflow:hidden}
+  .mob-disc-opt.sel .opt-detail{grid-template-rows:1fr;margin-top:8px}
 }
 *{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
 ::-webkit-scrollbar{width:6px;height:6px}
@@ -796,6 +868,7 @@ const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const money = n => "£" + n.toLocaleString("en-GB");
 const now = () => { const d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); };
 const ico = n => `<i data-lucide="${n}"></i>`;
+const isMob = () => window.innerWidth <= 620;
 
 function brand(slug,label,hex,cls){
   return `<img class="bi ${cls||""}" src="https://cdn.simpleicons.org/${slug}/${hex||"1D2757"}" alt="${esc(label)}" data-label="${esc(label)}" onerror="brandFail(this)">`;
@@ -1032,15 +1105,16 @@ function optionsHTML(cfg){
 /* ═══════════ SCREENS ═══════════ */
 function scAlert(){
   const breadcrumb=`${sc.legs[0].no} · ${sc.legs[0].from} → ${sc.legs[sc.legs.length-1].to}`;
+  const mob=isMob();
   return `<div class="screen">
     <div class="hub-breadcrumb"><span class="mono">${esc(breadcrumb)}</span></div>
     <div class="status">
       <div class="status-band ${sc.sev==="amber"?"amber":""}">${ico(sc.sev==="amber"?"triangle-alert":"circle-x")}
         <b>${esc(sc.band.title)}</b></div>
-      <div class="status-body">${sc.alert.paras.map(p=>`<p>${p}</p>`).join("")}</div>
+      <div class="status-body">${mob?`<p>${sc.alert.paras[0]}</p>`:sc.alert.paras.map(p=>`<p>${p}</p>`).join("")}</div>
     </div>
-    <div class="mob-hide">${itinHTML()}<div style="height:16px"></div></div>
-    ${noticeHTML()}
+    ${mob?"":itinHTML()+'<div style="height:16px"></div>'}
+    ${mob?"":noticeHTML()}
     <div class="actions">
       <button class="btn btn-1" data-adv="1">${esc(sc.alert.cta)} ${ico("arrow-right")}</button>
       <button class="btn btn-3" data-help="rights">What am I entitled to?</button>
@@ -1049,6 +1123,7 @@ function scAlert(){
 
 function scChoose(){
   const cfg=sc.choose;
+  if(isMob()) return scChooseMob();
   return `<div class="screen">
     <span class="eyebrow ${cfg.eyebrow[0]}"><span class="pip"></span>${esc(cfg.eyebrow[1])}</span>
     <div class="section-label">Your options</div>
@@ -1057,6 +1132,36 @@ function scChoose(){
     <div class="actions">
       <button class="btn btn-1" id="confirmOpt" ${S.option?"":"disabled"}>
         ${S.option?`Confirm — ${esc(S.option.title.toLowerCase())}`:"Choose an option to continue"}</button>
+      <button class="btn btn-3" data-help="which">Which should I pick?</button>
+    </div></div>`;
+}
+
+function scChooseMob(){
+  const cfg=sc.choose;
+  return `<div class="screen">
+    <span class="eyebrow ${cfg.eyebrow[0]}"><span class="pip"></span>${esc(cfg.eyebrow[1])}</span>
+    <h1>${esc(cfg.h1)}</h1>
+    <div class="opts" style="gap:8px;margin-bottom:10px">${cfg.options.map(o=>{
+      const sel=S.option&&S.option.id===o.id;
+      const leg=o.newLeg;
+      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}">
+        <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
+          <h3>${o.rec?`<span class="rec">Recommended</span>`:""}${esc(o.title)}</h3>
+          <p>${esc(o.sub)}</p></span></span>
+        <div class="opt-detail"><div>
+          ${leg?`<span class="opt-flight-card" style="margin-left:0;margin-top:8px">
+            <span class="ofc-route"><b>${esc(leg.no)}</b> · ${esc(leg.from)} → ${esc(leg.to)}</span>
+            <span class="ofc-times"><span class="ofc-time">${esc(leg.dep)}</span><span class="ofc-dur">${ico("plane")}</span><span class="ofc-time">${esc(leg.arr)}</span></span>
+            <span class="ofc-meta">${esc(leg.date)}${o.cabin?" · "+esc(o.cabin):""}${o.seat?" · Seat "+esc(o.seat):""}</span>
+          </span>`:""}
+          <span class="opt-facts" style="padding-left:0;margin-top:8px">${o.facts.map(([k,v,g])=>`<span class="f"><em>${esc(k)}</em><b class="${g?"good":""}">${v}</b></span>`).join("")}</span>
+          ${sel?`<span class="opt-incl" style="margin-left:0;margin-top:8px"><span class="ttl">What's included</span>
+            <span class="incl-list">${o.incl.map(i=>`<span class="incl"><span class="tk">${ico("check")}</span><span>${i}</span></span>`).join("")}</span></span>`:""}
+        </div></div>
+      </button>`;}).join("")}</div>
+    <div class="actions">
+      <button class="btn btn-1" id="confirmOpt" ${S.option?"":"disabled"}>
+        ${S.option?`Confirm — ${esc(S.option.title.toLowerCase())}`:"Choose an option"}</button>
       <button class="btn btn-3" data-help="which">Which should I pick?</button>
     </div></div>`;
 }
@@ -1119,6 +1224,7 @@ function careCards(){
 
 function scCare(){
   const c=sc.care,comp=sc.comp;
+  if(isMob()) return scCareMob();
   return `<div class="screen">
     <span class="eyebrow ok"><span class="pip"></span>${sc.key==="downgrade"?"Flight on time, cabin changed":S.hotel?"Hotel booked":"Confirmed"}</span>
     <h1>${esc(c.h1)}</h1><p class="lede">${esc(c.lede)}</p>
@@ -1157,6 +1263,53 @@ function scCare(){
     </div></div>`;
 }
 
+function scCareMob(){
+  const c=sc.care,comp=sc.comp,cards=careCards();
+  const icCls={utensils:"green",armchair:"blue",luggage:"amber",banknote:"green",
+    truck:"blue","shield-check":"navy","file-text":"navy",bus:"green",
+    car:"blue","credit-card":"navy",receipt:"amber","door-open":"blue"};
+  return `<div class="screen">
+    <span class="eyebrow ok"><span class="pip"></span>${sc.key==="downgrade"?"Cabin changed":S.hotel?"Hotel booked":"Confirmed"}</span>
+    <h1>${esc(c.h1)}</h1>
+
+    <div class="disc-hero">
+      <span class="dh-amt">${money(comp.amount)}</span>
+      <span class="dh-label">${sc.key==="bag"?"on your card":"approved"}</span>
+    </div>
+
+    <div class="disc-group">${cards.map((k,i)=>`
+      <div class="disc${i===0?" open":""}" data-disc>
+        <button class="disc-hd">
+          <span class="disc-ic ${icCls[k.ic]||"navy"}">${ico(k.ic)}</span>
+          <span class="disc-title"><b>${esc(k.t)}</b>${k.vl?`<span>${esc(k.vl)}</span>`:""}</span>
+          ${k.vl?`<span class="disc-val">${k.v}</span>`:""}
+          <span class="disc-arrow">${ico("chevron-right")}</span>
+        </button>
+        <div class="disc-bd"><div class="disc-bd-inner">
+          <p>${k.b}</p>
+          ${k.code?`<div class="care-code"><span>${esc(k.code)}</span><button data-help="bag">Track it</button></div>`:""}
+        </div></div>
+      </div>`).join("")}
+    </div>
+
+    ${sc.key==="downgrade"?`<div class="disc-group">${sc.extraChoice.options.map(o=>{
+      const sel=S.option&&S.option.id===o.id;
+      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}" style="border:none;box-shadow:none;padding:12px 14px;border-radius:0">
+        <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
+          <h3>${o.rec?`<span class="rec">Recommended</span>`:""}${esc(o.title)}</h3></span></span>
+        <div class="opt-detail"><div><p class="opt-hd" style="margin:0;padding:0;font-size:12px;color:var(--ink-2)">${esc(o.sub)}</p></div></div>
+      </button>`;}).join("")}</div>`:""}
+
+    <div class="actions">
+      ${S.compAccepted
+        ? `<button class="btn btn-1" disabled style="background:var(--green)">${ico("check")} ${S.altTaken?"Avios added":"Accepted"}</button>`
+        : `<button class="btn btn-1" id="acceptComp">${sc.key==="bag"?"Confirm £170":"Accept "+money(comp.amount)}</button>
+           <button class="btn btn-3" id="altComp">${esc(comp.alt.label)}</button>`}
+      <button class="btn btn-1" data-adv="1" ${sc.key==="downgrade"&&!S.option?"disabled":""}>
+        Continue ${ico("arrow-right")}</button>
+    </div></div>`;
+}
+
 function summaryRows(){
   const o=S.option,comp=sc.comp,r=[];
   if(sc.key==="cancel"){
@@ -1192,6 +1345,7 @@ function summaryRows(){
 }
 
 function scDone(){
+  if(isMob()) return scDoneMob();
   return `<div class="screen">
     <span class="eyebrow ok"><span class="pip"></span>Nothing left for you to do</span>
     <h1>You're sorted, ${esc(sc.pax.first)}.</h1>
@@ -1220,6 +1374,32 @@ function scDone(){
         <button class="btn btn-2 btn-sm" data-help="seat">Change seat</button>
       </div></div>
     </details></div>`;
+}
+
+function scDoneMob(){
+  const rows=summaryRows();
+  return `<div class="screen">
+    <span class="eyebrow ok"><span class="pip"></span>All sorted</span>
+    <h1>You're sorted, ${esc(sc.pax.first)}.</h1>
+
+    <div class="disc-group">${rows.map((x,i)=>`
+      <div class="disc${i===0?" open":""}" data-disc>
+        <button class="disc-hd">
+          <span class="disc-ic ${x.wait?"amber":"green"}">${ico(x.wait?"clock":"check")}</span>
+          <span class="disc-title"><b>${esc(x.t)}</b><span>${esc(x.s)}</span></span>
+          <span class="disc-val">${x.v}</span>
+          <span class="disc-arrow">${ico("chevron-right")}</span>
+        </button>
+        <div class="disc-bd"><div class="disc-bd-inner">
+          <p>${esc(x.p)}</p>
+        </div></div>
+      </div>`).join("")}
+    </div>
+
+    <div class="actions">
+      ${!S.compAccepted?`<button class="btn btn-1" data-goto="care">Accept ${money(sc.comp.amount)} ${ico("arrow-right")}</button>`
+        :`<button class="btn btn-1" data-adv="0" style="background:var(--green)" disabled>${ico("check")} Everything confirmed</button>`}
+    </div></div>`;
 }
 
 const SCREEN={alert:scAlert,choose:scChoose,hotel:scHotel,care:scCare,done:scDone};
@@ -1330,6 +1510,17 @@ function bind(){
   const ch=$("confirmHotel"); if(ch) ch.onclick=confirmHotel;
   const ac=$("acceptComp"); if(ac) ac.onclick=()=>acceptComp(false);
   const al=$("altComp"); if(al) al.onclick=()=>acceptComp(true);
+
+  m.querySelectorAll("[data-disc] .disc-hd").forEach(hd=>{
+    hd.onclick=e=>{
+      e.stopPropagation();
+      const disc=hd.closest("[data-disc]");
+      const group=disc.parentElement;
+      const wasOpen=disc.classList.contains("open");
+      group.querySelectorAll(".disc").forEach(d=>d.classList.remove("open"));
+      if(!wasOpen) disc.classList.add("open");
+    };
+  });
 }
 
 /* ═══════════ ACTIONS ═══════════ */
