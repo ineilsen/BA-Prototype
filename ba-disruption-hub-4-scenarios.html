@@ -71,10 +71,13 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-hdr-r button:hover{color:#fff}
 .app-hdr-r svg{width:20px;height:20px}
 .app-hdr-av{display:none}
-.hub-back-mob{color:#fff;display:none;place-items:center;width:36px;height:36px;border-radius:50%;position:absolute;left:var(--sp-m)}
-.hub-back-mob svg{width:22px;height:22px}
+.hub-back-mob{color:#fff;display:none;place-items:center;width:32px;height:32px;border-radius:50%;flex-shrink:0}
+.hub-back-mob svg{width:20px;height:20px}
 .app-shell.in-hub .hub-back-mob{display:grid}
-.hub-hdr-r{position:absolute;right:var(--sp-m);display:none;align-items:center;gap:10px}
+.app-shell.in-hub .ba-ribbon{display:none}
+.app-shell.in-hub .app-hdr-r{display:none}
+.app-shell.in-hub .hub-hdr-r{display:flex}
+.hub-hdr-r{display:none;align-items:center;gap:10px;margin-left:auto}
 .hub-hdr-r .chip{padding:4px 11px;border-radius:100px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);font-family:var(--f-m);font-size:12px;color:#fff}
 
 .app-body{overflow-y:auto;overflow-x:hidden;padding:0 var(--sp-xl) var(--sp-2xl);max-width:100vw}
@@ -99,16 +102,17 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .trip-card-hdr .tc-flight{font-family:var(--f-m);font-size:12.5px;opacity:.6;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .trip-card-hdr .tc-cabin{font-size:12.5px;opacity:.5;margin-top:8px}
 .trip-card-hdr .tc-cabin span+span::before{content:"·";margin:0 8px}
-.trip-card-hdr .trip-route{margin-bottom:0}
-.trip-card-hdr .trip-route-pt .iata{color:#fff;font-size:36px;letter-spacing:-.02em}
-.trip-card-hdr .trip-route-pt .city{color:rgba(255,255,255,.55);font-size:13px}
-.trip-card-hdr .trip-route-line{border-top-color:rgba(255,255,255,.2)}
+.trip-card-hdr .trip-route{margin-bottom:0;overflow:hidden}
+.trip-card-hdr .trip-route-pt{min-width:0;flex-shrink:0;max-width:40%}
+.trip-card-hdr .trip-route-pt .iata{color:#fff;font-size:clamp(26px,8vw,36px);letter-spacing:-.02em;line-height:1.1}
+.trip-card-hdr .trip-route-pt .city{color:rgba(255,255,255,.55);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%}
+.trip-card-hdr .trip-route-line{border-top-color:rgba(255,255,255,.2);min-width:30px;flex:1}
 .trip-card-hdr .trip-route-line::after{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
-.trip-card-hdr .trip-route-line svg{color:rgba(255,255,255,.4)}
-.trip-card-hdr .trip-dur{position:absolute;top:50%;left:50%;transform:translate(-50%,-20%);font-family:var(--f-m);font-size:12px;color:rgba(255,255,255,.5);white-space:nowrap;z-index:1}
-.trip-card-hdr .trip-times{display:flex;justify-content:space-between;font-family:var(--f-m);margin-top:4px}
-.trip-card-hdr .trip-times .tt-time{font-size:15px;color:rgba(255,255,255,.8)}
-.trip-card-hdr .trip-times .tt-term{font-size:11.5px;color:rgba(255,255,255,.4);display:block}
+.trip-card-hdr .trip-route-line svg{color:rgba(255,255,255,.4);width:16px;height:16px;top:-9px}
+.trip-card-hdr .trip-dur{font-family:var(--f-m);font-size:11px;color:rgba(255,255,255,.45);text-align:center;margin-top:2px}
+.trip-card-hdr .trip-times{display:flex;justify-content:space-between;font-family:var(--f-m);margin-top:6px}
+.trip-card-hdr .trip-times .tt-time{font-size:14px;color:rgba(255,255,255,.8)}
+.trip-card-hdr .trip-times .tt-term{font-size:10.5px;color:rgba(255,255,255,.4);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trip-card-hdr .tc-badge{position:absolute;top:18px;right:18px;padding:5px 14px;border-radius:8px;font-size:12.5px;font-weight:700;letter-spacing:.02em}
 .trip-card-hdr .tc-badge.red{background:var(--red);color:#fff}
 .trip-card-hdr .tc-badge.amber{background:var(--amber-bg);color:#fff}
@@ -484,6 +488,50 @@ h2{font-size:clamp(20px,2.4vw,24px);font-weight:700;margin:0 0 var(--sp-m);lette
 .care-val b{font-family:var(--f-m);font-size:17px;font-weight:500;margin:0;display:flex;align-items:center;gap:7px}
 .care-code{margin-top:10px;padding:9px 12px;border-radius:var(--r-s);background:var(--bg);border:1px dashed var(--line-2);font-family:var(--f-m);font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .care-code button{font-size:12.5px;font-weight:700;color:var(--blue);font-family:var(--f)}
+
+/* ═══════════ PREMIUM SERVICE SECTIONS ═══════════ */
+.svc-section{margin-bottom:24px}
+.svc-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;padding:0 2px}
+.svc-card{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);overflow:hidden;margin-bottom:12px}
+.svc-card-img{height:140px;background-size:cover;background-position:center;position:relative}
+.svc-card-img .svc-badge{position:absolute;bottom:10px;right:10px;padding:5px 14px;border-radius:8px;font-size:11.5px;font-weight:700}
+.svc-badge.green{background:var(--green);color:#fff}
+.svc-badge.amber{background:var(--amber-bg);color:#fff}
+.svc-badge.blue{background:var(--blue);color:#fff}
+.svc-card-body{padding:16px}
+.svc-card-body h3{font-size:16px;font-weight:700;margin:0 0 4px;color:var(--navy)}
+.svc-card-body p{font-size:13px;color:var(--ink-2);margin:0 0 4px;line-height:1.45}
+.svc-card-body .svc-meta{font-size:12px;color:var(--ink-3);margin:0}
+.svc-card-actions{display:flex;gap:8px;padding:0 16px 16px}
+.svc-card-actions button{flex:1;padding:11px 12px;border-radius:var(--r-s);font-size:13.5px;font-weight:700;text-align:center}
+.svc-card-actions .svc-outline{border:1.5px solid var(--line-2);color:var(--navy);background:var(--surface)}
+.svc-card-actions .svc-fill{background:var(--navy);color:#fff;border:none}
+
+.svc-voucher{border-radius:var(--r);padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.svc-voucher.gold{background:linear-gradient(135deg,#8A6E2F,#C4A44A);color:#fff}
+.svc-voucher.green-bg{background:linear-gradient(135deg,var(--green),#14A068);color:#fff}
+.svc-voucher .svc-v-ic{font-size:28px;flex-shrink:0}
+.svc-voucher .svc-v-body{flex:1;min-width:0}
+.svc-voucher .svc-v-body b{display:block;font-size:14px;font-weight:700}
+.svc-voucher .svc-v-body .svc-v-amt{font-family:var(--f-m);font-size:24px;font-weight:600;line-height:1.2;margin:2px 0}
+.svc-voucher .svc-v-body span{font-size:11.5px;opacity:.8}
+.svc-voucher .svc-v-btn{padding:8px 16px;border-radius:var(--r-s);background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;border:1px solid rgba(255,255,255,.3);flex-shrink:0;backdrop-filter:blur(4px)}
+
+.svc-partner{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.svc-partner .svc-p-logo{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;font-size:20px;font-weight:800;background:var(--bg);color:var(--navy)}
+.svc-partner .svc-p-body{flex:1;min-width:0}
+.svc-partner .svc-p-body b{display:block;font-size:14.5px;font-weight:700;color:var(--navy)}
+.svc-partner .svc-p-body span{display:block;font-size:12.5px;color:var(--ink-2)}
+.svc-partner .svc-p-btn{padding:7px 16px;border-radius:100px;background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;flex-shrink:0}
+
+.svc-comp{background:linear-gradient(150deg,#F2FAF6 0%,var(--surface) 50%,#F7FCFA 100%);border-radius:var(--r);box-shadow:var(--sh-2);padding:20px;margin-bottom:16px}
+.svc-comp .svc-comp-tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--green-tint);color:var(--green);margin-bottom:10px}
+.svc-comp .svc-comp-amt{font-family:var(--f-m);font-size:32px;font-weight:600;color:var(--green);line-height:1}
+.svc-comp .svc-comp-amt small{font-size:14px;font-weight:400;color:var(--ink-2);font-family:var(--f);margin-left:8px}
+.svc-comp h3{font-size:15px;font-weight:700;margin:10px 0 4px}
+.svc-comp p{font-size:13px;color:var(--ink-2);margin:0;line-height:1.5}
+.svc-comp .svc-comp-actions{margin-top:14px;display:flex;gap:8px}
+.svc-comp .svc-comp-actions button{flex:1;padding:12px;border-radius:var(--r-s);font-size:14px;font-weight:700}
 
 .comp{background:linear-gradient(150deg,#F2FAF6 0%,var(--surface) 50%,#F7FCFA 100%);border:none;border-radius:var(--r);padding:var(--sp-2xl) var(--sp-xl);margin-bottom:var(--sp-2xl);box-shadow:var(--sh-2)}
 .comp .amt{font-family:var(--f-m);font-size:48px;font-weight:500;line-height:1;color:var(--green)}
@@ -1386,50 +1434,205 @@ function scCare(){
 }
 
 function scCareMob(){
-  const c=sc.care,comp=sc.comp,cards=careCards();
-  const icCls={utensils:"green",armchair:"blue",luggage:"amber",banknote:"green",
-    truck:"blue","shield-check":"navy","file-text":"navy",bus:"green",
-    car:"blue","credit-card":"navy",receipt:"amber","door-open":"blue"};
-  return `<div class="screen">
+  const c=sc.care,comp=sc.comp,cards=careCards(),o=S.option;
+  const hotelImgs=[
+    "linear-gradient(135deg,#8B7355,#C4A870)",
+    "linear-gradient(135deg,#6B8E6B,#98B898)",
+    "linear-gradient(135deg,#7B8FAA,#A4B8CC)"
+  ];
+
+  let html=`<div class="screen">
     <span class="eyebrow ok"><span class="pip"></span>${sc.key==="downgrade"?"Cabin changed":S.hotel?"Hotel booked":"Confirmed"}</span>
-    <h1>${esc(c.h1)}</h1>
+    <h1>${esc(c.h1)}</h1>`;
 
-    <div class="disc-hero">
-      <span class="dh-amt">${money(comp.amount)}</span>
-      <span class="dh-label">${sc.key==="bag"?"on your card":"approved"}</span>
-    </div>
+  // HOTEL section (cancel with overnight, misconnect with overnight, downgrade with rebook)
+  if(S.hotel){
+    const h=S.hotel;
+    html+=`<div class="svc-section">
+      <div class="svc-label">Hotel</div>
+      <div class="svc-card">
+        <div class="svc-card-img" style="background:${hotelImgs[0]};display:flex;align-items:center;justify-content:center">
+          <span style="color:rgba(255,255,255,.7);font-size:40px;font-weight:200">${ico("bed-double")}</span>
+        </div>
+        <div class="svc-card-body">
+          <span class="svc-badge green" style="float:right;margin:-2px 0 8px 8px">Voucher issued</span>
+          <h3>${esc(h.name)}</h3>
+          <p>Tonight · 1 night · ${sc.pax.party>1?sc.pax.party+" guests":"1 guest"} · Room ${Math.floor(Math.random()*300+100)}</p>
+          <p class="svc-meta">Check-in: 15:00 · Check-out: 11:00</p>
+        </div>
+        <div class="svc-card-actions">
+          <button class="svc-outline">View voucher</button>
+          <button class="svc-fill">View booking</button>
+        </div>
+      </div></div>`;
+  }
 
-    <div class="disc-group">${cards.map((k,i)=>`
-      <div class="disc${i===0?" open":""}" data-disc>
-        <button class="disc-hd">
-          <span class="disc-ic ${icCls[k.ic]||"navy"}">${ico(k.ic)}</span>
-          <span class="disc-title"><b>${esc(k.t)}</b>${k.vl?`<span>${esc(k.vl)}</span>`:""}</span>
-          ${k.vl?`<span class="disc-val">${k.v}</span>`:""}
-          <span class="disc-arrow">${ico("chevron-right")}</span>
-        </button>
-        <div class="disc-bd"><div class="disc-bd-inner">
-          <p>${k.b}</p>
-          ${k.code?`<div class="care-code"><span>${esc(k.code)}</span><button data-help="bag">Track it</button></div>`:""}
-        </div></div>
-      </div>`).join("")}
-    </div>
+  // REFRESHMENT VOUCHER
+  const mealCard=cards.find(k=>k.ic==="utensils");
+  if(mealCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Light Refreshment Voucher</div>
+      <div class="svc-voucher gold">
+        <span class="svc-v-ic">🍽️</span>
+        <div class="svc-v-body">
+          <b>Refreshment voucher</b>
+          <span class="svc-v-amt">${mealCard.v}</span>
+          <span>Valid today · Use at any T5 outlet</span>
+        </div>
+        <button class="svc-v-btn">Use now</button>
+      </div></div>`;
+  }
 
-    ${sc.key==="downgrade"?`<div class="disc-group">${sc.extraChoice.options.map(o=>{
-      const sel=S.option&&S.option.id===o.id;
-      return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${o.id}" style="border:none;box-shadow:none;padding:12px 14px;border-radius:0">
-        <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
-          <h3>${o.rec?`<span class="rec">Recommended</span>`:""}${esc(o.title)}</h3></span></span>
-        <div class="opt-detail"><div><p class="opt-hd" style="margin:0;padding:0;font-size:12px;color:var(--ink-2)">${esc(o.sub)}</p></div></div>
-      </button>`;}).join("")}</div>`:""}
+  // ESSENTIALS (bag scenario)
+  const essCard=cards.find(k=>k.ic==="banknote");
+  if(essCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Essentials</div>
+      <div class="svc-voucher green-bg">
+        <span class="svc-v-ic">💵</span>
+        <div class="svc-v-body">
+          <b>${esc(essCard.t)}</b>
+          <span class="svc-v-amt">${essCard.v}</span>
+          <span>${esc(essCard.vl||"On your card")}</span>
+        </div>
+        <button class="svc-v-btn">Details</button>
+      </div></div>`;
+  }
 
-    <div class="actions">
-      ${S.compAccepted
-        ? `<button class="btn btn-1" disabled style="background:var(--green)">${ico("check")} ${S.altTaken?"Avios added":"Accepted"}</button>`
-        : `<button class="btn btn-1" id="acceptComp">${sc.key==="bag"?"Confirm £170":"Accept "+money(comp.amount)}</button>
-           <button class="btn btn-3" id="altComp">${esc(comp.alt.label)}</button>`}
+  // TRANSPORTATION
+  const transCard=cards.find(k=>k.ic==="bus"||k.ic==="car"||k.ic==="truck");
+  if(transCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Transportation</div>
+      <div class="svc-partner">
+        <div class="svc-p-logo">${transCard.ic==="car"?"🚗":transCard.ic==="truck"?"🚚":"🚌"}</div>
+        <div class="svc-p-body">
+          <b>${esc(transCard.t)}</b>
+          <span>${esc(transCard.b).substring(0,60)}${transCard.b.length>60?"…":""}</span>
+        </div>
+        <button class="svc-p-btn">${transCard.ic==="truck"?"Choose":"Book ride"}</button>
+      </div>
+      <div class="svc-partner">
+        <div class="svc-p-logo">🧾</div>
+        <div class="svc-p-body">
+          <b>Claim transport expense</b>
+          <span>If you arranged your own transport during disruption</span>
+        </div>
+      </div></div>`;
+  }
+
+  // BAG TRACKING (bag scenario)
+  const bagCard=cards.find(k=>k.ic==="luggage");
+  if(bagCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Baggage</div>
+      <div class="svc-partner">
+        <div class="svc-p-logo">👜</div>
+        <div class="svc-p-body">
+          <b>${esc(bagCard.t)}</b>
+          <span>${esc(bagCard.b).substring(0,60)}${bagCard.b.length>60?"…":""}</span>
+        </div>
+        ${bagCard.code?`<button class="svc-p-btn" data-help="bag">Track</button>`:""}
+      </div></div>`;
+  }
+
+  // LOUNGE
+  const loungeCard=cards.find(k=>k.ic==="armchair"||k.ic==="door-open");
+  if(loungeCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Lounge Access</div>
+      <div class="svc-partner">
+        <div class="svc-p-logo">🍾</div>
+        <div class="svc-p-body">
+          <b>${esc(loungeCard.t)}</b>
+          <span>${esc(loungeCard.b).substring(0,60)}${loungeCard.b.length>60?"…":""}</span>
+        </div>
+        <button class="svc-p-btn">Access</button>
+      </div></div>`;
+  }
+
+  // BAG FILE / COVER (bag scenario)
+  const fileCard=cards.find(k=>k.ic==="file-text");
+  const coverCard=cards.find(k=>k.ic==="shield-check");
+  if(fileCard||coverCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Documentation</div>`;
+    if(fileCard) html+=`<div class="svc-partner">
+        <div class="svc-p-logo">📄</div>
+        <div class="svc-p-body">
+          <b>${esc(fileCard.t)}</b>
+          <span>${esc(fileCard.b).substring(0,60)}${fileCard.b.length>60?"…":""}</span>
+        </div>
+        ${fileCard.code?`<button class="svc-p-btn">${esc(fileCard.code)}</button>`:""}
+      </div>`;
+    if(coverCard) html+=`<div class="svc-partner">
+        <div class="svc-p-logo">🛡️</div>
+        <div class="svc-p-body">
+          <b>${esc(coverCard.t)}</b>
+          <span>${esc(coverCard.b).substring(0,60)}${coverCard.b.length>60?"…":""}</span>
+        </div>
+      </div>`;
+    html+=`</div>`;
+  }
+
+  // REFUNDS (downgrade scenario)
+  const refundCard=cards.find(k=>k.ic==="receipt");
+  const whereCard=cards.find(k=>k.ic==="credit-card");
+  if(refundCard||whereCard){
+    html+=`<div class="svc-section">
+      <div class="svc-label">Refunds</div>`;
+    if(refundCard) html+=`<div class="svc-partner">
+        <div class="svc-p-logo">🧾</div>
+        <div class="svc-p-body">
+          <b>${esc(refundCard.t)}</b>
+          <span>${esc(refundCard.b).substring(0,60)}${refundCard.b.length>60?"…":""}</span>
+        </div>
+        <span style="font-family:var(--f-m);font-weight:600;color:var(--green);font-size:15px">${refundCard.v}</span>
+      </div>`;
+    if(whereCard) html+=`<div class="svc-partner">
+        <div class="svc-p-logo">💳</div>
+        <div class="svc-p-body">
+          <b>${esc(whereCard.t)}</b>
+          <span>${esc(whereCard.b).substring(0,60)}${whereCard.b.length>60?"…":""}</span>
+        </div>
+      </div>`;
+    html+=`</div>`;
+  }
+
+  // COMPENSATION
+  html+=`<div class="svc-section">
+    <div class="svc-label">Compensation</div>
+    <div class="svc-comp">
+      <span class="svc-comp-tag">${sc.key==="bag"?"Essentials":"EC 261/2004"}</span>
+      <div class="svc-comp-amt">${money(comp.amount)}<small>${sc.key==="bag"?"on your card":"approved"}</small></div>
+      <h3>${esc(comp.title)}</h3>
+      <p>${esc(comp.body).substring(0,120)}${comp.body.length>120?"…":""}</p>
+      <div class="svc-comp-actions">
+        ${S.compAccepted
+          ? `<button class="btn btn-1" disabled style="background:var(--green);border:none;color:#fff">${ico("check")} ${S.altTaken?"Avios added":"Accepted"}</button>`
+          : `<button class="btn btn-1" id="acceptComp" style="border:none">${sc.key==="bag"?"Confirm £170":"Accept "+money(comp.amount)}</button>
+             <button class="btn btn-2 btn-sm" id="altComp" style="font-size:13px">${esc(comp.alt.label)}</button>`}
+      </div>
+    </div></div>`;
+
+  // DOWNGRADE EXTRA CHOICE
+  if(sc.key==="downgrade"){
+    html+=`<div class="svc-section">
+      <div class="svc-label">${esc(sc.extraChoice.h1)}</div>
+      <div class="disc-group">${sc.extraChoice.options.map(opt=>{
+        const sel=S.option&&S.option.id===opt.id;
+        return `<button class="opt mob-disc-opt ${sel?"sel":""}" data-opt="${opt.id}" style="border:none;box-shadow:none;padding:12px 14px;border-radius:0">
+          <span class="opt-top"><span class="opt-radio"></span><span class="opt-hd">
+            <h3>${opt.rec?`<span class="rec">Recommended</span>`:""}${esc(opt.title)}</h3></span></span>
+          <div class="opt-detail"><div><p class="opt-hd" style="margin:0;padding:0;font-size:12px;color:var(--ink-2)">${esc(opt.sub)}</p></div></div>
+        </button>`;}).join("")}</div></div>`;
+  }
+
+  html+=`<div class="actions">
       <button class="btn btn-1" data-adv="1" ${sc.key==="downgrade"&&!S.option?"disabled":""}>
         Continue ${ico("arrow-right")}</button>
     </div></div>`;
+  return html;
 }
 
 function summaryRows(){
@@ -1798,7 +2001,7 @@ function appTripCard(key,s){
       <div class="tc-flight">${esc(p.cabin)} · ${esc(l0.date)}</div>
       <div class="trip-route">
         <div class="trip-route-pt"><span class="iata">${esc(from)}</span><span class="city">${esc(CITIES[from]||from)}</span></div>
-        <div class="trip-route-line"><span class="trip-dur">7h 30m</span><i data-lucide="plane"></i></div>
+        <div class="trip-route-line"><i data-lucide="plane"></i></div>
         <div class="trip-route-pt"><span class="iata">${esc(to)}</span><span class="city">${esc(CITIES[to]||to)}</span></div>
       </div>
       <div class="trip-times">
