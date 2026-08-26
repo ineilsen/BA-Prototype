@@ -60,13 +60,13 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .sb-foot .sb-av{width:32px;height:32px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
 .sb-foot span{font-size:13px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-.app-hdr{background:var(--navy);padding:0 var(--sp-m);display:none;align-items:center;justify-content:center;height:56px;position:sticky;top:0;z-index:40}
-.app-hdr .ba-ribbon{height:20px;width:auto}
-.app-hdr-r{position:absolute;right:var(--sp-m);display:flex;align-items:center;gap:12px}
-.app-hdr-r button{color:#fff;display:grid;place-items:center;width:36px;height:36px;border-radius:50%}
-.app-hdr-r button:hover{background:rgba(255,255,255,.12)}
+.app-hdr{background:var(--navy);padding:0 20px;display:none;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:40}
+.app-hdr .ba-ribbon{height:24px;width:auto;filter:brightness(0) invert(1);opacity:.9}
+.app-hdr-r{display:flex;align-items:center;gap:12px}
+.app-hdr-r button{color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600}
+.app-hdr-r button:hover{color:#fff}
 .app-hdr-r svg{width:20px;height:20px}
-.app-hdr-av{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0}
+.app-hdr-av{display:none}
 .hub-back-mob{color:#fff;display:none;place-items:center;width:36px;height:36px;border-radius:50%;position:absolute;left:var(--sp-m)}
 .hub-back-mob svg{width:22px;height:22px}
 .app-shell.in-hub .hub-back-mob{display:grid}
@@ -81,31 +81,41 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .app-tab.active{color:#fff;border-top-color:#fff}
 .app-tab .badge{position:absolute;top:4px;right:2px;width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;line-height:1}
 
-.trips-greeting{padding:var(--sp-l) 0 var(--sp-xs);font-size:clamp(22px,2.4vw,28px);font-weight:700;color:var(--navy)}
+.trips-greeting{padding:var(--sp-l) 0 var(--sp-m);font-size:clamp(26px,3vw,34px);font-weight:700;color:var(--navy);line-height:1.2}
+.trips-greeting .tg-sub{display:block;font-size:15px;font-weight:500;color:var(--ink-3);margin-bottom:4px;letter-spacing:0}
 .trips-sub{padding:0 0 var(--sp-l);font-size:15px;color:var(--ink-2)}
 .trip-section-hd{margin-bottom:10px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
 .trips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-m);max-width:800px}
 
 .trip-card{border-radius:var(--r);background:var(--surface);border:none;box-shadow:var(--sh-2);overflow:hidden;cursor:pointer;transition:box-shadow .35s var(--ease-out),transform .35s var(--ease-out)}
 .trip-card:hover{box-shadow:0 12px 36px rgba(29,39,87,.12);transform:translateY(-2px)}
-.trip-card-hdr{background:linear-gradient(145deg,var(--navy) 0%,#2A3A72 100%);color:#fff;padding:20px}
-.trip-card-hdr .tc-flight{font-family:var(--f-m);font-size:12px;opacity:.6;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.trip-card-hdr{background:linear-gradient(145deg,var(--navy) 0%,#2A3A72 100%);color:#fff;padding:20px;position:relative}
+.trip-card-hdr .tc-ribbon{height:14px;width:auto;opacity:.3;margin-bottom:6px;display:block;mix-blend-mode:lighten;filter:brightness(0) invert(1)}
+.trip-card-hdr .tc-flight{font-family:var(--f-m);font-size:12.5px;opacity:.6;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .trip-card-hdr .tc-cabin{font-size:12.5px;opacity:.5;margin-top:8px}
 .trip-card-hdr .tc-cabin span+span::before{content:"·";margin:0 8px}
 .trip-card-hdr .trip-route{margin-bottom:0}
-.trip-card-hdr .trip-route-pt .iata{color:#fff;font-size:32px}
-.trip-card-hdr .trip-route-pt .city{color:rgba(255,255,255,.6)}
-.trip-card-hdr .trip-route-line{border-top-color:rgba(255,255,255,.25)}
-.trip-card-hdr .trip-route-line::after{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)}
-.trip-card-hdr .trip-route-line svg{color:rgba(255,255,255,.5)}
-.trip-card-hdr .trip-times{display:flex;justify-content:space-between;font-family:var(--f-m);margin-top:8px}
-.trip-card-hdr .trip-times span{font-size:13px;opacity:.6}
-.trip-card-alert{display:flex;align-items:center;gap:10px;padding:14px 20px;font-size:14.5px;font-weight:600;color:#fff}
-.trip-card-alert.red{background:#D32F3E}
-.trip-card-alert.amber{background:var(--amber-tint);color:var(--amber)}
-.trip-card-alert svg{width:16px;height:16px;flex-shrink:0}
-.trip-card-alert .tc-act{margin-left:auto;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0}
-.trip-card-alert .badge-pill{padding:3px 10px;border-radius:100px;font-size:12px;font-weight:700;background:rgba(255,255,255,.2)}
+.trip-card-hdr .trip-route-pt .iata{color:#fff;font-size:36px;letter-spacing:-.02em}
+.trip-card-hdr .trip-route-pt .city{color:rgba(255,255,255,.55);font-size:13px}
+.trip-card-hdr .trip-route-line{border-top-color:rgba(255,255,255,.2)}
+.trip-card-hdr .trip-route-line::after{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
+.trip-card-hdr .trip-route-line svg{color:rgba(255,255,255,.4)}
+.trip-card-hdr .trip-dur{position:absolute;top:50%;left:50%;transform:translate(-50%,-20%);font-family:var(--f-m);font-size:12px;color:rgba(255,255,255,.5);white-space:nowrap;z-index:1}
+.trip-card-hdr .trip-times{display:flex;justify-content:space-between;font-family:var(--f-m);margin-top:4px}
+.trip-card-hdr .trip-times .tt-time{font-size:15px;color:rgba(255,255,255,.8)}
+.trip-card-hdr .trip-times .tt-term{font-size:11.5px;color:rgba(255,255,255,.4);display:block}
+.trip-card-hdr .tc-badge{position:absolute;top:18px;right:18px;padding:5px 14px;border-radius:8px;font-size:12.5px;font-weight:700;letter-spacing:.02em}
+.trip-card-hdr .tc-badge.red{background:var(--red);color:#fff}
+.trip-card-hdr .tc-badge.amber{background:var(--amber-bg);color:#fff}
+
+.trip-card-alert{display:none}
+
+.trip-card-actions{display:flex;gap:10px;padding:0 20px 20px}
+.trip-card-actions .btn-outline{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:var(--r-s);font-size:15px;font-weight:700;transition:.2s}
+.trip-card-actions .btn-fill{background:linear-gradient(135deg,var(--blue),var(--blue-dk));color:#fff;border:none;box-shadow:0 4px 14px rgba(29,92,169,.2)}
+.trip-card-actions .btn-fill:hover{box-shadow:0 6px 20px rgba(29,92,169,.3)}
+.trip-card-actions .btn-outline{border:1.5px solid var(--line-2);color:var(--navy);background:var(--surface)}
+.trip-card-actions .btn-outline:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
 
 .trip-card-body{padding:20px}
 .trip-route{display:flex;align-items:center;gap:14px;margin-bottom:14px}
@@ -122,40 +132,30 @@ svg.lucide{width:1em;height:1em;stroke-width:2;vertical-align:-.125em}
 .trip-card-foot .pax-count{color:var(--ink-2)}
 .trip-card-foot .pnr{font-family:var(--f-m);font-size:12px;color:var(--navy);background:var(--bg);padding:4px 12px;border-radius:100px}
 
-.trip-card-actions{display:flex;gap:10px;padding:0 20px 20px}
-.trip-card-actions .btn-outline{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:var(--r-s);border:1.5px solid var(--line-2);font-size:15px;font-weight:700;color:var(--navy);background:var(--surface);transition:.2s}
-.trip-card-actions .btn-outline:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}
-
 .trip-card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:18px 20px;border-top:1px solid var(--line);font-size:15.5px;font-weight:700;color:var(--blue)}
 .trip-card-cta svg{width:16px;height:16px}
 
 /* Journey Hub tiles */
-.hub-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:var(--sp-xl)}
-.hub-tile{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);padding:20px;cursor:pointer;transition:box-shadow .25s,transform .25s var(--ease-out);position:relative}
+.hub-tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:var(--sp-l)}
+.hub-tile{background:var(--surface);border-radius:var(--r);box-shadow:var(--sh-1);padding:18px;cursor:pointer;transition:box-shadow .25s,transform .25s var(--ease-out);position:relative}
 .hub-tile:hover{box-shadow:var(--sh-2);transform:translateY(-1px)}
-.hub-tile-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;margin-bottom:12px;font-size:18px}
-.hub-tile-ic.flight{background:var(--red-tint);color:var(--red)}
-.hub-tile-ic.bag{background:var(--amber-tint);color:var(--amber)}
-.hub-tile-ic.seat{background:var(--blue-tint);color:var(--blue)}
-.hub-tile-ic.meal{background:var(--green-tint);color:var(--green)}
-.hub-tile-ic.lounge{background:#F3F0FA;color:#6B4EAF}
-.hub-tile-ic.hotel{background:var(--amber-tint);color:var(--amber)}
-.hub-tile b{display:block;font-size:15.5px;font-weight:700;margin-bottom:4px}
-.hub-tile span{display:block;font-size:13px;color:var(--ink-2)}
-.hub-tile .htile-badge{position:absolute;top:12px;right:12px;width:10px;height:10px;border-radius:50%;background:var(--red)}
-.hub-tile .htile-status{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:8px}
-.hub-tile .htile-status.action{background:var(--red-tint);color:var(--red)}
-.hub-tile .htile-status.info{background:var(--blue-tint);color:var(--blue)}
-.hub-tile .htile-status.ok{background:var(--green-tint);color:var(--green)}
-.hub-tile .htile-status.new{background:var(--green-tint);color:var(--green)}
+.hub-tile-emoji{font-size:28px;margin-bottom:10px;line-height:1;display:block}
+.hub-tile b{display:block;font-size:16px;font-weight:700;margin-bottom:4px;color:var(--navy)}
+.hub-tile .htile-badge{position:absolute;top:14px;right:14px;width:10px;height:10px;border-radius:50%;background:var(--red)}
+.hub-tile .htile-status{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;margin-top:4px}
+.hub-tile .htile-status.action{color:var(--red)}
+.hub-tile .htile-status.info{color:var(--blue)}
+.hub-tile .htile-status.ok{color:var(--green)}
+.hub-tile .htile-status.new{color:var(--green)}
+.hub-tile .htile-chev{color:var(--ink-3);font-size:18px;font-weight:300;line-height:1}
 
-.trip-notif{margin:0 0 var(--sp-xl);padding:20px var(--sp-l);border-radius:var(--r);background:linear-gradient(135deg,var(--blue-tint),#F4F8FD);border:none;box-shadow:var(--sh-1);display:flex;align-items:flex-start;gap:16px}
-.trip-notif .tn-ic{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--navy),#2A3A72);color:#fff;display:grid;place-items:center;flex-shrink:0}
-.trip-notif .tn-ic svg{width:18px;height:18px}
+.trip-notif{margin:0 0 var(--sp-l);padding:16px 20px;border-radius:var(--r);background:var(--blue-tint);border:1px solid rgba(29,92,169,.12);display:flex;align-items:flex-start;gap:12px}
+.trip-notif .tn-ic{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--blue);color:var(--blue);display:grid;place-items:center;flex-shrink:0}
+.trip-notif .tn-ic svg{width:16px;height:16px}
 .trip-notif .tn-bd{flex:1}
-.trip-notif .tn-bd b{display:block;font-size:14px;margin-bottom:2px}
-.trip-notif .tn-bd p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.45}
-.trip-notif .tn-time{font-size:11.5px;color:var(--ink-3);white-space:nowrap;flex-shrink:0}
+.trip-notif .tn-bd b{display:block;font-size:14px;font-weight:700;margin-bottom:2px}
+.trip-notif .tn-bd p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.trip-notif .tn-time{display:none}
 
 /* ═══ TAB CONTENT — Home / Book / Account ═══ */
 .tab-section{padding:var(--sp-l) 0}
@@ -877,8 +877,7 @@ details[open] summary::after{transform:rotate(180deg)}
     <button class="hub-back-mob" id="hubBackMob"><i data-lucide="chevron-left"></i></button>
     <img src="image.png" alt="British Airways" class="ba-ribbon">
     <div class="app-hdr-r">
-      <button aria-label="Notifications"><i data-lucide="bell"></i></button>
-      <span class="app-hdr-av" id="appAv">—</span>
+      <button aria-label="Menu">Menu <i data-lucide="menu"></i></button>
     </div>
     <div class="hub-hdr-r">
       <span class="chip" id="mobPnr">—</span>
@@ -1765,20 +1764,26 @@ function appTripCard(key,s){
   const from=l0.from,to=legs.length>1&&(legs[1]||{}).from!==l0.from?(legs[legs.length-1]||{}).to||l0.to:l0.to;
   const alertLabel={cancel:"Cancelled",misconnect:"Connection at risk",bag:"Bag delayed",downgrade:"Cabin changed"}[key];
   const alertBadgeCls=s.sev==="red"?"red":"amber";
+  const terms={LHR:"Heathrow T5",JFK:"JFK T7",SFO:"SFO T1",AMS:"Schiphol",JNB:"JNB T1",BOS:"BOS E"};
   return `<div class="trip-card" data-trip="${key}">
     <div class="trip-card-hdr">
-      <div class="tc-flight">${ico("plane")} ${esc(l0.no)} · ${esc(p.cabin)} · ${esc(l0.date)}</div>
+      <img src="image.png" alt="" class="tc-ribbon">
+      <span class="tc-badge ${alertBadgeCls}">${esc(alertLabel)}</span>
+      <div class="tc-flight"><b>${esc(l0.no)}</b></div>
+      <div class="tc-flight">${esc(p.cabin)} · ${esc(l0.date)}</div>
       <div class="trip-route">
         <div class="trip-route-pt"><span class="iata">${esc(from)}</span><span class="city">${esc(CITIES[from]||from)}</span></div>
-        <div class="trip-route-line"><i data-lucide="plane"></i></div>
+        <div class="trip-route-line"><span class="trip-dur">7h 30m</span><i data-lucide="plane"></i></div>
         <div class="trip-route-pt"><span class="iata">${esc(to)}</span><span class="city">${esc(CITIES[to]||to)}</span></div>
       </div>
-      <div class="trip-times"><span>${esc(l0.dep)}</span><span>${esc(l0.arr)}</span></div>
+      <div class="trip-times">
+        <span><span class="tt-time">${esc(l0.dep)}</span><span class="tt-term">${esc(terms[from]||from)}</span></span>
+        <span style="text-align:right"><span class="tt-time">${esc(l0.arr)}</span><span class="tt-term">${esc(terms[to]||to)}</span></span>
+      </div>
     </div>
-    <div class="trip-card-alert ${alertBadgeCls}">${ico(s.sev==="red"?"circle-x":"triangle-alert")}<span>${esc(alertLabel)}</span><span class="badge-pill">${esc(alertLabel)}</span></div>
     <div class="trip-card-actions">
-      <button class="btn-outline">${ico("repeat")} ${key==="cancel"?"Rebook":key==="bag"?"Track bag":"View options"}</button>
-      <button class="btn-outline">${ico(key==="cancel"?"banknote":"info")} ${key==="cancel"?"Refund":"Details"}</button>
+      <button class="btn-outline btn-fill">${key==="cancel"?"Rebook":key==="bag"?"Track bag":"View options"}</button>
+      <button class="btn-outline">${key==="cancel"?"Refund":"Details"}</button>
     </div>
     <div class="trip-card-foot">
       <span class="pax-count">${ico("user")} ${p.party>1?p.party+" passengers":esc(p.name)}</span>
@@ -1888,54 +1893,54 @@ function renderAppBody(tab){
   }
 
   else if(tab==="trips"){
-    let html=`<div class="trips-greeting">Good ${timeGreet},<br>${esc(pax.first)}.</div>`;
+    const flightNo=sc?sc.legs[0].no:"BA0117";
+    let html=`<div class="trips-greeting"><span class="tg-sub">Good ${timeGreet}</span>${esc(pax.first)} ${esc(pax.name.split(" ").pop())}.</div>`;
     html+=`<div class="trip-notif">
       <div class="tn-ic">${ico("info")}</div>
       <div class="tn-bd"><b>Flight disruption detected</b>
-        <p>Your outbound flight has been affected. We've prepared your options — no need to call.</p></div>
-      <span class="tn-time">Just now</span></div>`;
+        <p>Your outbound flight ${esc(flightNo)} has been ${{cancel:"cancelled",misconnect:"delayed",bag:"affected",downgrade:"changed"}[S.key]}. We've prepared your options.</p></div></div>`;
     html+=appTripCard(S.key,sc);
     const tileData={
       cancel:[
-        {ic:"plane",cls:"flight",t:"Flight",s:"Action needed",badge:true,st:"action"},
-        {ic:"luggage",cls:"bag",t:"Baggage",s:"1 bag booked",st:"info"},
-        {ic:"armchair",cls:"seat",t:"Seats",s:"Refund available",st:"action"},
-        {ic:"utensils",cls:"meal",t:"Meals",s:"Preference saved",st:"ok"},
-        {ic:"door-open",cls:"lounge",t:"Lounge",s:"Eligible",st:"info"},
-        {ic:"bed-double",cls:"hotel",t:"Hotel",s:"Voucher issued",st:"new"}
+        {em:"✈️",t:"Flight",s:"Action needed",badge:true,st:"action"},
+        {em:"👜",t:"Baggage",s:"1 bag booked",st:"info"},
+        {em:"💺",t:"Seats",s:"Refund available",st:"action"},
+        {em:"🍽️",t:"Meals",s:"Halal booked",st:"ok"},
+        {em:"🍾",t:"Lounge",s:"Eligible",st:"info"},
+        {em:"🏨",t:"Hotel",s:"Voucher issued",badge:true,st:"new"}
       ],
       misconnect:[
-        {ic:"plane",cls:"flight",t:"Flight",s:"Rebooking needed",badge:true,st:"action"},
-        {ic:"luggage",cls:"bag",t:"Baggage",s:"4 bags tracked",st:"info"},
-        {ic:"armchair",cls:"seat",t:"Seats",s:"4 together held",st:"ok"},
-        {ic:"utensils",cls:"meal",t:"Meals",s:"£72 loaded",st:"ok"},
-        {ic:"door-open",cls:"lounge",t:"Lounge",s:"Access granted",st:"ok"},
-        {ic:"bed-double",cls:"hotel",t:"Hotel",s:"May be needed",st:"info"}
+        {em:"✈️",t:"Flight",s:"Rebooking needed",badge:true,st:"action"},
+        {em:"👜",t:"Baggage",s:"4 bags tracked",st:"info"},
+        {em:"💺",t:"Seats",s:"4 together held",st:"ok"},
+        {em:"🍽️",t:"Meals",s:"£72 loaded",st:"ok"},
+        {em:"🍾",t:"Lounge",s:"Access granted",st:"ok"},
+        {em:"🏨",t:"Hotel",s:"May be needed",st:"info"}
       ],
       bag:[
-        {ic:"plane",cls:"flight",t:"Flight",s:"Arrived",st:"ok"},
-        {ic:"luggage",cls:"bag",t:"Baggage",s:"Tracking active",badge:true,st:"action"},
-        {ic:"truck",cls:"seat",t:"Delivery",s:"Choose method",st:"action"},
-        {ic:"banknote",cls:"meal",t:"Essentials",s:"£170 loaded",st:"ok"},
-        {ic:"shield-check",cls:"lounge",t:"Cover",s:"Montreal Convention",st:"info"},
-        {ic:"file-text",cls:"hotel",t:"Bag file",s:"Raised for you",st:"ok"}
+        {em:"✈️",t:"Flight",s:"Arrived",st:"ok"},
+        {em:"👜",t:"Baggage",s:"Tracking active",badge:true,st:"action"},
+        {em:"🚚",t:"Delivery",s:"Choose method",st:"action"},
+        {em:"💵",t:"Essentials",s:"£170 loaded",st:"ok"},
+        {em:"🛡️",t:"Cover",s:"Montreal Convention",st:"info"},
+        {em:"📄",t:"Bag file",s:"Raised for you",st:"ok"}
       ],
       downgrade:[
-        {ic:"plane",cls:"flight",t:"Flight",s:"On time",st:"ok"},
-        {ic:"arrow-down-narrow-wide",cls:"bag",t:"Cabin",s:"Downgraded",badge:true,st:"action"},
-        {ic:"armchair",cls:"seat",t:"Seat",s:"Moved to 9C",st:"action"},
-        {ic:"banknote",cls:"meal",t:"Refund",s:"£186 owed",st:"action"},
-        {ic:"door-open",cls:"lounge",t:"Lounge",s:"Still eligible",st:"ok"},
-        {ic:"credit-card",cls:"hotel",t:"Ancillaries",s:"£94 refund",st:"info"}
+        {em:"✈️",t:"Flight",s:"On time",st:"ok"},
+        {em:"⬇️",t:"Cabin",s:"Downgraded",badge:true,st:"action"},
+        {em:"💺",t:"Seat",s:"Moved to 9C",st:"action"},
+        {em:"💵",t:"Refund",s:"£186 owed",st:"action"},
+        {em:"🍾",t:"Lounge",s:"Still eligible",st:"ok"},
+        {em:"💳",t:"Ancillaries",s:"£94 refund",st:"info"}
       ]
     }[S.key]||[];
-    html+=`<div class="trip-section-hd" style="margin-top:28px">Your Journey Hub</div>
+    html+=`<div class="trip-section-hd" style="margin-top:24px">Your Journey Hub</div>
     <div class="hub-tiles">${tileData.map(t=>`
       <div class="hub-tile" data-trip="${S.key}">
-        <div class="hub-tile-ic ${t.cls}">${ico(t.ic)}</div>
+        <span class="hub-tile-emoji">${t.em}</span>
         ${t.badge?'<span class="htile-badge"></span>':''}
         <b>${esc(t.t)}</b>
-        <span class="htile-status ${t.st}">${esc(t.s)}</span>
+        <span class="htile-status ${t.st}">${esc(t.s)}<span class="htile-chev">›</span></span>
       </div>`).join("")}</div>`;
     body.innerHTML=html;
     body.querySelectorAll("[data-trip]").forEach(c=>c.onclick=()=>{
